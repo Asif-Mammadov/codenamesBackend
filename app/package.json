@@ -2,9 +2,11 @@
   "name": "codenames",
   "version": "1.0.0",
   "description": "Codenames Board Game",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "start": "node server",
+    "dev" : "nodemon server"
   },
   "repository": {
     "type": "git",
@@ -13,5 +15,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/Asif-Mammadov/codenames#readme"
+  "homepage": "https://bitbucket.org/Asif-Mammadov/codenames#readme",
+  "devDependencies": {
+    "mocha": "^8.3.2",
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "eslint": "^7.25.0"
+  }
 }
