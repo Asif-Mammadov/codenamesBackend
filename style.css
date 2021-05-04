@@ -1,0 +1,33 @@
+*{
+  box-sizing: border-box;
+}
+.container{
+  display : flex;
+  flex-direction: column;
+}
+.grid {
+  width: 400px;
+  height: 400px;
+  background-color: orange;
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cell {
+  flex-basis: 20%;
+  background-color: aliceblue;
+}
+.card{
+  margin: 2px;
+  height: 100%;
+  width: 100%;
+  background-color: aqua;
+}
+
+.end-turn{
+  width: 80px;
+  background-color: red;
+}
