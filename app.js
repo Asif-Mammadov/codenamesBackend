@@ -2,16 +2,14 @@ const WIDTH = 5;
 var cardOperative = [];
 var cardSpymaster = [];
 var labels = [];
-var STARTING_TEAM = "r";
-var score = setScores(STARTING_TEAM, redLeft, blueLeft);
-var turn = STARTING_TEAM;
-var redLeft = score[0];
-var blueLeft = score[1];
 
+var game = { STARTING_TEAM: "r", score: { red: 0, blue: 0 }, turn: "r" };
+
+initGame(game);
 // Wait until the page is loaded
 document.addEventListener("DOMContentLoaded", () => {
   // Immediately display score
-  updateScore(redLeft, blueLeft);
+  updateGame(game);
   var gridOperative = document.querySelector(".gridOperative");
   var gridSpymaster = document.querySelector(".gridSpymaster");
   var endTurn = document.querySelector(".end-turn");
@@ -27,17 +25,18 @@ document.addEventListener("DOMContentLoaded", () => {
   shuffleDeck(labels);
 
   fillCard(cardSpymaster, labels);
-  runGame(turn);
+  runGame(game);
 
   // listens for clicks
-  function runGame(turn) {
+  function runGame(game) {
     cardOperative.forEach((card) =>
       card.addEventListener("click", (e) => {
-        revealCard(card, labels);
+        revealCard(game, card, labels);
       })
     );
     endTurn.addEventListener("click", (e) => {
-      turn = changeTurn(turn);
+      game.turn = changeTurn(game.turn);
+      updateGame(game);
     });
   }
 
@@ -48,42 +47,44 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (turn === "b") {
       turn = "r";
     }
-    console.log('turn of ' + turn);
+    console.log("turn of " + turn);
     return turn;
   }
 
   // implements opening of the card and adjusts turn
-  function revealCard(card, labels) {
+  function revealCard(game, card, labels) {
     index = card.dataset.id;
     cardValue = labels[index];
     if (cardValue === "r" && isClosed[index]) {
-      --redLeft;
+      game.score.red--;
       isClosed[index] = false;
-      if(turn === 'b'){
-        turn = changeTurn(turn);
+      if (game.turn === "b") {
+        game.turn = changeTurn(game.turn);
       }
     } else if (cardValue === "b" && isClosed[index]) {
-      --blueLeft;
+      game.score.blue--;
       isClosed[index] = false;
-      if(turn === 'r'){
-        turn = changeTurn(turn);
+      if (game.turn === "r") {
+        game.turn = changeTurn(game.turn);
       }
     } else if (cardValue === "a") {
-      if(turn === 'r'){
+      if (game.turn === "r") {
         alert("Assasin! Game over! Blue won!");
-      } else if (turn === 'b'){
+        location.reload();
+      } else if (game.turn === "b") {
         alert("Assasin! Game over! Red won!");
+        location.reload();
       }
-    } else if(isClosed[index]){
+    } else if (isClosed[index]) {
       isClosed[index] = false;
-      turn = changeTurn(turn);
+      game.turn = changeTurn(game.turn);
     }
-    updateScore(redLeft, blueLeft);
+    updateGame(game);
     card.innerText = cardValue;
-    if (redLeft === 0) {
+    if (game.score.red === 0) {
       alert("Red won!");
       location.reload();
-    } else if (blueLeft === 0) {
+    } else if (game.score.blue === 0) {
       alert("Blue won!");
       location.reload();
     }
@@ -143,27 +144,26 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // updates the current values of score and turn
-  function updateScore(redLeft, blueLeft) {
-    document.querySelector(".game-info>.red>.left").innerText = String(redLeft);
+  function updateGame(game) {
+    document.querySelector(".game-info>.red>.left").innerText = String(game.score.red);
     document.querySelector(".game-info>.blue>.left").innerText = String(
-      blueLeft
+      game.score.blue
     );
-    if(turn === 'r'){
+    if (game.turn === "r") {
       document.querySelector(".turn>.value").innerText = "Red";
-    } else if(turn === 'b'){
+    } else if (game.turn === "b") {
       document.querySelector(".turn>.value").innerText = "Blue";
     }
   }
 });
 
 // sets scores at the begining depending on who starts first
-function setScores(startingTeam, redLeft, blueLeft) {
-  if (startingTeam === "r") {
-    redLeft = 9;
-    blueLeft = 8;
-  } else if (startingTeam === "b") {
-    blueLeft = 9;
-    redLeft = 8;
+function initGame(game) {
+  if (game.STARTING_TEAM === "r") {
+    game.score.red = 9;
+    game.score.blue = 8;
+  } else if (game.STARTING_TEAM === "b") {
+    game.score.blue = 9;
+    game.score.red = 8;
   } else throw "No such team";
-  return [redLeft, blueLeft];
 }
