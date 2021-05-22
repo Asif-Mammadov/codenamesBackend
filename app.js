@@ -2,10 +2,6 @@ const WIDTH = 5;
 var cardOperative = [];
 var cardSpymaster = [];
 var labels = [];
-// var STARTING_TEAM = "r";
-// var turn = STARTING_TEAM;
-// var redLeft = score[0];
-// var blueLeft = score[1];
 
 var game = { STARTING_TEAM: "r", score: { red: 0, blue: 0 }, turn: "r" };
 

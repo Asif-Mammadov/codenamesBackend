@@ -1,0 +1,137 @@
+<!-- Template index.html with all needed endpoints -->
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Play code names online with your family/friends across multiple different devices on the same board!"
+    />
+    <meta
+      name="keywords"
+      content="codenames, code names, board game, card game, spymaster, operatives, online"
+    />
+    <meta name="robot" content="index, follow" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="scripts/client.js"></script>
+    <script type="module" src="scripts/func.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Codenames</h1>
+      <button class="btn" id="start-game">START GAME</button>
+      <button class="btn" id="reset-game">RESET GAME</button>
+    </header>
+
+    <!-- Blue team -->
+    <section id="blue-team">
+      <div class="hide" id="blue-score">
+        <h4>Blue score: <span id="blue-score-number"> </span></h4>
+      </div>
+      <h1>Blue team</h1>
+      <button class="btn" id="blue-join-spy">Join as Spymaster</button>
+      <!-- If spymaster chosen additional box should be added -->
+      <button class="btn" id="blue-join-op">Join as Operative</button>
+
+      <!-- Show the list of blue players -->
+      <h4>Blue team list</h4>
+      <div id="blue-players"></div>
+    </section>
+
+    <section id="game-board">
+      <div class="card"><p>Word1</p></div>
+      <div class="card"><p>Word2</p></div>
+      <div class="card"><p>Word3</p></div>
+      <div class="card"><p>Word4</p></div>
+      <div class="card"><p>Word5</p></div>
+      <div class="card"><p>Word6</p></div>
+      <div class="card"><p>Word7</p></div>
+      <div class="card"><p>Word8</p></div>
+      <div class="card"><p>Word9</p></div>
+      <div class="card"><p>Word10</p></div>
+      <div class="card"><p>Word11</p></div>
+      <div class="card"><p>Word12</p></div>
+      <div class="card"><p>Word13</p></div>
+      <div class="card"><p>Word14</p></div>
+      <div class="card"><p>Word15</p></div>
+      <div class="card"><p>Word16</p></div>
+      <div class="card"><p>Word17</p></div>
+      <div class="card"><p>Word18</p></div>
+      <div class="card"><p>Word19</p></div>
+      <div class="card"><p>Word20</p></div>
+      <div class="card"><p>Word21</p></div>
+      <div class="card"><p>Word22</p></div>
+      <div class="card"><p>Word23</p></div>
+      <div class="card"><p>Word24</p></div>
+      <div class="card"><p>Word25</p></div>
+    </section>
+    <script>
+      const cards = document.getElementsByClassName("card");
+      Array.prototype.forEach.call(cards, (card) => {
+        card.addEventListener("click", (e) => {
+          alert(card.innerText);
+        });
+      });
+    </script>
+
+    <!-- Red team -->
+    <section id="red-team">
+      <div class="hide" id="red-score">
+        <h4>Blue score: <span id="red-score-number"> </span></h4>
+      </div>
+      <h1>Red team</h1>
+      <button class="btn" id="join-red-spy">Join as Spymaster</button>
+      <!-- If spymaster chosen additional box should be added -->
+      <button class="btn" id="join-red-op">Join as Operative</button>
+
+      <!-- Show the list of red players -->
+      <h4>Red team list</h4>
+      <div id="red-players"></div>
+    </section>
+
+    <section id="spectators">
+      <h4>Spectator list:</h4>
+      <div id="players"></div>
+      <input id="name-input" placeholder="Enter your namae" maxlength="25" />
+      <button class="btn" id="name-btn">Submit</button>
+    </section>
+
+
+    <section id="hint">
+      <h2 class="hide" id="hint-message">
+        The hint is <span id="hint-word">[word]</span>, There are
+        <span id="hint-number">[number]</span> cards that go with this clue
+      </h2>
+      <div class="" id="hint-input-container">
+        <input id="input-hint" placeholder="Enter your hint" />
+        <button class="btn" id="hint-btn">Submit Hint</button>
+      </div>
+    </section>
+
+    <section id="chat">
+      <div class="chatbox" id="global-chat">
+        <div id="global-message-box" class="message-box"></div>
+        <div id="global-input-box">
+          <textarea
+            id="global-chat-input"
+            rows="1"
+            placeholder="global chat"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="chatbox" id="div-chat">
+        <div id="team-message-box" class="message-box"></div>
+        <div id="team-input-box">
+          <textarea
+            id="team-chat-input"
+            rows="1"
+            placeholder="team chat "
+          ></textarea>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
