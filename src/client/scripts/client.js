@@ -12,6 +12,7 @@ window.onload = function () {
 
   const hostNameSpan = document.querySelector("#host-name-span");
   const nameInput = document.querySelector("#name-input");
+  const turnSpan = document.querySelector("#turn");
   const cards = document.querySelectorAll(".card");
 
   const spectatorList = document.querySelector("#players");
@@ -38,11 +39,6 @@ window.onload = function () {
     func.hideElement(nameInput);
   });
 
-  startGameBtn.addEventListener("click", (e) => {
-    if (client.name === "") alert("Enter you name first!");
-    else socket.emit("askToStart");
-  });
-
   // Select blue ops
   blueJoinOpsBtn.addEventListener("click", (e) => {
     if (client.name === "") alert("Enter the username first!");
@@ -64,8 +60,9 @@ window.onload = function () {
     else socket.emit("joinedRedSpy", client);
   });
 
-  submitHintBtn.addEventListener("click", () => {
-    socket.emit("hello");
+  startGameBtn.addEventListener("click", (e) => {
+    if (client.name === "") alert("Enter the username fisrt!");
+    else socket.emit("startGame");
   });
 
   socket.on("updatePlayers", (playersInfo) => {
@@ -114,7 +111,6 @@ window.onload = function () {
     func.removePlayerFromDOM(redSpyName, redSpyList)
   );
   socket.on("updateClient", (newClient) => {
-  
     console.log(client);
     for (let key in client) {
       client[key] = newClient[key];
@@ -127,7 +123,11 @@ window.onload = function () {
     func.addNameToDOM(hostName, hostNameSpan);
   });
   socket.on("removeHost", (hostName) => {
-    console.log("removehost hallek")
+    console.log("removehost hallek");
     func.removePlayerFromDOM(hostName, hostNameSpan);
-  })
+  });
+
+  socket.on("gameStarted", () => {
+    func.setText(turnSpan, "Game started"); 
+  });
 };

@@ -23,6 +23,10 @@ export function displayElement(element){
   element.classList.remove("hide");
 }
 
+export function setText(element, text){
+  element.innerText = text;
+}
+
 export function updatePlayers(playerNames, elementLocation) {
   removeAllChildNodes(elementLocation);
   playerNames.map((playerName) => {
