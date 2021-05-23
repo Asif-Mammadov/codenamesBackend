@@ -8,7 +8,9 @@ window.onload = function () {
   const blueJoinOpsBtn = document.querySelector("#join-blue-op");
   const redJoinOpsBtn = document.querySelector("#join-red-op");
   const redJoinSpyBtn = document.querySelector("#join-red-spy");
+  const startGameBtn = document.querySelector("#start-game");
 
+  const hostNameSpan = document.querySelector("#host-name-span");
   const nameInput = document.querySelector("#name-input");
   const cards = document.querySelectorAll(".card");
 
@@ -34,6 +36,11 @@ window.onload = function () {
     client.name = nameInput.value;
     func.hideElement(submitNameBtn);
     func.hideElement(nameInput);
+  });
+
+  startGameBtn.addEventListener("click", (e) => {
+    if (client.name === "") alert("Enter you name first!");
+    else socket.emit("askToStart");
   });
 
   // Select blue ops
@@ -65,11 +72,11 @@ window.onload = function () {
     func.updatePlayers(playersInfo.spectators, spectatorList);
     func.updatePlayers(playersInfo.blueOps, blueOpsList);
     func.updatePlayers(playersInfo.redOps, redOpsList);
-
     if (playersInfo.blueSpy.username !== null)
       func.addNameToDOM(playersInfo.blueSpy.username, blueSpyList);
     if (playersInfo.redSpy.username !== null)
       func.addNameToDOM(playersInfo.redSpy.username, redSpyList);
+    func.addNameToDOM(playersInfo.host.username, hostNameSpan);
   });
 
   socket.on("addNewPlayer", (spectatorName) =>
@@ -107,6 +114,7 @@ window.onload = function () {
     func.removePlayerFromDOM(redSpyName, redSpyList)
   );
   socket.on("updateClient", (newClient) => {
+  
     console.log(client);
     for (let key in client) {
       client[key] = newClient[key];
@@ -114,4 +122,12 @@ window.onload = function () {
   });
 
   socket.on("alertFromServer", (alertMsg) => alert(alertMsg));
+
+  socket.on("addNewHost", (hostName) => {
+    func.addNameToDOM(hostName, hostNameSpan);
+  });
+  socket.on("removeHost", (hostName) => {
+    console.log("removehost hallek")
+    func.removePlayerFromDOM(hostName, hostNameSpan);
+  })
 };
