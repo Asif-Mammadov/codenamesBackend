@@ -1,3 +1,4 @@
+const { on } = require("events");
 const express = require("express");
 const app = express();
 const server = require("http").Server(app);
@@ -9,13 +10,14 @@ app.use("/", express.static(__dirname + "/client/"));
 // Start server
 server.listen(port, () => console.log(`Server is running on port ${port}`));
 
-const playerNames = new Map();
+const playerNames = [];
 const playersInfo = {
   spectators: [],
   blueOps: [],
   redOps: [],
   blueSpy: { socketID: null, username: null },
   redSpy: { socketID: null, username: null },
+  host: { socketID: null, username: null },
 };
 
 const gameInfo = {
@@ -24,23 +26,58 @@ const gameInfo = {
 };
 
 io.on("connection", (socket) => {
-  playerNames.set({ socketID: socket.id, username: null });
-
+  playerNames.push({ socketID: socket.id, username: null });
+  console.log("Player entered : ", playerNames);
   socket.emit("updatePlayers", playersInfo);
 
   socket.on("newPlayerJoined", (name) => {
     const { spectators } = playersInfo;
-    playerNames[socket.id] = name;
+    const playerIndex = playerNames
+      .map((player) => player.socketID)
+      .indexOf(socket.id);
+    playerNames[playerIndex].username = name;
     //
-    console.log("Added to spectators: ", name);
+    console.log("PlayerNames : ", playerNames);
     spectators.push(name);
+
+    console.log("Host situation ", playersInfo.host);
+    if (playersInfo.host.username === null) {
+      setCell(playersInfo.host, socket.id, name);
+      console.log("host ", playersInfo.host.username);
+      io.sockets.emit("addNewHost", playersInfo.host.username);
+    }
+
     io.sockets.emit("addNewPlayer", name);
   });
   socket.on("disconnect", () => {
     const { blueOps, redOps, spectators } = playersInfo;
-    const playerName = playerNames[socket.id];
-    playerNames.delete(socket.id);
+    const playerIndex = playerNames
+      .map((player) => player.socketID)
+      .indexOf(socket.id);
+    const playerName = playerNames[playerIndex].username;
 
+    playerNames.splice(playerIndex, 1);
+    if (playersInfo.host.socketID === socket.id) {
+      io.sockets.emit("removeHost", playersInfo.host.username);
+      setCell(playersInfo.host, null, null);
+      for (let i = 0; i < playerNames.length; i++) {
+        if (playerNames[i].username !== null){
+          console.log("Problem not here");
+          console.log("chose this one", playerNames[i]);
+          setCell(
+            playersInfo.host,
+            playerNames[i].socketID,
+            playerNames[i].username
+          );
+          break
+        }
+      }
+      console.log("new host ", playersInfo.host);
+      socket
+        .to(playersInfo.host.socketID)
+        .emit("alertFromServer", "You are the host now!");
+    }
+    io.sockets.emit("addNewHost", playersInfo.host.username);
     // Consider if the player have been playing not just watching
     if (blueOps.includes(playerName)) {
       blueOps.splice(blueOps.indexOf(playerName), 1);
@@ -55,6 +92,7 @@ io.on("connection", (socket) => {
       spectators.splice(spectators.indexOf(playerName), 1);
       io.sockets.emit("removeSpectator", playerName);
     }
+    console.log("Players after disconnect : ", playerNames);
   });
 
   socket.on("joinedBlueOps", (client) => {
@@ -62,6 +100,11 @@ io.on("connection", (socket) => {
     // if spectator
     if (client.name === "" || blueOps.includes(client.name)) {
       console.log("Player already in list");
+      return;
+    }
+    if (blueOps.length >= gameInfo.maxNOps) {
+      console.log("Team is full");
+      socket.emit("alertFromServer", "Team is full");
       return;
     }
     if (client.team === "") {
@@ -73,7 +116,7 @@ io.on("connection", (socket) => {
       client.team = "b";
       if (client.isSpymaster) {
         client.isSpymaster = false;
-        setSpy(redSpy, null, null);
+        setCell(redSpy, null, null);
         blueOps.push(client.name);
         io.sockets.emit("removeRedSpy", client.name);
       } else {
@@ -83,7 +126,7 @@ io.on("connection", (socket) => {
       }
     } else if (client.team === "b" && client.isSpymaster) {
       client.isSpymaster = false;
-      setSpy(blueSpy, null, null);
+      setCell(blueSpy, null, null);
       blueOps.push(client.name);
       io.sockets.emit("removeBlueSpy", client.name);
     }
@@ -98,6 +141,11 @@ io.on("connection", (socket) => {
       console.log("Player already in list");
       return;
     }
+    if (redOps.length >= gameInfo.maxNOps) {
+      console.log("Team is full");
+      socket.emit("alertFromServer", "Team is full");
+      return;
+    }
     if (client.team === "") {
       client.team = "r";
       spectators.splice(spectators.indexOf(client.name), 1);
@@ -107,7 +155,7 @@ io.on("connection", (socket) => {
       client.team = "r";
       if (client.isSpymaster) {
         client.isSpymaster = false;
-        setSpy(blueSpy, null, null);
+        setCell(blueSpy, null, null);
         redOps.push(client.name);
         io.sockets.emit("removeBlueSpy", client.name);
       } else {
@@ -117,7 +165,7 @@ io.on("connection", (socket) => {
       }
     } else if (client.team === "r" && client.isSpymaster) {
       client.isSpymaster = false;
-      setSpy(redSpy, null, null);
+      setCell(redSpy, null, null);
       redOps.push(client.name);
       io.sockets.emit("removeRedSpy", client.name);
     }
@@ -145,7 +193,7 @@ io.on("connection", (socket) => {
     } else if (client.team === "r") {
       client.team = "b";
       if (client.isSpymaster) {
-        setSpy(redSpy, null, null);
+        setCell(redSpy, null, null);
         io.sockets.emit("removeRedSpy", client.name);
       } else {
         redOps.splice(blueOps.indexOf(client.name), 1);
@@ -156,7 +204,7 @@ io.on("connection", (socket) => {
       io.sockets.emit("removeBlueOps", client.name);
     }
     client.isSpymaster = true;
-    setSpy(blueSpy, socket.id, client.name);
+    setCell(blueSpy, socket.id, client.name);
     io.sockets.emit("addBlueSpy", client.name);
     socket.emit("updateClient", client);
   });
@@ -164,7 +212,7 @@ io.on("connection", (socket) => {
   socket.on("joinedRedSpy", (client) => {
     const { spectators, blueOps, redOps, blueSpy, redSpy } = playersInfo;
     // if spectator
-    if (client.name === "" ) {
+    if (client.name === "") {
       console.log("Player already in list");
       return;
     }
@@ -181,7 +229,7 @@ io.on("connection", (socket) => {
     } else if (client.team === "b") {
       client.team = "r";
       if (client.isSpymaster) {
-        setSpy(blueSpy, null, null);
+        setCell(blueSpy, null, null);
         io.sockets.emit("removeBlueSpy", client.name);
       } else {
         blueOps.splice(blueOps.indexOf(client.name), 1);
@@ -192,17 +240,20 @@ io.on("connection", (socket) => {
       io.sockets.emit("removeRedOps", client.name);
     }
     client.isSpymaster = true;
-    setSpy(redSpy, socket.id, client.name);
+    setCell(redSpy, socket.id, client.name);
     io.sockets.emit("addRedSpy", client.name);
     socket.emit("updateClient", client);
   });
+
+  /* Game */
+  socket.on;
 });
 
-function setSpy(spy, socketID, username) {
-  spy.socketID = socketID;
-  spy.username = username;
+function setCell(cell, socketID, username) {
+  cell.socketID = socketID;
+  cell.username = username;
 }
 
-function spyExists(spy){
+function spyExists(spy) {
   return spy.socketID !== null;
 }

@@ -24,11 +24,16 @@ export function displayElement(element){
 }
 
 export function updatePlayers(playerNames, elementLocation) {
-  console.log(playerNames, " ", elementLocation);
+  removeAllChildNodes(elementLocation);
   playerNames.map((playerName) => {
     let player = document.createElement("h4");
     let node = document.createTextNode(playerName);
     player.appendChild(node);
     elementLocation.appendChild(player);
   });
+}
+function removeAllChildNodes(parentNode) {
+    while (parentNode.firstChild) {
+      parentNode.removeChild(parent.firstChild);
+    }
 }
