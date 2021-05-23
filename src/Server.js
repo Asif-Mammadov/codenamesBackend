@@ -64,6 +64,11 @@ io.on("connection", (socket) => {
       console.log("Player already in list");
       return;
     }
+    if(blueOps.length >= gameInfo.maxNOps){
+      console.log("Team is full");
+      socket.emit("alertFromServer", "Team is full");
+      return;
+    }
     if (client.team === "") {
       client.team = "b";
       spectators.splice(spectators.indexOf(client.name), 1);
@@ -96,6 +101,11 @@ io.on("connection", (socket) => {
     // if spectator
     if (client.name === "" || redOps.includes(client.name)) {
       console.log("Player already in list");
+      return;
+    }
+    if(redOps.length >= gameInfo.maxNOps){
+      console.log("Team is full");
+      socket.emit("alertFromServer", "Team is full");
       return;
     }
     if (client.team === "") {
