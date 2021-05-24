@@ -20,24 +20,6 @@ const playersInfo = {
   host: { socketID: null, username: null },
 };
 
-// class playersInfo1 {
-//   constructor(){
-//     this.spectators = [];
-//     this.blueOps = [];
-//     this.redOps = [];
-//     this.blueSpy = new spy();
-//     this.redSpy = new spy();
-//     this.host = new spy();
-//   }
-// }
-
-// class spy {
-//   constructor(){
-//     this.socketID = null;
-//     this.username = null;
-//   }
-// }
-
 const gameInfo = {
   started: false,
   maxNOps: 4,
