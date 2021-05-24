@@ -45,8 +45,8 @@ exports.generateLabels = (blueStarts) => {
   return a;
 };
 
-exports.initScores = (gameInfo, blueStarts) => {
-  if (blueStarts) {
+exports.initScores = (gameInfo) => {
+  if (gameInfo.blueStarts) {
     gameInfo.blueScore = 9;
     gameInfo.redScore = 8;
   } else {
@@ -66,7 +66,7 @@ exports.initGame = (gameInfo, wordList) => {
   gameInfo.turnSpy = true;
   gameInfo.labels = this.generateLabels(gameInfo.blueStarts);
   gameInfo.board = this.generateBoard(wordList);
-  this.initScores(gameInfo, true);
+  this.initScores(gameInfo);
 };
 exports.resetGame = (gameInfo) => {
   gameInfo.started = false;

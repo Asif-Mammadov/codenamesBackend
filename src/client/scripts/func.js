@@ -50,6 +50,8 @@ function removeClass(element, className) {
 export function putLables(cards, labels) {
   console.log(labels);
   for (let i = 0; i < cards.length; i++) {
+    cards[i].className = '';
+    addClass(cards[i], "card");
     if (labels[i] === "b") addClass(cards[i], "card-blue");
     else if (labels[i] === "r") addClass(cards[i], "card-red");
     else if (labels[i] === "i") addClass(cards[i], "card-yellow");

@@ -47,10 +47,13 @@ window.onload = function () {
 
   // Submit new name
   submitNameBtn.addEventListener("click", () => {
-    socket.emit("newPlayerJoined", nameInput.value);
-    client.name = nameInput.value;
-    func.hideElement(submitNameBtn);
-    func.hideElement(nameInput);
+    if(client.name.length > 0){
+      alert("You already entered the name");
+      return;
+    }
+    socket.emit("newPlayerJoined", client, nameInput.value);
+    // func.hideElement(submitNameBtn);
+    // func.hideElement(nameInput);
   });
 
   submitClueBtn.addEventListener("click", () => {
@@ -99,8 +102,8 @@ window.onload = function () {
     }
   });
 
-  socket.on("updateRoles", (newClientInfo) => {
-    client = { ...newClientInfo };
+  socket.on("updateRole", (newClientInfo) => {
+    copyObjectValues(client, newClientInfo);
   });
 
   socket.on("updatePlayers", (playersInfo) => {
@@ -114,7 +117,7 @@ window.onload = function () {
       func.addNameToDOM("", blueSpyList);
     else func.addNameToDOM(playersInfo.blueSpy.username, blueSpyList);
     func.removeAllChildNodes(redSpyList);
-    if (playersInfo.blueSpy.username === null)
+    if (playersInfo.redSpy.username === null)
       func.addNameToDOM("", redSpyList);
     else func.addNameToDOM(playersInfo.redSpy.username, redSpyList);
 
@@ -228,14 +231,12 @@ window.onload = function () {
   socket.on("turnBlueSpy", (socketID) => {
     alert("Blue Spy turn");
     if (socket.id === socketID) {
-      alert("It works");
       client.yourTurn = true;
     }
   });
   socket.on("turnRedSpy", (socketID) => {
     alert("Red Spy turn");
     if (socket.id === socketID) {
-      alert("It works");
       client.yourTurn = true;
     }
   });
@@ -251,4 +252,19 @@ window.onload = function () {
   socket.on("turnEnded", () => {
     alert("Turn ended");
   });
+
+  socket.on("serverMsg", (socketID, msg) => {
+    if(socket.id === socketID)
+      alert(msg);
+  })
+
+  socket.on("gameEnded", msg => {
+    alert(msg);
+  })
 };
+
+function copyObjectValues(dest, src){
+  for(var key in src){
+    dest[key] = src[key];
+  }
+}

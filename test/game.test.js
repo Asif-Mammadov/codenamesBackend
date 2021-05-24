@@ -8,9 +8,9 @@ describe("game start", () => {
       const gameInfo = {
         redScore: 8,
         blueScore: 8,
+        blueStarts: true,
       };
-      let blueStarts = true;
-      gameFunc.initScores(gameInfo, blueStarts);
+      gameFunc.initScores(gameInfo);
       expect([gameInfo.blueScore, gameInfo.redScore]).to.deep.equal([9,8]);
     });
   });
