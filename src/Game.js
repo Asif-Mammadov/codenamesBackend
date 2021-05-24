@@ -23,12 +23,23 @@ exports.generateBoard = (wordList) => {
   this.shuffleDeck(list);
   let board = [];
   list.forEach((word) => {
-    board.push({ word: word, opened: false });
+    board.push({ word: word, label: 'none' });
   });
   return board;
 };
 
-exports.generateLabels = (nBlue, nRed, nInnocent, nAssasin) => {
+exports.generateLabels = (blueStarts) => {
+  let nInnocent = 7;
+  let nAssasin = 1;
+  let nBlue = null;
+  let nRed = null;
+  if(blueStarts){
+    nBlue = 9;
+    nRed = 8;
+  }else {
+    nBlue = 8;
+    nRed = 9;
+  }
   let a = this.initLabels(nBlue, nRed, nInnocent, nAssasin);
   this.shuffleDeck(a);
   return a;
@@ -48,11 +59,11 @@ exports.randBool = () => {
   return Math.random() < 0.5;
 };
 
-exports.initGame = (gameInfo) => {
-  gameInfo.blueStarts = gameFunc.randBool();
+exports.initGame = (gameInfo, wordList) => {
+  gameInfo.blueStarts = this.randBool();
   gameInfo.turnBlue = gameInfo.blueStarts;
   gameInfo.turnSpy = true;
-  gameInfo.labels = gameFunc.generateLabels(gameInfo.blueStarts);
-  gameInfo.board = gameFunc.generateBoard(wordList);
-  gameFunc.initScores(gameInfo, true);
+  gameInfo.labels = this.generateLabels(gameInfo.blueStarts);
+  gameInfo.board = this.generateBoard(wordList);
+  this.initScores(gameInfo, true);
 };

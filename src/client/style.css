@@ -20,3 +20,18 @@
 	align-items: center;
 	transition: -webkit-transform 1s;
 }
+
+.card-red {
+	background-color: red;
+}
+
+.card-blue {
+	background-color: blue;
+}
+
+.card-yellow {
+	background-color: yellow;
+}
+.card-black{
+	background-color: black;
+}

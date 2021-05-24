@@ -14,6 +14,7 @@ window.onload = function () {
   const nameInput = document.querySelector("#name-input");
   const turnSpan = document.querySelector("#turn");
   const cards = document.querySelectorAll(".card");
+  const gameBoard = document.querySelector("#game-board");
 
   const spectatorList = document.querySelector("#players");
   const blueOpsList = document.querySelector("#blue-players");
@@ -111,7 +112,6 @@ window.onload = function () {
     func.removePlayerFromDOM(redSpyName, redSpyList)
   );
   socket.on("updateClient", (newClient) => {
-    console.log(client);
     for (let key in client) {
       client[key] = newClient[key];
     }
@@ -123,11 +123,20 @@ window.onload = function () {
     func.addNameToDOM(hostName, hostNameSpan);
   });
   socket.on("removeHost", (hostName) => {
-    console.log("removehost hallek");
     func.removePlayerFromDOM(hostName, hostNameSpan);
   });
 
   socket.on("gameStarted", () => {
     func.setText(turnSpan, "Game started"); 
   });
+
+  socket.on("getLabels", (labels) => {
+    func.putLables(cards, labels);
+  });
+
+  socket.on("getBoard", (boardValues) => {
+    func.displayElement(gameBoard);
+    func.fillBoard(cards, boardValues);
+  })
+
 };
