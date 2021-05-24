@@ -23,7 +23,7 @@ exports.generateBoard = (wordList) => {
   this.shuffleDeck(list);
   let board = [];
   list.forEach((word) => {
-    board.push({ word: word, label: 'none' });
+    board.push({ word: word, label: 'n' });
   });
   return board;
 };
@@ -56,14 +56,25 @@ exports.initScores = (gameInfo, blueStarts) => {
 };
 
 exports.randBool = () => {
-  return Math.random() < 0.5;
+  return Math.random() < 0  ;
 };
 
 exports.initGame = (gameInfo, wordList) => {
+  gameInfo.started = true;
   gameInfo.blueStarts = this.randBool();
   gameInfo.turnBlue = gameInfo.blueStarts;
   gameInfo.turnSpy = true;
   gameInfo.labels = this.generateLabels(gameInfo.blueStarts);
   gameInfo.board = this.generateBoard(wordList);
   this.initScores(gameInfo, true);
+};
+exports.resetGame = (gameInfo) => {
+  gameInfo.started = false;
+  gameInfo.blueStarts = true;
+  gameInfo.turnBlue = gameInfo.blueStarts;
+  gameInfo.turnSpy = true;
+  gameInfo.labels = [];
+  gameInfo.board = [];
+  gameInfo.redScore = 8;
+  gameInfo.blueScore = 8;
 };

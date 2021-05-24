@@ -31,15 +31,13 @@ export function updatePlayers(playerNames, elementLocation) {
   removeAllChildNodes(elementLocation);
   playerNames.map((playerName) => {
     let player = document.createElement("h4");
-    let node = document.createTextNode(playerName);
+    let node = document.createTextNode(playerName.username);
     player.appendChild(node);
     elementLocation.appendChild(player);
   });
 }
-function removeAllChildNodes(parentNode) {
-  while (parentNode.firstChild) {
-    parentNode.removeChild(parent.firstChild);
-  }
+export function removeAllChildNodes(parentNode) {
+  parentNode.innerHTML = ""
 }
 
 function addClass(element, className) {
@@ -61,11 +59,11 @@ export function putLables(cards, labels) {
 
 export function fillBoard(cards, boardValues) {
   for (let i = 0; i < cards.length; i++) {
-    if (boardValues[i].label === "blue") addClass(cards[i], "card-blue");
-    else if (boardValues[i].label === "red") addClass(cards[i], "card-red");
-    else if (boardValues[i].label === "innocent")
+    if (boardValues[i].label === "b") addClass(cards[i], "card-blue");
+    else if (boardValues[i].label === "r") addClass(cards[i], "card-red");
+    else if (boardValues[i].label === "i")
       addClass(cards[i], "card-yellow");
-    else if (boardValues[i].label === "assasin")
+    else if (boardValues[i].label === "a")
       addClass(cards[i], "card-black");
     setText(cards[i].firstChild, boardValues[i].word);
   }
