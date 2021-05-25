@@ -79,7 +79,14 @@ io.on("connection", (socket) => {
     socket.emit("getBoard", gameInfo.board);
   }
   socket.on("newPlayerJoined", (client, name) => {
-    if(playerNames.map(player => player.username).includes(name)){
+    let index = playerNames
+      .map((player) => player.socketID)
+      .indexOf(socket.id);
+    if (index >= 0) {
+      if (playerNames[index].username !== null) {
+        socket.emit("alertFromServer", "You already entered the name");
+      }
+    } else if (playerNames.map((player) => player.username).includes(name)) {
       socket.emit("alertFromServer", "Name is occupied");
       return;
     }
@@ -105,7 +112,6 @@ io.on("connection", (socket) => {
       .map((player) => player.socketID)
       .indexOf(socket.id);
     const playerName = playerNames[playerIndex].username;
-
     playerNames.splice(playerIndex, 1);
     if (playersInfo.host.socketID === socket.id) {
       // io.sockets.in(room).emit("removeHost", playersInfo.host.username);
@@ -149,13 +155,16 @@ io.on("connection", (socket) => {
       spectators.splice(spectators.indexOf(index), 1);
       // io.sockets.in(room).emit("removeSpectator", playerName);
     }
-    console.log(playersInfo);
     io.sockets.in(room).emit("updatePlayers", playersInfo);
   });
 
   socket.on("joinedBlueOps", (client) => {
     const { spectators, blueOps, redOps, blueSpy, redSpy } = playersInfo;
     // if spectator
+    if (gameInfo.started && client.team.length !== 0) {
+      socket.emit("alertFromServer", "Game already started");
+      return;
+    }
     if (
       client.name === "" ||
       blueOps.map((i) => i.username).includes(client.name)
@@ -197,10 +206,16 @@ io.on("connection", (socket) => {
     //update
     setClient(client, "b", false, gameInfo.turnBlue);
     socket.emit("updateRole", client);
+    socket.emit("removeLabels", socket.id);
   });
 
   socket.on("joinedRedOps", (client) => {
     const { spectators, blueOps, redOps, blueSpy, redSpy } = playersInfo;
+
+    if (gameInfo.started && client.team.length !== 0) {
+      socket.emit("alertFromServer", "Game already started");
+      return;
+    }
     // if spectator
     if (
       client.name === "" ||
@@ -241,11 +256,15 @@ io.on("connection", (socket) => {
     //update
     setClient(client, "r", false, !gameInfo.turnBlue);
     socket.emit("updateRole", client);
-    console.log(playersInfo);
+    socket.emit("removeLabels", socket.id);
   });
 
   socket.on("joinedBlueSpy", (client) => {
     const { spectators, blueOps, redOps, blueSpy, redSpy } = playersInfo;
+    if (gameInfo.started && client.team.length !== 0) {
+      socket.emit("alertFromServer", "Game already started");
+      return;
+    }
     // if spectator
     if (client.name === "") {
       console.log("Player already in list");
@@ -280,14 +299,19 @@ io.on("connection", (socket) => {
     //update
     setClient(client, "b", true, gameInfo.turnBlue);
     socket.emit("updateRole", client);
-    if(gameInfo.started){
-      socket.emit("getLabels", gameInfo.labels);
+    if (gameInfo.started) {
+      io.sockets
+        .in(room)
+        .emit("getLabels", playersInfo.blueSpy.socketID, gameInfo.labels);
     }
-    console.log(playersInfo);
   });
 
   socket.on("joinedRedSpy", (client) => {
     const { spectators, blueOps, redOps, blueSpy, redSpy } = playersInfo;
+    if (gameInfo.started && client.team.length !== 0) {
+      socket.emit("alertFromServer", "Game already started");
+      return;
+    }
     // if spectator
     if (client.name === "") {
       console.log("Player already in list");
@@ -300,12 +324,10 @@ io.on("connection", (socket) => {
       return;
     }
     if (client.team === "") {
-      console.log("no here");
       client.team = "r";
       const index = spectators.map((i) => i.username).indexOf(client.name);
       spectators.splice(index, 1);
     } else if (client.team === "b") {
-      console.log("here");
       client.team = "r";
       if (client.isSpymaster) {
         setCell(blueSpy, null, null);
@@ -314,7 +336,6 @@ io.on("connection", (socket) => {
         blueOps.splice(index, 1);
       }
     } else if (client.team === "r" && !client.isSpymaster) {
-      console.log("I am here");
       const index = redOps.map((i) => i.username).indexOf(client.name);
       redOps.splice(index, 1);
     }
@@ -324,8 +345,10 @@ io.on("connection", (socket) => {
     //update
     setClient(client, "r", true, !gameInfo.turnBlue);
     socket.emit("updateRole", client);
-    if(gameInfo.started){
-      socket.emit("getLabels", gameInfo.labels);
+    if (gameInfo.started) {
+      io.sockets
+        .in(room)
+        .emit("getLabels", playersInfo.blueSpy.socketID, gameInfo.labels);
     }
   });
 
@@ -366,9 +389,9 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on("clueEntered", (clue) => {
+  socket.on("clueEntered", (clueWord, clueNum) => {
     gameInfo.turnSpy = false;
-    io.sockets.in(room).emit("shareClue", clue);
+    io.sockets.in(room).emit("shareClue", clueWord, clueNum);
     if (gameInfo.turnBlue) {
       io.sockets.in(room).emit("chooseCard", "b", false);
     } else {
@@ -507,18 +530,14 @@ io.on("connection", (socket) => {
     }
     let index = playerNames.map((player) => player.socketID).indexOf(socket.id);
     playerNames[index].score.Op.i++;
-    console.log(
-      "scores :",
-      gameInfo.blueScore,
-      " ",
-      gameInfo.redScore,
-      "  pl: ",
-      playerNames[index].score.Op.right
-    );
     if (gameInfo.blueScore === 0) endGame("Blue team won");
-    else if(gameInfo.redScore === 0) endGame("Red team won");
+    else if (gameInfo.redScore === 0) endGame("Red team won");
   });
   socket.on("endTurn", () => {
+    if (!gameFunc.playersHere(blueOps, redOps, blueSpy, redSpy)) {
+      socket.emit("alertFromServer", "Players are absent");
+      return;
+    }
     endTurn(gameInfo, playersInfo);
   });
 });
@@ -526,7 +545,6 @@ io.on("connection", (socket) => {
 function endGame(msg) {
   io.sockets.in(room).emit("gameEnded", msg);
   gameFunc.resetGame(gameInfo);
-  io.sockets.in(room).emit("resetBoard");
 }
 
 function endTurn(gameInfo, playersInfo) {
