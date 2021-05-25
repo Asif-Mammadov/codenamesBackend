@@ -108,7 +108,6 @@ window.onload = function () {
   });
 
   socket.on("updatePlayers", (playersInfo) => {
-    console.log(playersInfo);
     func.updatePlayers(playersInfo.spectators, spectatorList);
     func.updatePlayers(playersInfo.blueOps, blueOpsList);
     func.updatePlayers(playersInfo.redOps, redOpsList);
@@ -233,6 +232,7 @@ window.onload = function () {
 
   socket.on("shareClue", (clueWord, clueNum) => {
     alert("Clue: " + clueWord + " : " + clueNum);
+    console.log("Clue: " + clueWord + " : " + clueNum);
   });
 
   socket.on("turnBlueSpy", (socketID) => {
