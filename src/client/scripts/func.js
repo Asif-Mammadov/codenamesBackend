@@ -47,7 +47,7 @@ function removeClass(element, className) {
   element.classList.remove(className);
 }
 
-export function putLables(cards, labels) {
+export function putLabels(cards, labels) {
   console.log(labels);
   for (let i = 0; i < cards.length; i++) {
     cards[i].className = '';
@@ -57,6 +57,14 @@ export function putLables(cards, labels) {
     else if (labels[i] === "i") addClass(cards[i], "card-yellow");
     else if (labels[i] === "a") addClass(cards[i], "card-black");
   }
+}
+export function removeLabels(cards){
+  cards.forEach(card => {
+    removeClass(card, "card-blue");
+    removeClass(card, "card-red");
+    removeClass(card, "card-yellow");
+    removeClass(card, "card-black");
+  })
 }
 
 export function fillBoard(cards, boardValues) {
@@ -69,4 +77,13 @@ export function fillBoard(cards, boardValues) {
       addClass(cards[i], "card-black");
     setText(cards[i].firstChild, boardValues[i].word);
   }
+}
+export function isInt(value) {
+  var x = parseFloat(value);
+  return !isNaN(value) && (x | 0) === x;
+}
+export function clearBoard(cards){
+  cards.forEach(card => {
+    cards.firstChild.innerText = "";
+  })
 }
