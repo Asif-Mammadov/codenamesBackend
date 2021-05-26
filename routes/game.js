@@ -537,47 +537,46 @@ Router.use("/", (req, res, next) => {
       endTurn(gameInfo, playersInfo);
     });
   });
+  function endGame(msg) {
+    io.sockets.in(room).emit("gameEnded", msg);
+    gameInfo.reset();
+  }
+
+  function endTurn(gameInfo, playersInfo) {
+    if (gameInfo.getTurnBlue()) {
+      io.sockets.in(room).emit("notYourTurn", "b", false);
+    } else {
+      io.sockets.in(room).emit("notYourTurn", "r", false);
+    }
+
+    gameInfo.getTurnBlue()
+      ? gameInfo.setTurnBlue(false)
+      : gameInfo.setTurnBlue(true);
+    gameInfo.setTurnSpy(true);
+    gameInfo.turnIncrement();
+    io.sockets.in(room).emit("turnEnded");
+
+    if (gameInfo.getTurnBlue() && gameInfo.getTurnSpy()) {
+      io.sockets.in(room).emit("turnBlueSpy", playersInfo.blueSpy.socketID);
+      io.sockets.in(room).emit("enterClue", playersInfo.blueSpy.socketID);
+    } else if (!gameInfo.getTurnBlue() && gameInfo.getTurnSpy()) {
+      io.sockets.in(room).emit("turnRedSpy", playersInfo.redSpy.socketID);
+      io.sockets.in(room).emit("enterClue", playersInfo.redSpy.socketID);
+    }
+  }
+  function setCell(cell, socketID, username) {
+    cell.socketID = socketID;
+    cell.username = username;
+  }
+
+  function spyExists(spy) {
+    return spy.socketID !== null;
+  }
+  function setClient(client, team, isSpymaster, yourTurn) {
+    client.team = team;
+    client.isSpymaster = isSpymaster;
+    client.yourTurn = yourTurn;
+  }
 });
-
-function endGame(msg) {
-  io.sockets.in(room).emit("gameEnded", msg);
-  gameInfo.reset();
-}
-
-function endTurn(gameInfo, playersInfo) {
-  if (gameInfo.getTurnBlue()) {
-    io.sockets.in(room).emit("notYourTurn", "b", false);
-  } else {
-    io.sockets.in(room).emit("notYourTurn", "r", false);
-  }
-
-  gameInfo.getTurnBlue()
-    ? gameInfo.setTurnBlue(false)
-    : gameInfo.setTurnBlue(true);
-  gameInfo.setTurnSpy(true);
-  gameInfo.turnIncrement();
-  io.sockets.in(room).emit("turnEnded");
-
-  if (gameInfo.getTurnBlue() && gameInfo.getTurnSpy()) {
-    io.sockets.in(room).emit("turnBlueSpy", playersInfo.blueSpy.socketID);
-    io.sockets.in(room).emit("enterClue", playersInfo.blueSpy.socketID);
-  } else if (!gameInfo.getTurnBlue() && gameInfo.getTurnSpy()) {
-    io.sockets.in(room).emit("turnRedSpy", playersInfo.redSpy.socketID);
-    io.sockets.in(room).emit("enterClue", playersInfo.redSpy.socketID);
-  }
-}
-function setCell(cell, socketID, username) {
-  cell.socketID = socketID;
-  cell.username = username;
-}
-
-function spyExists(spy) {
-  return spy.socketID !== null;
-}
-function setClient(client, team, isSpymaster, yourTurn) {
-  client.team = team;
-  client.isSpymaster = isSpymaster;
-  client.yourTurn = yourTurn;
-}
 
 module.exports = Router;
