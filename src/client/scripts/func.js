@@ -84,6 +84,8 @@ export function isInt(value) {
 }
 export function clearBoard(cards){
   cards.forEach(card => {
-    cards.firstChild.innerText = "";
+    cards.className = "";
+    addClass(cards, "card");
+    cards.innerText = "";
   })
 }
