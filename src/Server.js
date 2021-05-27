@@ -12,6 +12,15 @@ const {PlayerScore} = require("./PlayerScore");
 
 app.use("/", express.static(__dirname + "/client/"));
 
+app.use(require('../routes/register'));
+app.use(require('../routes/login'));
+app.use(require('../routes/edit'));
+app.use(require('../routes/changePswd'));
+app.use(require('../routes/deleteUser'));
+app.use(require('../routes/showAccInfo'));
+app.use(require('../routes/incrementScore'));
+app.use(require('../routes/rating'));
+
 // Start server
 server.listen(port, () => console.log(`Server is running on port ${port}`));
 
