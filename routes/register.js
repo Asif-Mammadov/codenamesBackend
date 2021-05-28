@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const Router = express.Router();
+const db = require('../config/connectDB');
 
 Router.get('/registration', function(req, res) {
     res.sendFile(path.resolve("views/account/register.html"));
@@ -14,8 +15,10 @@ Router.post('/registered', function(req, res) {
     if(req.body.phone) var phone = req.body.phone;
 
     if(password.length < 6) {
-        res.send('Please enter more than 6 characters');
-        res.end();
+        return res.json({
+            success: 0,
+            message: "Too short password."
+        });
     } else {
         if(phone) {
             var post = {Username: name_reg, Email: email, Password: password, PhoneNumber:phone, CreationDate: new Date(),
@@ -29,9 +32,19 @@ Router.post('/registered', function(req, res) {
 
         var sql = 'INSERT INTO User SET ?';
 
-        var query = db.query(sql, post, (err, result) => {
-            if(err) throw err;
-            res.send('New User : ' + name_reg);
+        db.query(sql, post, (err, results) => {
+            if(err) 
+            {
+                console.log(err);
+                return res.json({
+                    success: 0,
+                    message: "Database connection error"
+                });
+            }
+            return res.json({
+                success: 1,
+                data: results
+            });
         });
     }
 });

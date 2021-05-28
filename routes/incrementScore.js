@@ -3,13 +3,17 @@ const mysql = require('mysql');
 const path = require('path');
 const bodyParser = require('body-parser');
 const Router = express.Router();
+const db = require('../config/connectDB');
 
 Router.get('/:id/gameAction', function(req, res) {
     db.query('SELECT Username FROM User WHERE UserID = ?', [req.params.id], function(err, result, fields) {
         if(result.length > 0) {
             res.sendFile(path.resolve("views/account/game_action.html"));
         } else {
-            res.send('Invalid ID');
+            return res.json({
+                success: 0, 
+                message: "Invalid ID"
+            });
         }
     });
 });

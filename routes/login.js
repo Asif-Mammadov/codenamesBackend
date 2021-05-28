@@ -4,6 +4,8 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const Router = express.Router();
+const db = require('../config/connectDB');
+const { sign } = require('jsonwebtoken');
 
 Router.use(session({
     secret: 'secret',
@@ -23,29 +25,29 @@ Router.post('/auth', function(req, res) {
 
     if(email && password) {
         db.query('SELECT * FROM User WHERE Email = ? AND Password = ?', [email, password], function(err, result, fields) {
-            if (result.length > 0) {
+            if(err) {
+				console.log(err);
+			}
+			if (result.length > 0) {
 				req.session.loggedin = true;
-				req.session.email = email;
-				res.redirect('/home');
                 console.log(result);
+				return res.json({
+					success: 1,
+					message: "Login successfully"
+				});
 			} else {
-				res.send('Incorrect Email and/or Password!');
+				return res.json({
+					success: 0,
+					message: "Invalid email or password"
+				});
 			}			
-			res.end();
 		});
 	} else {
-		res.send('Please enter Email and Password!');
-		res.end();
+		return res.json({
+			success: 0, 
+			message: "No email and password entered"
+		});
 	}
-});
-
-Router.get('/home', function(req, res) {
-	if (req.session.loggedin) {
-		res.send('Welcome !');
-	} else {
-		res.send('Please login to view this page!');
-	}
-	res.end();
 });
 
 module.exports = Router;
