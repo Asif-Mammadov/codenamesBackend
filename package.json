@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha",
-    "start": "nodemon Server.js",
+    "start": "node app.js",
     "dev": "nodemon Server.js"
   },
   "repository": {
