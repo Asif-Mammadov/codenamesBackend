@@ -27,6 +27,10 @@ Router.post('/auth', function(req, res) {
         db.query('SELECT * FROM User WHERE Email = ? AND Password = ?', [email, password], function(err, results, fields) {
             if(err) {
 				console.log(err);
+				return res.json({
+					success: 0,
+					message: "Database connection error"
+				});
 			}
 			if (results.length > 0) {
 				req.session.loggedin = true;

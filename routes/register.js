@@ -34,8 +34,7 @@ Router.post('/registered', function(req, res) {
         var sql = 'INSERT INTO User SET ?';
 
         db.query(sql, post, (err, results) => {
-            if(err) 
-            {
+            if(err) {
                 console.log(err);
                 return res.json({
                     success: 0,

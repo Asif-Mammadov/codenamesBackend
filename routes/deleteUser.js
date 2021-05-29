@@ -28,9 +28,13 @@ Router.post('/:id/deleted', (req, res) => {
                 db.query(sql, (err, row) => {
                     if(err) {
                         console.log(err);
+                        return res.json({
+                            success: 0,
+                            message: "Database connection error"
+                        });
                     }
                     return res.json({
-                        success: 0, 
+                        success: 1, 
                         message: "Account deleted"
                     });
                 });
