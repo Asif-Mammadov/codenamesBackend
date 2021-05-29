@@ -24,16 +24,20 @@ Router.post('/auth', function(req, res) {
     var password = req.body.password;
 
     if(email && password) {
-        db.query('SELECT * FROM User WHERE Email = ? AND Password = ?', [email, password], function(err, result, fields) {
+        db.query('SELECT * FROM User WHERE Email = ? AND Password = ?', [email, password], function(err, results, fields) {
             if(err) {
 				console.log(err);
 			}
-			if (result.length > 0) {
+			if (results.length > 0) {
 				req.session.loggedin = true;
-                console.log(result);
+				results.password = undefined;
+				const jsontoken = sign({ result: results }, process.env.TOKEN_SECRET, {
+					expiresIn: "1h"
+				});
 				return res.json({
 					success: 1,
-					message: "Login successfully"
+					message: "Login successfully",
+					token: jsontoken
 				});
 			} else {
 				return res.json({
