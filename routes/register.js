@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const Router = express.Router();
 const db = require('../config/connectDB');
+const { sign } = require('jsonwebtoken');
 
 Router.get('/registration', function(req, res) {
     res.sendFile(path.resolve("views/account/register.html"));
@@ -33,17 +34,21 @@ Router.post('/registered', function(req, res) {
         var sql = 'INSERT INTO User SET ?';
 
         db.query(sql, post, (err, results) => {
-            if(err) 
-            {
+            if(err) {
                 console.log(err);
                 return res.json({
                     success: 0,
                     message: "Database connection error"
                 });
             }
+            result.password = undefined;
+            const jsontoken = sign({ result: results }, process.env.TOKEN_SECRET, {
+                expiresIn: "1h"
+            });
             return res.json({
                 success: 1,
-                data: results
+                message: "Successfully registered",
+                token: jsontoken
             });
         });
     }

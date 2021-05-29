@@ -9,6 +9,10 @@ Router.get('/:id/rating', function(req, res) {
                 var i = 0;
                 if(err) {
                     console.log(err);
+                    return res.json({
+                        success: 0,
+                        message: "Database connection error"
+                    });
                 }
                 while (row[i]) {
                     console.log(row[i]);
@@ -17,7 +21,7 @@ Router.get('/:id/rating', function(req, res) {
                     i++;
                 }
                 return res.json({
-                    success: 0, 
+                    success: 1, 
                     data: row
                 });
             });

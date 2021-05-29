@@ -23,6 +23,10 @@ Router.post('/:id/saved', function(req, res) {
     db.query(sql, (err, result) => {
         if(err) {
             console.log(err);
+            return res.json({
+                success: 0,
+                message: "Database connection error"
+            });
         }
         console.log(result);
 
@@ -37,10 +41,16 @@ Router.post('/:id/saved', function(req, res) {
     
         var sql_update = `UPDATE User SET Username = '${newName}', Email = '${newEmail}', PhoneNumber = ${newPhoneNumber} WHERE UserID = ${edit_id}`;
         var query_update = db.query(sql_update, (err, result) => {
-            if(err) throw err;
+            if(err) {
+                console.log(err);
+                return res.json({
+                    success: 0,
+                    message: "Database connection error"
+                });
+            }
             return res.json({
                 success: 1,
-                message: "Updated successfullt"
+                message: "Updated successfully"
             });
         });
     });

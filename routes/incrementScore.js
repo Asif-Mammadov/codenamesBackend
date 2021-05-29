@@ -39,7 +39,11 @@ Router.post('/:id/countToDB', function(req, res) {
         db.query('UPDATE User SET GuessedRightAsSpymaster = GuessedRightAsSpymaster + 1 WHERE UserID = ?', [id]);
     if(actionId == 7) 
         db.query('UPDATE User SET GuessedWrongAsSpymaster = GuessedWrongAsSpymaster + 1 WHERE UserID = ?', [id]);
-    res.send('Score UPDATED');
+    
+    return res.json({
+        success: 1,
+        message: "Score updated"
+    });
 });
 
 module.exports = Router;
