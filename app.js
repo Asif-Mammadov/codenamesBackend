@@ -5,7 +5,7 @@ const path = require("path");
 const app = express();
 const server = createServer(app);
 const io = socketIo(server, { cors: { origin: "*" } }); // you can change the cors to your own domain
-const port = process.env.APP_PORT || 3000;
+const port = process.env.PORT || 3000;
 
 require("dotenv").config();
 
