@@ -1,0 +1,133 @@
+<!-- Template index.html with all needed endpoints -->
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Play code names online with your family/friends across multiple different devices on the same board!"
+    />
+    <meta
+      name="keywords"
+      content="codenames, code names, board game, card game, spymaster, operatives, online"
+    />
+    <meta name="robot" content="index, follow" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="scripts/client.js"></script>
+    <script type="module" src="scripts/func.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Codenames</h1>
+      <h2 id="turn" style="color: red">Game has not started</h2>
+      <span id="host-name">HostName:</span><h4 id="host-name-span"></h4>
+      <button class="btn" id="start-game">START GAME</button>
+      <button class="btn" id="reset-game">RESET GAME</button>
+      <button class="btn" id="end-turn">END TURN</button>
+    </header>
+
+    <!-- Blue team -->
+    <section id="blue-team">
+      <div class="hide" id="blue-score">
+        <h4>Blue score: <span id="blue-score-number"> </span></h4>
+      </div>
+      <h1>Blue team</h1>
+      <button class="btn" id="join-blue-spy">Join as Spymaster</button>
+      <div id="blue-spy"></div>
+      <!-- If spymaster chosen additional box should be added -->
+      <button class="btn" id="join-blue-op">Join as Operative</button>
+
+      <!-- Show the list of blue players -->
+      <h4>Blue team list</h4>
+      <div id="blue-players"></div>
+    </section>
+
+    <section id="game-board">
+      <div class="card" id="0"><p>Word1</p></div>
+      <div class="card" id="1"><p>Word2</p></div>
+      <div class="card" id="2"><p>Word3</p></div>
+      <div class="card" id="3"><p>Word4</p></div>
+      <div class="card" id="4"><p>Word5</p></div>
+      <div class="card" id="5"><p>Word6</p></div>
+      <div class="card" id="6"><p>Word7</p></div>
+      <div class="card" id="7"><p>Word8</p></div>
+      <div class="card" id="8"><p>Word9</p></div>
+      <div class="card" id="9"><p>Word10</p></div>
+      <div class="card" id="10"><p>Word11</p></div>
+      <div class="card" id="11"><p>Word12</p></div>
+      <div class="card" id="12"><p>Word13</p></div>
+      <div class="card" id="13"><p>Word14</p></div>
+      <div class="card" id="14"><p>Word15</p></div>
+      <div class="card" id="15"><p>Word16</p></div>
+      <div class="card" id="16"><p>Word17</p></div>
+      <div class="card" id="17"><p>Word18</p></div>
+      <div class="card" id="18"><p>Word19</p></div>
+      <div class="card" id="19"><p>Word20</p></div>
+      <div class="card" id="20"><p>Word21</p></div>
+      <div class="card" id="21"><p>Word22</p></div>
+      <div class="card" id="22"><p>Word23</p></div>
+      <div class="card" id="23"><p>Word24</p></div>
+      <div class="card" id="24"><p>Word25</p></div>
+    </section>
+    <!-- Red team -->
+    <section id="red-team">
+      <div class="hide" id="red-score">
+        <h4>Blue score: <span id="red-score-number"> </span></h4>
+      </div>
+      <h1>Red team</h1>
+      <button class="btn" id="join-red-spy">Join as Spymaster</button>
+      <div id="red-spy"></div>
+      <!-- If spymaster chosen additional box should be added -->
+      <button class="btn" id="join-red-op">Join as Operative</button>
+
+      <!-- Show the list of red players -->
+      <h4>Red team list</h4>
+      <div id="red-players"></div>
+    </section>
+
+    <section id="spectators">
+      <h4>Spectator list:</h4>
+      <div id="players"></div>
+      <input id="name-input" placeholder="Enter your namae" maxlength="25" />
+      <button class="btn" id="name-btn">Submit</button>
+    </section>
+
+    <section class="" id="clue">
+      <h2 class="hide" id="clue-message">
+        The clue is <span id="clue-word">[word]</span>, There are
+        <span id="clue-number">[number]</span> cards that go with this clue
+      </h2>
+      <div class="" id="clue-input-container">
+        <input id="input-clue" placeholder="Enter your clue" />
+        <input type = "number" id="input-clue-num"/>
+        <button class="btn" id="clue-btn">Submit Clue</button>
+      </div>
+    </section>
+
+    <section id="chat">
+      <div class="chatbox" id="global-chat">
+        <div id="global-message-box" class="message-box"></div>
+        <div id="global-input-box">
+          <textarea
+            id="global-chat-input"
+            rows="1"
+            placeholder="global chat"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="chatbox" id="div-chat">
+        <div id="team-message-box" class="message-box"></div>
+        <div id="team-input-box">
+          <textarea
+            id="team-chat-input"
+            rows="1"
+            placeholder="team chat "
+          ></textarea>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Game</title>
+		<style>
+		.score_page {
+			width: 300px;
+			margin: 0 auto;
+			font-family: Tahoma, Geneva, sans-serif;
+		}
+		.score_page h1 {
+			text-align: center;
+			color: #4d4d4d;
+			font-size: 24px;
+			padding: 20px 0 20px 0;
+		}
+
+		.score_page input[type="text"] {
+			width: 100%;
+			padding: 15px;
+			border: 1px solid #dddddd;
+			margin-bottom: 15px;
+			box-sizing:border-box;
+		}
+
+		.score_page input[type="submit"] {
+			width: 100%;
+			padding: 15px;
+            margin-bottom: 10px;
+			background-color: #535b63;
+			border: 0;
+			box-sizing: border-box;
+			cursor: pointer;
+			font-weight: bold;
+			color: #ffffff;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="score_page">
+			<h1>Game</h1>
+			<form action="countToDB" method="POST">
+				<input type="radio" id="1" name="button" value="1" required>
+                <label for="1">Won</label><br>
+				<input type="radio" id="2" name="button" value="2">
+                <label for="2">Lost</label><br>
+				<input type="radio" id="3" name="button" value="3">
+                <label for="3">Draw</label><br>
+
+                <input type="radio" id="4" name="button"  value="4">
+                <label for="4">Right Guess as Operative</label><br>
+
+                <input type="radio" id="5" name="button"  value="5">
+                <label for="5">Wrong Guess as Operative</label><br>
+
+                <input type="radio" id="6" name="button"  value="6">
+                <label for="6">Right Guess as Spymaster</label><br>
+                
+                <input type="radio" id="7" name="button" value="7">
+                <label for="7
+                ">Wrong Guess as Spymaster</label><br><br>
+
+                <input type="submit">
+            </form>
+		</div>
+	</body>
+</html>
