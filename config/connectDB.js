@@ -8,7 +8,7 @@ const db = mysql.createConnection({
     database : process.env.MYSQL_DB
 });
 
-let pool = mysql.createPool(dbConfig);
+let pool = mysql.createPool(db);
 
 pool.on('connection', function (_conn) {
     if (_conn) {
