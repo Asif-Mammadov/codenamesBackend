@@ -8,9 +8,14 @@ const db = mysql.createConnection({
     database : process.env.MYSQL_DB
 });
 
-db.connect((err) => {
-    if(err) throw err;
-    console.log('Database Connected ...');
+let pool = mysql.createPool(db);
+
+pool.on('connection', function (_conn) {
+    if (_conn) {
+        logger.info('Connected the database via threadId %d!!', _conn.threadId);
+        _conn.query('SET SESSION auto_increment_increment=1');
+    }
 });
+
 
 module.exports = db;
