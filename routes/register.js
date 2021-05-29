@@ -48,7 +48,7 @@ Router.post('/registered', function(req, res) {
             return res.json({
                 success: 1,
                 message: "Successfully registered",
-                token: results
+                token: jsontoken
             });
         });
     }
