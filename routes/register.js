@@ -4,7 +4,6 @@ const Router = express.Router();
 const db = require("../config/connectDB");
 const { sign } = require("jsonwebtoken");
 const bodyParser = require("body-parser");
-const { reset } = require("nodemon");
 
 Router.use(bodyParser.urlencoded({ extended: true }));
 Router.use(bodyParser.json());
