@@ -3,6 +3,10 @@ const path = require('path');
 const Router = express.Router();
 const db = require('../config/connectDB');
 const { sign } = require('jsonwebtoken');
+const bodyParser = require('body-parser');
+
+Router.use(bodyParser.urlencoded({extended : true}));
+Router.use(bodyParser.json());
 
 Router.get('/registration', function(req, res) {
     res.sendFile(path.resolve("views/account/register.html"));
@@ -41,7 +45,7 @@ Router.post('/registered', function(req, res) {
                     message: "Database connection error"
                 });
             }
-            result.password = undefined;
+            results.password = undefined;
             const jsontoken = sign({ result: results }, process.env.TOKEN_SECRET, {
                 expiresIn: "1h"
             });
