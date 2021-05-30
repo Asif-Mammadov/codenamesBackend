@@ -1,4 +1,4 @@
-import * as func from "./func.js";
+import * as utils from "./utils.js";
 window.onload = function () {
   var socket = io({ transports: ["websocket"], upgrade: false });
 
@@ -47,8 +47,8 @@ window.onload = function () {
   // Submit new name
   submitNameBtn.addEventListener("click", () => {
     socket.emit("newPlayerJoined", client, nameInput.value);
-    // func.hideElement(submitNameBtn);
-    // func.hideElement(nameInput);
+    // utils.hideElement(submitNameBtn);
+    // utils.hideElement(nameInput);
   });
 
   submitClueBtn.addEventListener("click", () => {
@@ -60,7 +60,7 @@ window.onload = function () {
       return;
     } else if (
       clueNumInput.value.length === 0 ||
-      !func.isInt(clueNumInput.value)
+      !utils.isInt(clueNumInput.value)
     ) {
       alert("Enter the digit for clue");
       return;
@@ -104,59 +104,26 @@ window.onload = function () {
   });
 
   socket.on("updateRole", (newClientInfo) => {
-    copyObjectValues(client, newClientInfo);
+    utils.copyObjectValues(client, newClientInfo);
   });
 
   socket.on("updatePlayers", (playersInfo) => {
-    func.updatePlayers(playersInfo.spectators, spectatorList);
-    func.updatePlayers(playersInfo.blueOps, blueOpsList);
-    func.updatePlayers(playersInfo.redOps, redOpsList);
+    utils.updatePlayers(playersInfo.spectators, spectatorList);
+    utils.updatePlayers(playersInfo.blueOps, blueOpsList);
+    utils.updatePlayers(playersInfo.redOps, redOpsList);
 
-    func.removeAllChildNodes(blueSpyList);
+    utils.removeAllChildNodes(blueSpyList);
     if (playersInfo.blueSpy.username === null)
-      func.addNameToDOM("", blueSpyList);
-    else func.addNameToDOM(playersInfo.blueSpy.username, blueSpyList);
-    func.removeAllChildNodes(redSpyList);
-    if (playersInfo.redSpy.username === null) func.addNameToDOM("", redSpyList);
-    else func.addNameToDOM(playersInfo.redSpy.username, redSpyList);
+      utils.addNameToDOM("", blueSpyList);
+    else utils.addNameToDOM(playersInfo.blueSpy.username, blueSpyList);
+    utils.removeAllChildNodes(redSpyList);
+    if (playersInfo.redSpy.username === null) utils.addNameToDOM("", redSpyList);
+    else utils.addNameToDOM(playersInfo.redSpy.username, redSpyList);
 
-    func.removeAllChildNodes(hostNameSpan);
-    func.addNameToDOM(playersInfo.host.username, hostNameSpan);
+    utils.removeAllChildNodes(hostNameSpan);
+    utils.addNameToDOM(playersInfo.host.username, hostNameSpan);
   });
 
-  socket.on("addNewPlayer", (spectatorName) =>
-    func.addNameToDOM(spectatorName, spectatorList)
-  );
-  socket.on("addBlueOps", (bluePlayerName) =>
-    func.addNameToDOM(bluePlayerName, blueOpsList)
-  );
-  socket.on("addRedOps", (redPlayerName) =>
-    func.addNameToDOM(redPlayerName, redOpsList)
-  );
-
-  socket.on("addBlueSpy", (blueSpyName) =>
-    func.addNameToDOM(blueSpyName, blueSpyList)
-  );
-  socket.on("addRedSpy", (redSpyName) =>
-    func.addNameToDOM(redSpyName, redSpyList)
-  );
-
-  socket.on("removeBlueOps", (blueOpsName) =>
-    func.removePlayerFromDOM(blueOpsName, blueOpsList)
-  );
-  socket.on("removeRedOps", (redOpsName) =>
-    func.removePlayerFromDOM(redOpsName, redOpsList)
-  );
-  socket.on("removeSpectator", (spectatorName) => {
-    func.removePlayerFromDOM(spectatorName, spectatorList);
-  });
-
-  socket.on("removeBlueSpy", (blueSpyName) => {
-    func.removePlayerFromDOM(blueSpyName, blueSpyList);
-  });
-  socket.on("removeRedSpy", (redSpyName) =>
-    func.removePlayerFromDOM(redSpyName, redSpyList)
-  );
   socket.on("updateClient", (newClient) => {
     for (let key in client) {
       client[key] = newClient[key];
@@ -165,68 +132,45 @@ window.onload = function () {
 
   socket.on("alertFromServer", (alertMsg) => alert(alertMsg));
 
-  socket.on("addNewHost", (hostName) => {
-    func.addNameToDOM(hostName, hostNameSpan);
-  });
-  socket.on("removeHost", (hostName) => {
-    func.removePlayerFromDOM(hostName, hostNameSpan);
-  });
-
   socket.on("gameStarted", (blueStarts) => {
-    blueStarts ? alert("Blue starts") : alert("Red starts");
-    func.setText(turnSpan, "Game started");
+    blueStarts ? console.log("Blue starts") : console.log("Red starts");
+    utils.setText(turnSpan, "Game started");
   });
 
-  socket.on("youSpy", () => {
-    client.isSpymaster = true;
-  });
-
-  socket.on("youOps", () => {
-    client.isSpymaster = false;
-  });
-
-  socket.on("youRed", () => {
-    client.team = "r";
-  });
-
-  socket.on("youBlue", () => {
-    client.team = "b";
-  });
-
-  socket.on("yourTurn", () => {
-    client.yourTurn = true;
-  });
+  // socket.on("yourTurn", () => {
+  //   client.yourTurn = true;
+  // });
 
   socket.on("notYourTurn", (team, isSpymaster) => {
     if (client.team === team && client.isSpymaster === isSpymaster) {
-      // alert("not your turn");
+      console.log("not your turn");
       client.yourTurn = false;
     }
   });
 
   socket.on("getLabels", (socketID, labels) => {
     if (client.isSpymaster) {
-      func.putLabels(cards, labels);
+      utils.putLabels(cards, labels);
       client.isSpymaster = true;
     }
   });
 
   socket.on("removeLabels", (socketID) => {
     if (socket.id === socketID) {
-      func.removeLabels(cards);
+      utils.removeLabels(cards);
       client.isSpymaster = false;
     }
   });
 
   socket.on("getBoard", (boardValues) => {
-    func.displayElement(gameBoard);
-    func.fillBoard(cards, boardValues);
+    utils.displayElement(gameBoard);
+    utils.fillBoard(cards, boardValues);
   });
 
   socket.on("enterClue", (socketID) => {
     if (socketID === socket.id) {
-      alert("enter the clue");
-      func.displayElement(clueSection);
+      console.log("enter the clue");
+      utils.displayElement(clueSection);
     }
   });
 
@@ -236,13 +180,13 @@ window.onload = function () {
   });
 
   socket.on("turnBlueSpy", (socketID) => {
-    alert("Blue Spy turn");
+    console.log("Blue Spy turn");
     if (socket.id === socketID) {
       client.yourTurn = true;
     }
   });
   socket.on("turnRedSpy", (socketID) => {
-    alert("Red Spy turn");
+    console.log("Red Spy turn");
     if (socket.id === socketID) {
       client.yourTurn = true;
     }
@@ -251,12 +195,12 @@ window.onload = function () {
   socket.on("chooseCard", (team, isSpymaster) => {
     if (client.team === team && client.isSpymaster === isSpymaster) {
       client.yourTurn = true;
-      alert("Choose card");
+      console.log("Choose card");
     }
   });
 
   socket.on("turnEnded", () => {
-    alert("Turn ended");
+    console.log("Turn ended");
   });
 
   socket.on("serverMsg", (socketID, msg) => {
@@ -265,7 +209,7 @@ window.onload = function () {
 
   socket.on("gameEnded", (msg) => {
     alert(msg);
-    func.clearBoard(cards);
+    utils.clearBoard(cards);
   });
 
   socket.on("gamePaused", () => {
@@ -274,8 +218,3 @@ window.onload = function () {
 };
 
 
-function copyObjectValues(dest, src) {
-  for (var key in src) {
-    dest[key] = src[key];
-  }
-}

@@ -2,7 +2,7 @@ const express = require("express");
 var path = require("path");
 const Router = express.Router();
 
-const gameFunc = require("../src/Game");
+const {Utils} = require("../src/Utils");
 const { Player } = require("../src/Player");
 const { RoleScore } = require("../src/RoleScore");
 const { GameInfo, resetGame } = require("../src/GameInfo");
@@ -40,15 +40,23 @@ const wordList = [
   "Backbone",
   "Bag",
 ];
-
+const randomNames = ['player1', 'player2', 'player3', 'player4', 'player5', 'player6']
+const assignNameIndex = (playerNames) => {
+  if(playerNames.length > randomNames.length) 
+    return -1;
+  else
+    return playerNames.length;
+}
 const room = "room";
 // Very simple example
 Router.use("/", (req, res, next) => {
   res.sendFile(path.resolve("views/game/index.html"));
   const io = req.io;
   io.on("connection", (socket) => {
-    console.log(socket.id);
     socket.join(room);
+    if(playerNames.map(player => player.socketID).includes(socket.id)){
+      return;
+    }
     playerNames.push(
       new Player(
         socket.id,
@@ -62,15 +70,10 @@ Router.use("/", (req, res, next) => {
     }
     socket.on("newPlayerJoined", (client, name) => {
       let index = playerNames
-        .map((player) => player.socketID)
-        .indexOf(socket.id);
-      if (index >= 0) {
-        if (playerNames[index].username !== null) {
-          socket.emit("alertFromServer", "You already entered the name");
-          return;
-        }
-      } else if (playerNames.map((player) => player.username).includes(name)) {
-        socket.emit("alertFromServer", "Name is occupied");
+        .map((player) => player.username)
+        .indexOf(name);
+      if(index !== -1 && name !== null ) {
+        socket.emit("alertFromServer", "Name already entered");
         return;
       }
       const { spectators } = playersInfo;
@@ -96,8 +99,8 @@ Router.use("/", (req, res, next) => {
         .indexOf(socket.id);
       const playerName = playerNames[playerIndex].username;
       playerNames.splice(playerIndex, 1);
+      console.log(playerNames);
       if (playersInfo.host.socketID === socket.id) {
-        // io.sockets.in(room).emit("removeHost", playersInfo.host.username);
         setCell(playersInfo.host, null, null);
         for (let i = 0; i < playerNames.length; i++) {
           if (playerNames[i].username !== null) {
@@ -111,9 +114,7 @@ Router.use("/", (req, res, next) => {
         }
         if (playersInfo.host.socketID === null) {
           console.log("reset game");
-          console.log(gameInfo);
           gameInfo.reset();
-          console.log(gameInfo);
         }
         io.sockets
           .in(room)
@@ -123,22 +124,17 @@ Router.use("/", (req, res, next) => {
       if (blueOps.map((i) => i.username).includes(playerName)) {
         const index = blueOps.map((i) => i.username).indexOf(playerName);
         blueOps.splice(index, 1);
-        // io.sockets.in(room).emit("removeBlueOp", playerName);
       } else if (redOps.map((i) => i.username).includes(playerName)) {
         const index = redOps.map((i) => i.username).indexOf(playerName);
         redOps.splice(index, 1);
-        // io.sockets.in(room).emit("removeRedOp", playerName);
       } else if (blueSpy.username === playerName) {
         setCell(blueSpy, null, null);
-        // io.sockets.in(room).emit("removeBlueSpy", playerName);
       } else if (redSpy.username === playerName) {
         setCell(redSpy, null, null);
         console.log("Red spy", redSpy);
-        // io.sockets.in(room).emit("removeRedSpy", playerName);
       } else {
         const index = spectators.map((i) => i.socketID).indexOf(socket.id);
         spectators.splice(spectators.indexOf(index), 1);
-        // io.sockets.in(room).emit("removeSpectator", playerName);
       }
       io.sockets.in(room).emit("updatePlayers", playersInfo);
     });
@@ -276,7 +272,6 @@ Router.use("/", (req, res, next) => {
       } else if (client.team === "b" && !client.isSpymaster) {
         const index = blueOps.map((i) => i.username).indexOf(client.name);
         blueOps.splice(index, 1);
-        // io.sockets.in(room).emit("removeBlueOps", client.name);
       }
       client.isSpymaster = true;
       setCell(blueSpy, socket.id, client.name);
@@ -530,7 +525,7 @@ Router.use("/", (req, res, next) => {
       else if (gameInfo.getRedScore() === 0) endGame("Red team won");
     });
     socket.on("endTurn", () => {
-      if (!gameFunc.playersHere(blueOps, redOps, blueSpy, redSpy)) {
+      if (!Utils.playersHere(blueOps, redOps, blueSpy, redSpy)) {
         socket.emit("alertFromServer", "Players are absent");
         return;
       }
