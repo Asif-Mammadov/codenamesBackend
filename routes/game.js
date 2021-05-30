@@ -9,7 +9,6 @@ const { GameInfo } = require("../src/GameInfo");
 const { PlayersInfo } = require("../src/PlayersInfo");
 const { PlayerScore } = require("../src/PlayerScore");
 const { Credential } = require("../src/Credential");
-const { reset } = require("nodemon");
 
 const playerNames = [];
 const playersInfo = new PlayersInfo();
