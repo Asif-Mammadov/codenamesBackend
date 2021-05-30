@@ -17,7 +17,7 @@ Router.get('/:id/updatePassword', function(req, res) {
     });
 });
 
-Router.post('/:id/updated', function(req, res) {
+Router.post('/:id/password', function(req, res) {
     db.query('SELECT Password FROM User WHERE UserID = ?', [req.params.id], function(err, result, fields) {
         var pswd = result[0].Password;
     

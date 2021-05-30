@@ -2,7 +2,7 @@ const express = require("express");
 const Router = express.Router();
 const db = require('../config/connectDB');
 
-Router.get('/:id/rating', function(req, res) {   
+Router.get('/:id/scoreboard', function(req, res) {   
     db.query('SELECT Username FROM User WHERE UserID = ?', [req.params.id], function(err, result) {
         if(result.length > 0) {
             db.query('SELECT Username, SUM(Wins * 10 - Loses * 5 + GuessedRightAsOperative + GuessedRightAsSpymaster - GuessedWrongAsOperative - GuessedWrongAsSpymaster) AS score FROM User GROUP BY UserID ORDER BY score DESC', function(err, row) {
