@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 
-const db = mysql.createConnection({
+const db_config = mysql.createConnection({
     port : process.env.DB_PORT,
     host : process.env.DB_HOST,
     user : process.env.DB_USER,
@@ -8,14 +8,27 @@ const db = mysql.createConnection({
     database : process.env.MYSQL_DB
 });
 
-let pool = mysql.createPool(db);
+var connection;
 
-pool.on('connection', function (_conn) {
-    if (_conn) {
-        logger.info('Connected the database via threadId %d!!', _conn.threadId);
-        _conn.query('SET SESSION auto_increment_increment=1');
+function handleDisconnect() {
+  connection = mysql.createConnection(db_config); 
+                                                
+
+  connection.connect(function(err) {           
+    if(err) {                                 
+      setTimeout(handleDisconnect, 2000); 
+    }                                    
+  });                                     
+                                          
+  connection.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+      handleDisconnect();                         
+    } else {                                      
+      throw err;                                 
     }
-});
+  });
+}
 
-
-module.exports = db;
+handleDisconnect();
+module.exports = db_config;
