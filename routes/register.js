@@ -20,7 +20,7 @@ Router.get("/registration", function (req, res) {
   return res.sendFile(path.resolve("views/account/register.html"));
 });
 
-Router.post("/registered", function (req, res) {
+Router.post("/register", function (req, res) {
   db.connect();
   let name_reg = req.body.name;
   var email = req.body.email;

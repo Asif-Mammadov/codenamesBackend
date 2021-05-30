@@ -2,7 +2,7 @@ const express = require("express");
 const db = require('../config/connectDB');
 const Router = express.Router();
 
-Router.get('/:id/showall', (req, res) => {
+Router.get('/:id/details', (req, res) => {
     var sql = `SELECT * FROM User WHERE UserID = ${req.params.id}`;
     db.query(sql, (err, result) => {
         if(err) {
