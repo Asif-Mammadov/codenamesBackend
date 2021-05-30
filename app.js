@@ -2,12 +2,14 @@ const { createServer } = require("http"); // you can use https as well
 const express = require("express");
 const socketIo = require("socket.io");
 const path = require("path");
+var cors = require('cors')
 const app = express();
 const server = createServer(app);
 const io = socketIo(server, { cors: { origin: "*" } }); // you can change the cors to your own domain
 const port = process.env.PORT || 3000;
 
 require("dotenv").config();
+app.use(cors())
 
 app.use((req, res, next) => {
   req.io = io;

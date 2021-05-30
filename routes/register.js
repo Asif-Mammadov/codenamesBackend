@@ -24,6 +24,7 @@ Router.post("/register", function (req, res, next) {
   let name_reg = req.body.name;
   var email = req.body.email;
   var password = req.body.password;
+  
   if (req.body.phone) var phone = req.body.phone;
 
   if (password.length < 6) {
