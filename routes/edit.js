@@ -17,7 +17,7 @@ Router.get('/:id/edit', function(req, res) {
     }); 
 });
 
-Router.post('/:id/saved', function(req, res) {
+Router.put('/:id/details', function(req, res) {
     var edit_id = req.params.id;
     var sql = `SELECT Username, Email, PhoneNumber FROM User WHERE UserID = ${edit_id}`;
     db.query(sql, (err, result) => {

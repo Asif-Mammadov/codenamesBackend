@@ -19,7 +19,7 @@ Router.get('/login', function(req, res) {
     res.sendFile(path.resolve("views/account/login.html"));
 });
 
-Router.post('/auth', function(req, res) {
+Router.post('/login', function(req, res) {
     var email = req.body.email;
     var password = req.body.password;
 
@@ -41,7 +41,8 @@ Router.post('/auth', function(req, res) {
 				return res.json({
 					success: 1,
 					message: "Login successfully",
-					token: jsontoken
+					token: jsontoken,
+					userID: results[0].UserID,
 				});
 			} else {
 				return res.json({
