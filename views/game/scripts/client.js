@@ -2,7 +2,7 @@ import * as utils from "./utils.js";
 window.onload = function () {
   var socket = io({ transports: ["websocket"], upgrade: false });
 
-  const submitNameBtn = document.querySelector("#name-btn");
+  // const submitNameBtn = document.querySelector("#name-btn");
   const submitClueBtn = document.querySelector("#clue-btn");
   const blueJoinSpyBtn = document.querySelector("#join-blue-spy");
   const blueJoinOpsBtn = document.querySelector("#join-blue-op");
@@ -12,7 +12,7 @@ window.onload = function () {
   const endTurnBtn = document.querySelector("#end-turn");
 
   const hostNameSpan = document.querySelector("#host-name-span");
-  const nameInput = document.querySelector("#name-input");
+  // const nameInput = document.querySelector("#name-input");
   const clueInput = document.querySelector("#input-clue");
   const clueNumInput = document.querySelector("#input-clue-num");
   const turnSpan = document.querySelector("#turn");
@@ -45,11 +45,11 @@ window.onload = function () {
   /* Event listeners */
 
   // Submit new name
-  submitNameBtn.addEventListener("click", () => {
-    socket.emit("newPlayerJoined", client, nameInput.value);
-    // utils.hideElement(submitNameBtn);
-    // utils.hideElement(nameInput);
-  });
+  // submitNameBtn.addEventListener("click", () => {
+  //   socket.emit("newPlayerJoined", client, nameInput.value);
+  //   // utils.hideElement(submitNameBtn);
+  //   // utils.hideElement(nameInput);
+  // });
 
   submitClueBtn.addEventListener("click", () => {
     if (!client.isSpymaster || !client.yourTurn) {

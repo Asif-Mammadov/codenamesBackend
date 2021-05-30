@@ -2,12 +2,13 @@ const express = require("express");
 var path = require("path");
 const Router = express.Router();
 
-const {Utils} = require("../src/Utils");
+const { Utils } = require("../src/Utils");
 const { Player } = require("../src/Player");
 const { RoleScore } = require("../src/RoleScore");
 const { GameInfo, resetGame } = require("../src/GameInfo");
 const { PlayersInfo } = require("../src/PlayersInfo");
 const { PlayerScore } = require("../src/PlayerScore");
+const { Credential } = require("../src/Credential");
 
 const playerNames = [];
 const playersInfo = new PlayersInfo();
@@ -40,13 +41,18 @@ const wordList = [
   "Backbone",
   "Bag",
 ];
-const randomNames = ['player1', 'player2', 'player3', 'player4', 'player5', 'player6']
-const assignNameIndex = (playerNames) => {
-  if(playerNames.length > randomNames.length) 
-    return -1;
-  else
-    return playerNames.length;
-}
+const randomNames = [
+  "player1",
+  "player2",
+  "player3",
+  "player4",
+  "player5",
+  "player6",
+];
+const getTmpName = (playerNames, randomNames) => {
+  if (playerNames.length > randomNames.length) return null;
+  else return randomNames[playerNames.length];
+};
 const room = "room";
 // Very simple example
 Router.use("/", (req, res, next) => {
@@ -54,44 +60,36 @@ Router.use("/", (req, res, next) => {
   const io = req.io;
   io.on("connection", (socket) => {
     socket.join(room);
-    if(playerNames.map(player => player.socketID).includes(socket.id)){
-      return;
-    }
+    let tmpName = getTmpName(playerNames, randomNames);
+    //if more than limit of players
+    if (tmpName === null) return;
     playerNames.push(
       new Player(
         socket.id,
-        null,
+        tmpName,
         new PlayerScore(new RoleScore(0, 0, 0, 0), new RoleScore(0, 0, 0, 0))
       )
     );
-    socket.emit("updatePlayers", playersInfo);
+    const { spectators } = playersInfo;
+    spectators.push(new Credential(socket.id, tmpName));
+    if (playersInfo.host.username === null) {
+      setCell(playersInfo.host, socket.id, tmpName);
+    }
     if (gameInfo.getStarted()) {
       socket.emit("getBoard", gameInfo.getBoard());
     }
-    socket.on("newPlayerJoined", (client, name) => {
-      let index = playerNames
-        .map((player) => player.username)
-        .indexOf(name);
-      if(index !== -1 && name !== null ) {
-        socket.emit("alertFromServer", "Name already entered");
-        return;
-      }
-      const { spectators } = playersInfo;
-      const playerIndex = playerNames
-        .map((player) => player.socketID)
-        .indexOf(socket.id);
-      playerNames[playerIndex].username = name;
+    const client = {
+      name: "",
+      team: "",
+      isSpymaster: false,
+      yourTurn: false,
+      canGuess: false,
+    };
+    client.name = tmpName;
+    setClient(client, "", false, false);
+    socket.emit("updateRole", client);
+    io.sockets.in(room).emit("updatePlayers", playersInfo);
 
-      spectators.push({ socketID: socket.id, username: name });
-
-      if (playersInfo.host.username === null) {
-        setCell(playersInfo.host, socket.id, name);
-      }
-      client.name = name;
-      setClient(client, "", false, false);
-      socket.emit("updateRole", client);
-      io.sockets.in(room).emit("updatePlayers", playersInfo);
-    });
     socket.on("disconnect", () => {
       const { blueOps, redOps, spectators, blueSpy, redSpy } = playersInfo;
       const playerIndex = playerNames
