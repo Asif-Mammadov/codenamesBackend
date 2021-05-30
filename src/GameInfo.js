@@ -116,12 +116,6 @@ class GameInfo {
   }
 }
 
-resetGame = (gameInfo) => {
-  gameInfo = new GameInfo();
-  return gameInfo;
-};
-
 module.exports = {
   GameInfo: GameInfo,
-  resetGame: resetGame,
 };

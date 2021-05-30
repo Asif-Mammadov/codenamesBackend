@@ -84,7 +84,7 @@ export function clearBoard(cards){
   cards.forEach(card => {
     card.className = "";
     addClass(card, "card");
-    card.innerText = "";
+    card.getElementsByTagName("p").innerText = "";
   })
 }
 export function copyObjectValues(dest, src) {
