@@ -48,8 +48,18 @@ const generateBoard = (wordList) => {
   return board;
 };
 
+const playersHere = (blueOps, redOps, blueSpy, redSpy) => {
+    if (
+      blueOps.length === 0 ||
+      redOps.length === 0 ||
+      blueSpy.socketID === null ||
+      redSpy === null
+    ) return false;
+    return true;
+}
 module.exports = {
   randBool: randBool,
   generateLabels: generateLabels,
   generateBoard: generateBoard,
+  playersHere : playersHere,
 };

@@ -7,7 +7,6 @@ export function addNameToDOM(playerName, elementLocation) {
 export function removePlayerFromDOM(playerName, playerList) {
   if (playerList) {
     playerList.querySelectorAll("h4").forEach((element) => {
-      console.log(element);
       if (element.textContent === playerName) {
         playerList.removeChild(element);
       }
@@ -48,7 +47,6 @@ function removeClass(element, className) {
 }
 
 export function putLabels(cards, labels) {
-  console.log(labels);
   for (let i = 0; i < cards.length; i++) {
     cards[i].className = '';
     addClass(cards[i], "card");
@@ -84,8 +82,13 @@ export function isInt(value) {
 }
 export function clearBoard(cards){
   cards.forEach(card => {
-    cards.className = "";
-    addClass(cards, "card");
-    cards.innerText = "";
+    card.className = "";
+    addClass(card, "card");
+    card.innerText = "";
   })
+}
+export function copyObjectValues(dest, src) {
+  for (var key in src) {
+    dest[key] = src[key];
+  }
 }

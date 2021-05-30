@@ -2,11 +2,11 @@
   "name": "codenames",
   "version": "1.0.0",
   "description": "Codenames Board Game",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
     "test": "mocha",
     "start": "node app.js",
-    "dev": "nodemon Server.js"
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
