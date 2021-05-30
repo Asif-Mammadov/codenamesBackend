@@ -3,12 +3,13 @@ var path = require("path");
 const Router = express.Router();
 
 const { Utils } = require("../src/Utils");
-const { Player } = require("../src/Player");
+const { Player, Client } = require("../src/Player");
 const { RoleScore } = require("../src/RoleScore");
-const { GameInfo, resetGame } = require("../src/GameInfo");
+const { GameInfo } = require("../src/GameInfo");
 const { PlayersInfo } = require("../src/PlayersInfo");
 const { PlayerScore } = require("../src/PlayerScore");
 const { Credential } = require("../src/Credential");
+const { reset } = require("nodemon");
 
 const playerNames = [];
 const playersInfo = new PlayersInfo();
@@ -60,9 +61,21 @@ Router.use("/", (req, res, next) => {
   const io = req.io;
   io.on("connection", (socket) => {
     socket.join(room);
-    let tmpName = getTmpName(playerNames, randomNames);
+    let tmpName = null;
+    if (
+      (index = playerNames
+        .map((player) => player.socketID)
+        .indexOf(socket.id)) !== -1
+    ) {
+      tmpName = playerNames[index].username;
+      return;
+    } else {
+      tmpName = getTmpName(playerNames, randomNames);
+    }
     //if more than limit of players
-    if (tmpName === null) return;
+    if (tmpName === null) {
+      return;
+    }
     playerNames.push(
       new Player(
         socket.id,
@@ -78,16 +91,8 @@ Router.use("/", (req, res, next) => {
     if (gameInfo.getStarted()) {
       socket.emit("getBoard", gameInfo.getBoard());
     }
-    const client = {
-      name: "",
-      team: "",
-      isSpymaster: false,
-      yourTurn: false,
-      canGuess: false,
-    };
-    client.name = tmpName;
-    setClient(client, "", false, false);
-    socket.emit("updateRole", client);
+
+    socket.emit("updateRole", new Client(tmpName, "", false, false, false));
     io.sockets.in(room).emit("updatePlayers", playersInfo);
 
     socket.on("disconnect", () => {
@@ -183,7 +188,8 @@ Router.use("/", (req, res, next) => {
       io.sockets.in(room).emit("updatePlayers", playersInfo);
 
       //update
-      setClient(client, "b", false, gameInfo.getTurnBlue());
+      // setClient(client, "b", false, gameInfo.getTurnBlue());
+      client = new Client(client.name, "b", false, gameInfo.getTurnBlue());
       socket.emit("updateRole", client);
       socket.emit("removeLabels", socket.id);
     });
@@ -233,7 +239,8 @@ Router.use("/", (req, res, next) => {
       }
       io.sockets.in(room).emit("updatePlayers", playersInfo);
       //update
-      setClient(client, "r", false, !gameInfo.getTurnBlue());
+      // setClient(client, "r", false, !gameInfo.getTurnBlue());
+      client = new Client(client.name, "r", false, !gameInfo.getTurnBlue());
       socket.emit("updateRole", client);
       socket.emit("removeLabels", socket.id);
     });
@@ -251,8 +258,8 @@ Router.use("/", (req, res, next) => {
       }
       // check if blueSpy is not occupied
       if (spyExists(blueSpy)) {
-        console.log("Occupied by someone else");
-        socket.emit("alertFromServer", "occupied by someone else");
+        console.log("Occupied");
+        socket.emit("alertFromServer", "occupied");
         return;
       }
       if (client.team === "") {
@@ -275,7 +282,8 @@ Router.use("/", (req, res, next) => {
       setCell(blueSpy, socket.id, client.name);
       io.sockets.in(room).emit("updatePlayers", playersInfo);
       //update
-      setClient(client, "b", true, gameInfo.getTurnBlue());
+      // setClient(client, "b", true, gameInfo.getTurnBlue());
+      client = new Client(client.name, "b", true, gameInfo.getTurnBlue());
       socket.emit("updateRole", client);
       if (gameInfo.getStarted()) {
         io.sockets
@@ -301,8 +309,7 @@ Router.use("/", (req, res, next) => {
       }
       // check if blueSpy is not occupied
       if (spyExists(redSpy)) {
-        console.log("Occupied by someone else");
-        socket.emit("alertFromServer", "occupied by someone else");
+        socket.emit("alertFromServer", "occupied");
         return;
       }
       if (client.team === "") {
@@ -325,7 +332,8 @@ Router.use("/", (req, res, next) => {
       setCell(redSpy, socket.id, client.name);
       io.sockets.in(room).emit("updatePlayers", playersInfo);
       //update
-      setClient(client, "r", true, !gameInfo.getTurnBlue());
+      // setClient(client, "r", true, !gameInfo.getTurnBlue());
+      client = new Client(client.name, "r", true, !gameInfo.getTurnBlue());
       socket.emit("updateRole", client);
       if (gameInfo.getStarted()) {
         io.sockets
@@ -529,10 +537,22 @@ Router.use("/", (req, res, next) => {
       }
       endTurn(gameInfo, playersInfo);
     });
+    socket.on("resetGame", (client) => {
+      if (client.name === playersInfo.host.getUsername()) {
+        resetGame();
+      } else {
+        socket.emit("alertFromServer", "Only host can reset the game");
+      }
+    });
   });
+
   function endGame(msg) {
     io.sockets.in(room).emit("gameEnded", msg);
     gameInfo.reset();
+  }
+  function resetGame() {
+    gameInfo.reset();
+    io.sockets.in(room).emit("gameResets");
   }
 
   function endTurn(gameInfo, playersInfo) {
@@ -564,11 +584,6 @@ Router.use("/", (req, res, next) => {
 
   function spyExists(spy) {
     return spy.socketID !== null;
-  }
-  function setClient(client, team, isSpymaster, yourTurn) {
-    client.team = team;
-    client.isSpymaster = isSpymaster;
-    client.yourTurn = yourTurn;
   }
 });
 

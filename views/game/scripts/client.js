@@ -9,6 +9,7 @@ window.onload = function () {
   const redJoinOpsBtn = document.querySelector("#join-red-op");
   const redJoinSpyBtn = document.querySelector("#join-red-spy");
   const startGameBtn = document.querySelector("#start-game");
+  const resetGameBtn = document.querySelector("#reset-game")
   const endTurnBtn = document.querySelector("#end-turn");
 
   const hostNameSpan = document.querySelector("#host-name-span");
@@ -68,6 +69,10 @@ window.onload = function () {
     socket.emit("clueEntered", clueInput.value, clueNumInput.value);
     client.yourTurn = false;
   });
+
+  resetGameBtn.addEventListener("click", () => {
+    socket.emit("resetGame", client);
+  })
 
   // Select blue ops
   blueJoinOpsBtn.addEventListener("click", (e) => {
@@ -149,9 +154,8 @@ window.onload = function () {
   });
 
   socket.on("getLabels", (socketID, labels) => {
-    if (client.isSpymaster) {
+    if(socketID == socket.id){
       utils.putLabels(cards, labels);
-      client.isSpymaster = true;
     }
   });
 
@@ -211,6 +215,10 @@ window.onload = function () {
     alert(msg);
     utils.clearBoard(cards);
   });
+
+  socket.on("gameResets", () => {
+    utils.clearBoard(cards);
+  })
 
   socket.on("gamePaused", () => {
     alert("Game paused");
