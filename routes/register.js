@@ -82,6 +82,7 @@ Router.post("/registered", function (req, res) {
     var sql = "INSERT INTO User SET ?";
 
     db.query(sql, post, (err, results) => {
+      console.log(results.insertId);
       if (err) {
         console.log(err);
         return res.status(500).json({
@@ -97,6 +98,7 @@ Router.post("/registered", function (req, res) {
         status: "success",
         message: "Successfully registered",
         token: jsontoken,
+        userID: results.insertId,
       });
       db.end();
     });
