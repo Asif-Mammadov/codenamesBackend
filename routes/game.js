@@ -599,26 +599,26 @@ Router.use("/", (req, res, next) => {
     io.sockets.in(room).emit("gameResets");
   }
 
-  function endTurn(gameInfo[room], playersInfo[room]) {
-    if (gameInfo[room].getTurnBlue()) {
+  function endTurn(gameInfo, playersInfo) {
+    if (gameInfo.getTurnBlue()) {
       io.sockets.in(room).emit("notYourTurn", "b", false);
     } else {
       io.sockets.in(room).emit("notYourTurn", "r", false);
     }
 
-    gameInfo[room].getTurnBlue()
-      ? gameInfo[room].setTurnBlue(false)
-      : gameInfo[room].setTurnBlue(true);
-    gameInfo[room].setTurnSpy(true);
-    gameInfo[room].turnIncrement();
+    gameInfo.getTurnBlue()
+      ? gameInfo.setTurnBlue(false)
+      : gameInfo.setTurnBlue(true);
+    gameInfo.setTurnSpy(true);
+    gameInfo.turnIncrement();
     io.sockets.in(room).emit("turnEnded");
 
-    if (gameInfo[room].getTurnBlue() && gameInfo[room].getTurnSpy()) {
-      io.sockets.in(room).emit("turnBlueSpy", playersInfo[room].blueSpy.socketID);
-      io.sockets.in(room).emit("enterClue", playersInfo[room].blueSpy.socketID);
-    } else if (!gameInfo[room].getTurnBlue() && gameInfo[room].getTurnSpy()) {
-      io.sockets.in(room).emit("turnRedSpy", playersInfo[room].redSpy.socketID);
-      io.sockets.in(room).emit("enterClue", playersInfo[room].redSpy.socketID);
+    if (gameInfo.getTurnBlue() && gameInfo.getTurnSpy()) {
+      io.sockets.in(room).emit("turnBlueSpy", playersInfo.blueSpy.socketID);
+      io.sockets.in(room).emit("enterClue", playersInfo.blueSpy.socketID);
+    } else if (!gameInfo.getTurnBlue() && gameInfo.getTurnSpy()) {
+      io.sockets.in(room).emit("turnRedSpy", playersInfo.redSpy.socketID);
+      io.sockets.in(room).emit("enterClue", playersInfo.redSpy.socketID);
     }
   }
   function setCell(cell, socketID, username) {
