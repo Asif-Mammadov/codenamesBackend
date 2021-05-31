@@ -49,24 +49,57 @@ const randomNames = [
   "player5",
   "player6",
 ];
+
 const getTmpName = (playerNames, randomNames) => {
   if (playerNames.length > randomNames.length) return null;
   else return randomNames[playerNames.length];
 };
-const room = "room";
+
+const generateString = () => {
+  return Math.random().toString(36).substring(7);
+};
+
+const roomsId = [];
+// const room = "room";
 // Very simple example
 Router.use("/", (req, res, next) => {
   res.sendFile(path.resolve("views/game/index.html"));
   const io = req.io;
   io.on("connection", (socket) => {
-    socket.join(room);
-    playerNames.push(
-      new Player(
-        socket.id,
-        null,
-        new PlayerScore(new RoleScore(0, 0, 0, 0), new RoleScore(0, 0, 0, 0))
-      )
-    );
+    socket.on("create", () => {
+      let newRoomId = generateString();
+      roomsId.push(newRoomId);
+      socket.emit("room", newRoomId);
+      playerNames.push(
+        new Player(
+          socket.id,
+          null,
+          new PlayerScore(new RoleScore(0, 0, 0, 0), new RoleScore(0, 0, 0, 0))
+        )
+      );
+    });
+
+    socket.on("join", (room_id) => {
+      let isValid;
+      if (roomsId.includes(room_id)) {
+        isValid = true;
+        socket.join(room_id);
+        console.log(socket.id, " joined ", room_id);
+        playerNames.push(
+          new Player(
+            socket.id,
+            null,
+            new PlayerScore(
+              new RoleScore(0, 0, 0, 0),
+              new RoleScore(0, 0, 0, 0)
+            )
+          )
+        );
+      } else {
+        isValid = false;
+      }
+      socket.emit("roomChecked", isValid);
+    });
 
     socket.on("disconnect", () => {
       const { blueOps, redOps, spectators, blueSpy, redSpy } = playersInfo;
@@ -357,9 +390,9 @@ Router.use("/", (req, res, next) => {
     });
 
     socket.on("clueEntered", (clueWord, clueNum, username) => {
-      gameInfo.clues.push(new Clue(clueWord, clueNum, username))
+      gameInfo.clues.push(new Clue(clueWord, clueNum, username));
       gameInfo.setTurnSpy(false);
-      io.sockets.in(room).emit('getClues', gameInfo.clues);
+      io.sockets.in(room).emit("getClues", gameInfo.clues);
       if (gameInfo.getTurnBlue()) {
         io.sockets.in(room).emit("chooseCard", "b", false);
       } else {
@@ -550,7 +583,6 @@ Router.use("/", (req, res, next) => {
       }
       socket.emit("nicknameChecked", isValid);
     });
-
   });
 
   function endGame(msg) {
