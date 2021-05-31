@@ -17,7 +17,7 @@ Router.get('/:id/updatePassword', function(req, res) {
     });
 });
 
-Router.post('/:id/password', function(req, res) {
+Router.put('/:id/password', function(req, res) {
     db.query('SELECT Password FROM User WHERE UserID = ?', [req.params.id], function(err, result, fields) {
         var pswd = result[0].Password;
     
@@ -30,8 +30,8 @@ Router.post('/:id/password', function(req, res) {
                     message: "Same password as current"
                 });
             } else {
-                var sql = `UPDATE User SET Password = '${new_pswd}' WHERE UserID = ${req.params.id}`;
-                db.query(sql, (err, result) => {
+                var sql = `UPDATE User SET Password = ? WHERE UserID = ?`;
+                db.query(sql, [new_pswd, req.params.id], (err, result) => {
                     if(err) {
                         console.log(err);
                         return res.json({
