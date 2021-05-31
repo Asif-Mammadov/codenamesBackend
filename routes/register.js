@@ -4,7 +4,6 @@ const Router = express.Router();
 const db = require("../config/connectDB");
 const { sign } = require("jsonwebtoken");
 const bodyParser = require("body-parser");
-const { reset } = require("nodemon");
 
 Router.use(bodyParser.urlencoded({ extended: true }));
 Router.use(bodyParser.json());
@@ -25,6 +24,7 @@ Router.post("/register", function (req, res, next) {
   let name_reg = req.body.name;
   var email = req.body.email;
   var password = req.body.password;
+  
   if (req.body.phone) var phone = req.body.phone;
 
   if (password.length < 6) {

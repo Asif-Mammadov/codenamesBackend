@@ -6,6 +6,7 @@ class GameInfo {
     this.maxNSpies = 1;
     this.board = [];
     this.labels = [];
+    this.clues = [];
     this.redScore;
     this.blueScore;
     this.blueStarts = true;

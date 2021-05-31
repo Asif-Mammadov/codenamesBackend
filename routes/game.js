@@ -60,39 +60,13 @@ Router.use("/", (req, res, next) => {
   const io = req.io;
   io.on("connection", (socket) => {
     socket.join(room);
-    let tmpName = null;
-    if (
-      (index = playerNames
-        .map((player) => player.socketID)
-        .indexOf(socket.id)) !== -1
-    ) {
-      tmpName = playerNames[index].username;
-      return;
-    } else {
-      tmpName = getTmpName(playerNames, randomNames);
-    }
-    //if more than limit of players
-    if (tmpName === null) {
-      return;
-    }
     playerNames.push(
       new Player(
         socket.id,
-        tmpName,
+        null,
         new PlayerScore(new RoleScore(0, 0, 0, 0), new RoleScore(0, 0, 0, 0))
       )
     );
-    const { spectators } = playersInfo;
-    spectators.push(new Credential(socket.id, tmpName));
-    if (playersInfo.host.username === null) {
-      setCell(playersInfo.host, socket.id, tmpName);
-    }
-    if (gameInfo.getStarted()) {
-      socket.emit("getBoard", gameInfo.getBoard());
-    }
-
-    socket.emit("updateRole", new Client(tmpName, "", false, false, false));
-    io.sockets.in(room).emit("updatePlayers", playersInfo);
 
     socket.on("disconnect", () => {
       const { blueOps, redOps, spectators, blueSpy, redSpy } = playersInfo;
@@ -382,9 +356,10 @@ Router.use("/", (req, res, next) => {
       }
     });
 
-    socket.on("clueEntered", (clueWord, clueNum) => {
+    socket.on("clueEntered", (clueWord, clueNum, username) => {
+      gameInfo.clues.push(new Clue(clueWord, clueNum, username))
       gameInfo.setTurnSpy(false);
-      io.sockets.in(room).emit("shareClue", clueWord, clueNum);
+      io.sockets.in(room).emit('getClues', gameInfo.clues);
       if (gameInfo.getTurnBlue()) {
         io.sockets.in(room).emit("chooseCard", "b", false);
       } else {
@@ -543,6 +518,39 @@ Router.use("/", (req, res, next) => {
         socket.emit("alertFromServer", "Only host can reset the game");
       }
     });
+
+    socket.on("sendNickname", (nickname) => {
+      let index = playerNames
+        .map((player) => player.username)
+        .indexOf(nickname);
+      if (index !== -1) {
+        isValid = false;
+      } else {
+        isValid = true;
+        index = playerNames.map((player) => player.socketID).indexOf(socket.id);
+        if (index !== -1) {
+          playerNames[index].username = nickname;
+
+          const { spectators } = playersInfo;
+          spectators.push(new Credential(socket.id, nickname));
+          if (playersInfo.host.username === null) {
+            setCell(playersInfo.host, socket.id, nickname);
+          }
+          if (gameInfo.getStarted()) {
+            socket.emit("getBoard", gameInfo.getBoard());
+          }
+          socket.emit(
+            "updateRole",
+            new Client(nickname, "", false, false, false)
+          );
+          io.sockets.in(room).emit("updatePlayers", playersInfo);
+        } else {
+          console.log("No such user with socketid");
+        }
+      }
+      socket.emit("nicknameChecked", isValid);
+    });
+
   });
 
   function endGame(msg) {
