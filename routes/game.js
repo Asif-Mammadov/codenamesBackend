@@ -583,6 +583,11 @@ Router.use("/", (req, res, next) => {
       }
       socket.emit("nicknameChecked", isValid);
     });
+
+
+    socket.on('exitRoom', (client) => {
+      console.log(client.socketID, " exited the room ", client.roomId);
+    });
   });
 
   function endGame(msg) {
@@ -624,6 +629,7 @@ Router.use("/", (req, res, next) => {
   function spyExists(spy) {
     return spy.socketID !== null;
   }
+
 });
 
 module.exports = Router;
