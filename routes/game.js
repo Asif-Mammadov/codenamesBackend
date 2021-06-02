@@ -66,6 +66,7 @@ Router.use("/", (req, res, next) => {
   res.sendFile(path.resolve("views/game/index.html"));
   const io = req.io;
   io.on("connection", (socket) => {
+    console.log("New user connected : ", socket.id);
     var room = null;
     socket.on("create", () => {
       let newRoomId = generateString();
