@@ -105,6 +105,8 @@ module.exports = (io) => {
           )
         );
         socket.emit("nicknameChecked", isValid);
+        io.sockets.in(room_global).emit("updatePlayers", playersInfo[room_global]);
+        socket.emit("updateRole", new Client(nickname, "", false, false, false, room_global));
       }
     });
     socket.on("checkRoom", (roomId) => {
@@ -219,7 +221,7 @@ module.exports = (io) => {
         setCell(blueSpy, null, null);
         blueOps.push({ socketID: socket.id, username: client.name });
       }
-      io.sockets.in(room_global).emit("updatePlayers", playersInfo[room]);
+      io.sockets.in(room_global).emit("updatePlayers", playersInfo[room_global]);
 
       //update
       // setClient(client, "b", false, gameInfo[room_global].getTurnBlue());
