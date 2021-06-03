@@ -105,7 +105,9 @@ module.exports = (io) => {
           )
         );
         socket.emit("nicknameChecked", isValid);
+        console.log("Updated player info");
         io.sockets.in(room_global).emit("updatePlayers", playersInfo[room_global]);
+        console.log("Updated role");
         socket.emit("updateRole", new Client(nickname, "", false, false, false, room_global));
       }
     });
@@ -131,7 +133,7 @@ module.exports = (io) => {
         .indexOf(socket.id);
       const playerName = playerNames[room_global][playerIndex].username;
       playerNames[room_global].splice(playerIndex, 1);
-      console.log(playerNames[room_global]);
+      console.log("Player ", playerName, " disconnected");
       if (playersInfo[room_global].host.socketID === socket.id) {
         setCell(playersInfo[room_global].host, null, null);
         for (let i = 0; i < playerNames[room_global].length; i++) {
@@ -221,6 +223,7 @@ module.exports = (io) => {
         setCell(blueSpy, null, null);
         blueOps.push({ socketID: socket.id, username: client.name });
       }
+      console.log("Update players after blueOps join")
       io.sockets.in(room_global).emit("updatePlayers", playersInfo[room_global]);
 
       //update
@@ -231,6 +234,8 @@ module.exports = (io) => {
         false,
         gameInfo[room_global].getTurnBlue()
       );
+      
+      console.log("Update role after blueOps join")
       socket.emit("updateRole", client);
       socket.emit("removeLabels", socket.id);
     });
@@ -279,6 +284,7 @@ module.exports = (io) => {
         setCell(redSpy, null, null);
         redOps.push({ socketID: socket.id, username: client.name });
       }
+      console.log("Update players after redops join")
       io.sockets.in(room_global).emit("updatePlayers", playersInfo[room]);
       //update
       // setClient(client, "r", false, !gameInfo[room_global].getTurnBlue());
@@ -288,6 +294,7 @@ module.exports = (io) => {
         false,
         !gameInfo[room_global].getTurnBlue()
       );
+      console.log("Update role after redops join")
       socket.emit("updateRole", client);
       socket.emit("removeLabels", socket.id);
     });
@@ -328,6 +335,7 @@ module.exports = (io) => {
       }
       client.isSpymaster = true;
       setCell(blueSpy, socket.id, client.name);
+      console.log("Update players after bluespy join")
       io.sockets.in(room_global).emit("updatePlayers", playersInfo[room]);
       //update
       // setClient(client, "b", true, gameInfo[room_global].getTurnBlue());
@@ -337,6 +345,7 @@ module.exports = (io) => {
         true,
         gameInfo[room_global].getTurnBlue()
       );
+      console.log("Update role after bluespy join")
       socket.emit("updateRole", client);
       if (gameInfo[room_global].getStarted()) {
         io.sockets
@@ -384,6 +393,7 @@ module.exports = (io) => {
       }
       client.isSpymaster = true;
       setCell(redSpy, socket.id, client.name);
+      console.log("Update player after redspy join")
       io.sockets.in(room_global).emit("updatePlayers", playersInfo[room]);
       //update
       // setClient(client, "r", true, !gameInfo[room_global].getTurnBlue());
@@ -393,6 +403,7 @@ module.exports = (io) => {
         true,
         !gameInfo[room_global].getTurnBlue()
       );
+      console.log("Update role after redSpy join");
       socket.emit("updateRole", client);
       if (gameInfo[room_global].getStarted()) {
         io.sockets
@@ -407,6 +418,7 @@ module.exports = (io) => {
 
     /* Game */
     socket.on("startGame", () => {
+      console.log("game starts");
       gameInfo[room_global].reset();
       // check if is host
       if (socket.id !== playersInfo[room_global].host.socketID) {
@@ -470,6 +482,7 @@ module.exports = (io) => {
     });
 
     socket.on("clueEntered", (clueWord, clueNum, username) => {
+      console.log("clue entered");
       gameInfo[room_global].clues.push(new Clue(clueWord, clueNum, username));
       gameInfo[room_global].setTurnSpy(false);
       io.sockets.in(room_global).emit("getClues", gameInfo[room].clues);
