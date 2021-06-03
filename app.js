@@ -11,25 +11,7 @@ const port = process.env.PORT || 4000;
 var allowedOrigins = ["http://localhost", process.env.FRONT_APP_URL];
 require("dotenv").config();
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        var msg =
-          "The CORS policy for this site does not " +
-          "allow access from the specified Origin.";
-        return callback(new Error(msg), false);
-      }
-      return callback(null, true);
-    },
-  })
-);
-
-app.use((req, res, next) => {
-  req.io = io;
-  return next();
-});
+app.use(cors());
 
 app.use(express.static(__dirname + "/views"));
 app.use(express.static(__dirname + "/views/game"));
@@ -46,8 +28,8 @@ app.use(require("./routes/rating"));
 app.get("/", (req, res) => {
   res.sendFile(path.resolve("views/index.html"));
 });
-app.use("/play", require("./routes/game")); // this file's express.Router() will have the req.io too.
-
+// app.use("/play", require("./routes/game")); // this file's express.Router() will have the req.io too.
+require("./routes/game")(io);
 server.listen(port, () =>
   console.log(`Server started at http://localhost:${port}`)
 );
