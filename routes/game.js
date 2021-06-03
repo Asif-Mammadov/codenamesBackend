@@ -66,7 +66,7 @@ module.exports = (io) => {
   io.on("connection", (socket) => {
     console.log("New user connected : ", socket.id);
     var room_global = null;
-    socket.on("create", () => {
+    socket.on("create", (nickname) => {
       let newRoomId = generateString();
       playerNames[newRoomId] = [];
       playersInfo[newRoomId] = new PlayersInfo();
@@ -106,6 +106,19 @@ module.exports = (io) => {
         socket.emit('nicknameChecked', isValid);
       }
     });
+    socket.on("checkRoom", roomId => {
+      let isValid;
+      if(roomsId.includes(roomId)){
+        isValid = true; 
+      } else 
+        isValid = false;
+      socket.emit('roomChecked', isValid);
+    })
+
+    socket.on('sendLang', lang => {
+      console.log("Lang changed to ", lang);
+      gameInfo[global_room].setLang(lang);
+    })
 
     socket.on("disconnect", () => {
       if(room_global === null) return;

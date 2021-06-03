@@ -13,6 +13,7 @@ class GameInfo {
     this.turnBlue = true;
     this.turnSpy = true;
     this.turnN = 0;
+    this.lang = 'en';
   }
   getStarted() {
     return this.started;
@@ -47,6 +48,9 @@ class GameInfo {
   getTurnN() {
     return this.turnN;
   }
+  getLang(){
+    return this.lang;
+  }
   setStarted(started) {
     this.started = started;
   }
@@ -79,6 +83,9 @@ class GameInfo {
   }
   setTurnN(turnN) {
     this.turnN = turnN;
+  }
+  setLang(lang){
+    this.lang = lang;
   }
 
   init(wordList) {
