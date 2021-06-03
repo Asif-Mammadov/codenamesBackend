@@ -1,3 +1,4 @@
+const Cell = require("./Cell");
 const randBool = () => {
   return Math.random() < 0.5;
 };
@@ -43,23 +44,24 @@ const generateBoard = (wordList) => {
   shuffleDeck(list);
   let board = [];
   list.forEach((word) => {
-    board.push({ word: word, label: "n" });
+    board.push(new Cell(word, "n"));
   });
   return board;
 };
 
 const playersHere = (blueOps, redOps, blueSpy, redSpy) => {
-    if (
-      blueOps.length === 0 ||
-      redOps.length === 0 ||
-      blueSpy.socketID === null ||
-      redSpy === null
-    ) return false;
-    return true;
-}
+  if (
+    blueOps.length === 0 ||
+    redOps.length === 0 ||
+    blueSpy.socketID === null ||
+    redSpy === null
+  )
+    return false;
+  return true;
+};
 module.exports = {
   randBool: randBool,
   generateLabels: generateLabels,
   generateBoard: generateBoard,
-  playersHere : playersHere,
+  playersHere: playersHere,
 };

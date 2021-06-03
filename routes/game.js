@@ -74,6 +74,7 @@ module.exports = (io) => {
       console.log("New room ", newRoomId, " is created by ", socket.id);
       roomsId.push(newRoomId);
       socket.emit("room", newRoomId);
+      console.log("PlayerNames: ", playerNames);
     });
 
     socket.on("join", (room, nickname) => {
@@ -86,6 +87,7 @@ module.exports = (io) => {
         playerNames[room].map((player) => player.username).includes(nickname)
       ) {
         isValid = false;
+
         console.log("Username is occupied : ", nickname);
         socket.emit("nicknameChecked", isValid);
       } else {
@@ -97,18 +99,21 @@ module.exports = (io) => {
         playerNames[room].push(
           new Player(
             socket.id,
-            null,
+            nickname,
             new PlayerScore(
               new RoleScore(0, 0, 0, 0),
               new RoleScore(0, 0, 0, 0)
             )
           )
         );
+        playersInfo[room_global].spectators.push(new Credential(socket.id, nickname))
         socket.emit("nicknameChecked", isValid);
         console.log("Updated player info");
+        console.log(playersInfo)
         io.sockets.in(room_global).emit("updatePlayers", playersInfo[room_global]);
         console.log("Updated role");
-        socket.emit("updateRole", new Client(nickname, "", false, false, false, room_global));
+        // make him spectator as default
+        // socket.emit("updateRole", new Client(nickname, "", false, false, false, room_global));
       }
     });
     socket.on("checkRoom", (roomId) => {
@@ -128,6 +133,7 @@ module.exports = (io) => {
       if (room_global === null) return;
       const { blueOps, redOps, spectators, blueSpy, redSpy } =
         playersInfo[room_global];
+        console.log("spectators: ", spectators);
       const playerIndex = playerNames[room_global]
         .map((player) => player.socketID)
         .indexOf(socket.id);
@@ -241,6 +247,7 @@ module.exports = (io) => {
     });
 
     socket.on("joinedRedOps", (client) => {
+      console.log(client);
       const { spectators, blueOps, redOps, blueSpy, redSpy } =
         playersInfo[room_global];
       console.log(redOps);
@@ -688,6 +695,11 @@ module.exports = (io) => {
       socket.emit("nicknameChecked", isValid);
     });
 
+    socket.on("log", msg => {
+      console.log(msg);
+      socket.emit("log2", "FromServer to client")
+    })
+
     socket.on("exitRoom", (client) => {
       if (room_global === null) return;
       const { blueOps, redOps, spectators, blueSpy, redSpy } =
@@ -744,6 +756,7 @@ module.exports = (io) => {
 
       console.log(socket.id, " exited the room ", client.roomId);
     });
+
   });
 
   function endGame(msg) {
