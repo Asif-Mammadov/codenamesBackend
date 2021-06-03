@@ -65,9 +65,8 @@ module.exports = (io) => {
   console.log("i am here");
   io.on("connection", (socket) => {
     console.log("New user connected : ", socket.id);
-    var room = null;
+    var room_global = null;
     socket.on("create", () => {
-      console.log("room created");
       let newRoomId = generateString();
       playerNames[newRoomId] = [];
       playersInfo[newRoomId] = new PlayersInfo();
@@ -75,18 +74,24 @@ module.exports = (io) => {
       console.log("New room ", newRoomId, " is created by ", socket.id);
       roomsId.push(newRoomId);
       socket.emit("room", newRoomId);
-      console.log("new roomID:", newRoomId)
     });
 
-    socket.on("join", (room) => {
-      var room = room;
+    socket.on("join", (room, nickname) => {
       let isValid;
       if (!roomsId.includes(room)) {
         isValid = false;
         console.log("Room is not valid : ", room);
-      } else {
+        socket.emit("roomChecked", isValid);
+      } else if (playerNames[room].map(player => player.username).includes(nickname)) {
+        isValid = false;
+        console.log("Username is occupied : ", nickname);
+        socket.emit('nicknameChecked', isValid);
+      }
+      else {
         isValid = true;
         socket.join(room);
+        room_global = room;
+
         console.log(socket.id, " joined ", room);
         playerNames[room].push(
           new Player(
@@ -98,40 +103,41 @@ module.exports = (io) => {
             )
           )
         );
+        socket.emit('nicknameChecked', isValid);
       }
-      socket.emit("roomChecked", isValid);
     });
 
     socket.on("disconnect", () => {
+      if(room_global === null) return;
       const { blueOps, redOps, spectators, blueSpy, redSpy } =
-        playersInfo[room];
-      const playerIndex = playerNames[room]
+        playersInfo[room_global];
+      const playerIndex = playerNames[room_global]
         .map((player) => player.socketID)
         .indexOf(socket.id);
-      const playerName = playerNames[room][playerIndex].username;
-      playerNames[room].splice(playerIndex, 1);
-      console.log(playerNames[room]);
-      if (playersInfo[room].host.socketID === socket.id) {
-        setCell(playersInfo[room].host, null, null);
-        for (let i = 0; i < playerNames[room].length; i++) {
-          if (playerNames[room][i].username !== null) {
+      const playerName = playerNames[room_global][playerIndex].username;
+      playerNames[room_global].splice(playerIndex, 1);
+      console.log(playerNames[room_global]);
+      if (playersInfo[room_global].host.socketID === socket.id) {
+        setCell(playersInfo[room_global].host, null, null);
+        for (let i = 0; i < playerNames[room_global].length; i++) {
+          if (playerNames[room_global][i].username !== null) {
             setCell(
-              playersInfo[room].host,
-              playerNames[room][i].socketID,
-              playerNames[room][i].username
+              playersInfo[room_global].host,
+              playerNames[room_global][i].socketID,
+              playerNames[room_global][i].username
             );
             break;
           }
         }
-        if (playersInfo[room].host.socketID === null) {
+        if (playersInfo[room_global].host.socketID === null) {
           console.log("reset game");
-          gameInfo[room].reset();
+          gameInfo[room_global].reset();
         }
         io.sockets
-          .in(room)
+          .in(room_global)
           .emit(
             "serverMsg",
-            playersInfo[room].host.socketID,
+            playersInfo[room_global].host.socketID,
             "You are host now!"
           );
       }
@@ -151,7 +157,7 @@ module.exports = (io) => {
         const index = spectators.map((i) => i.socketID).indexOf(socket.id);
         spectators.splice(spectators.indexOf(index), 1);
       }
-      io.sockets.in(room).emit("updatePlayers", playersInfo[room]);
+      io.sockets.in(room_global).emit("updatePlayers", playersInfo[room_global]);
     });
 
     socket.on("joinedBlueOps", (client) => {
@@ -601,32 +607,37 @@ module.exports = (io) => {
 
     socket.on("sendNickname", (nickname) => {
       console.log(playerNames);
-      let index = playerNames[room]
+      if(room_global === null){
+        console.log("no room was set");
+        return;
+      }
+      let index = playerNames[room_global]
         .map((player) => player.username)
         .indexOf(nickname);
       if (index !== -1) {
         isValid = false;
       } else {
         isValid = true;
-        index = playerNames[room]
+        index = playerNames[room_global]
           .map((player) => player.socketID)
           .indexOf(socket.id);
+        console.log("index: ", index);
         if (index !== -1) {
-          playerNames[index].username = nickname;
+          playerNames[room_global][index].username = nickname;
 
-          const { spectators } = playersInfo[room];
+          const { spectators } = playersInfo[room_global];
           spectators.push(new Credential(socket.id, nickname));
-          if (playersInfo[room].host.username === null) {
-            setCell(playersInfo[room].host, socket.id, nickname);
+          if (playersInfo[room_global].host.username === null) {
+            setCell(playersInfo[room_global].host, socket.id, nickname);
           }
-          if (gameInfo[room].getStarted()) {
-            socket.emit("getBoard", gameInfo[room].getBoard());
+          if (gameInfo[room_global].getStarted()) {
+            socket.emit("getBoard", gameInfo[room_global].getBoard());
           }
           socket.emit(
             "updateRole",
             new Client(nickname, "", false, false, false)
           );
-          io.sockets.in(room).emit("updatePlayers", playersInfo[room]);
+          io.sockets.in(room_global).emit("updatePlayers", playersInfo[room_global]);
         } else {
           console.log("No such user with socketid");
         }
