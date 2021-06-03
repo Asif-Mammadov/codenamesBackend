@@ -106,14 +106,22 @@ module.exports = (io) => {
             )
           )
         );
-        playersInfo[room_global].spectators.push(new Credential(socket.id, nickname))
+        playersInfo[room_global].spectators.push(
+          new Credential(socket.id, nickname)
+        );
         socket.emit("nicknameChecked", isValid);
-        console.log("Updated player info");
-        console.log(playersInfo)
-        io.sockets.in(room_global).emit("updatePlayers", playersInfo[room_global]);
+        console.log("Updated player info: ");
+        io.sockets
+          .in(room_global)
+          .emit("updatePlayers", playersInfo[room_global]);
+        // io.sockets.in(room_global).emit("updatePlayers2", playersInfo[room_global]);
         console.log("Updated role");
         // make him spectator as default
-        // socket.emit("updateRole", new Client(nickname, "", false, false, false, room_global));
+        socket.emit(
+          "updateRole",
+          new Client(nickname, "", false, false, false, room_global)
+        );
+        // socket.emit("updateRole2", new Client(nickname, "", false, false, false, room_global), playersInfo[room_global]);
       }
     });
     socket.on("checkRoom", (roomId) => {
@@ -133,7 +141,7 @@ module.exports = (io) => {
       if (room_global === null) return;
       const { blueOps, redOps, spectators, blueSpy, redSpy } =
         playersInfo[room_global];
-        console.log("spectators: ", spectators);
+      console.log("spectators: ", spectators);
       const playerIndex = playerNames[room_global]
         .map((player) => player.socketID)
         .indexOf(socket.id);
@@ -229,8 +237,10 @@ module.exports = (io) => {
         setCell(blueSpy, null, null);
         blueOps.push({ socketID: socket.id, username: client.name });
       }
-      console.log("Update players after blueOps join")
-      io.sockets.in(room_global).emit("updatePlayers", playersInfo[room_global]);
+      console.log("Update players after blueOps join");
+      io.sockets
+        .in(room_global)
+        .emit("updatePlayers", playersInfo[room_global]);
 
       //update
       // setClient(client, "b", false, gameInfo[room_global].getTurnBlue());
@@ -238,10 +248,12 @@ module.exports = (io) => {
         client.name,
         "b",
         false,
-        gameInfo[room_global].getTurnBlue()
+        gameInfo[room_global].getTurnBlue(),
+        client.canGuess,
+        room_global
       );
-      
-      console.log("Update role after blueOps join")
+
+      console.log("Update role after blueOps join");
       socket.emit("updateRole", client);
       socket.emit("removeLabels", socket.id);
     });
@@ -291,7 +303,7 @@ module.exports = (io) => {
         setCell(redSpy, null, null);
         redOps.push({ socketID: socket.id, username: client.name });
       }
-      console.log("Update players after redops join")
+      console.log("Update players after redops join");
       io.sockets.in(room_global).emit("updatePlayers", playersInfo[room]);
       //update
       // setClient(client, "r", false, !gameInfo[room_global].getTurnBlue());
@@ -299,9 +311,11 @@ module.exports = (io) => {
         client.name,
         "r",
         false,
-        !gameInfo[room_global].getTurnBlue()
+        !gameInfo[room_global].getTurnBlue(),
+        client.canGuess,
+        global_room
       );
-      console.log("Update role after redops join")
+      console.log("Update role after redops join");
       socket.emit("updateRole", client);
       socket.emit("removeLabels", socket.id);
     });
@@ -342,7 +356,7 @@ module.exports = (io) => {
       }
       client.isSpymaster = true;
       setCell(blueSpy, socket.id, client.name);
-      console.log("Update players after bluespy join")
+      console.log("Update players after bluespy join");
       io.sockets.in(room_global).emit("updatePlayers", playersInfo[room]);
       //update
       // setClient(client, "b", true, gameInfo[room_global].getTurnBlue());
@@ -350,9 +364,11 @@ module.exports = (io) => {
         client.name,
         "b",
         true,
-        gameInfo[room_global].getTurnBlue()
+        gameInfo[room_global].getTurnBlue(),
+        cleint.canGuess,
+        room_global
       );
-      console.log("Update role after bluespy join")
+      console.log("Update role after bluespy join");
       socket.emit("updateRole", client);
       if (gameInfo[room_global].getStarted()) {
         io.sockets
@@ -400,10 +416,18 @@ module.exports = (io) => {
       }
       client.isSpymaster = true;
       setCell(redSpy, socket.id, client.name);
-      console.log("Update player after redspy join")
+      console.log("Update player after redspy join");
       io.sockets.in(room_global).emit("updatePlayers", playersInfo[room]);
       //update
       // setClient(client, "r", true, !gameInfo[room_global].getTurnBlue());
+      client = new Client(
+        client.name,
+        "r",
+        true,
+        !gameInfo[room_global],
+        client.canGuess,
+        room_global
+      );
       client = new Client(
         client.name,
         "r",
@@ -683,7 +707,7 @@ module.exports = (io) => {
           }
           socket.emit(
             "updateRole",
-            new Client(nickname, "", false, false, false)
+            new Client(nickname, "", false, false, false, room_global)
           );
           io.sockets
             .in(room_global)
@@ -695,10 +719,15 @@ module.exports = (io) => {
       socket.emit("nicknameChecked", isValid);
     });
 
-    socket.on("log", msg => {
-      console.log(msg);
-      socket.emit("log2", "FromServer to client")
-    })
+    socket.on("log", (msg) => {
+      socket.emit("updatePlayers", playersInfo[room_global]);
+      socket.emit(
+        "updateRole",
+        new Client("hello", "", false, false, false, room_global)
+      );
+      // console.log(msg);
+      // socket.emit("log2", "FromServer to client")
+    });
 
     socket.on("exitRoom", (client) => {
       if (room_global === null) return;
@@ -756,7 +785,6 @@ module.exports = (io) => {
 
       console.log(socket.id, " exited the room ", client.roomId);
     });
-
   });
 
   function endGame(msg) {
