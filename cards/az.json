@@ -1,0 +1,3022 @@
+[
+  {
+    "id": 1,
+    "value": "Sızanaq",
+    "lang": "az"
+  },
+  {
+    "id": 2,
+    "value": "Hektar",
+    "lang": "az"
+  },
+  {
+    "id": 3,
+    "value": "Kitabın əlavəsi",
+    "lang": "az"
+  },
+  {
+    "id": 4,
+    "value": "Reklam etmək",
+    "lang": "az"
+  },
+  {
+    "id": 5,
+    "value": "Təyyarə",
+    "lang": "az"
+  },
+  {
+    "id": 6,
+    "value": "Keçid",
+    "lang": "az"
+  },
+  {
+    "id": 7,
+    "value": "Timsah",
+    "lang": "az"
+  },
+  {
+    "id": 8,
+    "value": "Əlifba sırasıyla",
+    "lang": "az"
+  },
+  {
+    "id": 9,
+    "value": "Amerika",
+    "lang": "az"
+  },
+  {
+    "id": 10,
+    "value": "Topuq",
+    "lang": "az"
+  },
+  {
+    "id": 11,
+    "value": "Apatiya",
+    "lang": "az"
+  },
+  {
+    "id": 12,
+    "value": "Alqış",
+    "lang": "az"
+  },
+  {
+    "id": 13,
+    "value": "Alma sousu",
+    "lang": "az"
+  },
+  {
+    "id": 14,
+    "value": "Tətbiq",
+    "lang": "az"
+  },
+  {
+    "id": 15,
+    "value": "Arxeoloq",
+    "lang": "az"
+  },
+  {
+    "id": 16,
+    "value": "Qol",
+    "lang": "az"
+  },
+  {
+    "id": 17,
+    "value": "Hərbi gəmi donanması",
+    "lang": "az"
+  },
+  {
+    "id": 18,
+    "value": "Yuxulu",
+    "lang": "az"
+  },
+  {
+    "id": 19,
+    "value": "Astronavt",
+    "lang": "az"
+  },
+  {
+    "id": 20,
+    "value": "İdmançı",
+    "lang": "az"
+  },
+  {
+    "id": 21,
+    "value": "Xala",
+    "lang": "az"
+  },
+  {
+    "id": 22,
+    "value": "Avokado",
+    "lang": "az"
+  },
+  {
+    "id": 23,
+    "value": "Körpə baxıcısı",
+    "lang": "az"
+  },
+  {
+    "id": 24,
+    "value": "Onurğa",
+    "lang": "az"
+  },
+  {
+    "id": 25,
+    "value": "Çanta",
+    "lang": "az"
+  },
+  {
+    "id": 26,
+    "value": "Baget çörəyi",
+    "lang": "az"
+  },
+  {
+    "id": 27,
+    "value": "Keçəl",
+    "lang": "az"
+  },
+  {
+    "id": 28,
+    "value": "Şar",
+    "lang": "az"
+  },
+  {
+    "id": 29,
+    "value": "Banan",
+    "lang": "az"
+  },
+  {
+    "id": 30,
+    "value": "Tutacaq",
+    "lang": "az"
+  },
+  {
+    "id": 31,
+    "value": "Beysbol",
+    "lang": "az"
+  },
+  {
+    "id": 32,
+    "value": "Basketbol",
+    "lang": "az"
+  },
+  {
+    "id": 33,
+    "value": "Yarasa",
+    "lang": "az"
+  },
+  {
+    "id": 34,
+    "value": "Batareya",
+    "lang": "az"
+  },
+  {
+    "id": 35,
+    "value": "Çimərlik",
+    "lang": "az"
+  },
+  {
+    "id": 36,
+    "value": "Lobya",
+    "lang": "az"
+  },
+  {
+    "id": 37,
+    "value": "Taxta biti",
+    "lang": "az"
+  },
+  {
+    "id": 38,
+    "value": "Pivə",
+    "lang": "az"
+  },
+  {
+    "id": 39,
+    "value": "Bethoven",
+    "lang": "az"
+  },
+  {
+    "id": 40,
+    "value": "Kəmər",
+    "lang": "az"
+  },
+  {
+    "id": 41,
+    "value": "Uşaq önlüyü",
+    "lang": "az"
+  },
+  {
+    "id": 42,
+    "value": "Velosiped",
+    "lang": "az"
+  },
+  {
+    "id": 43,
+    "value": "Böyük",
+    "lang": "az"
+  },
+  {
+    "id": 44,
+    "value": "Reklam lövhəsi",
+    "lang": "az"
+  },
+  {
+    "id": 45,
+    "value": "Quş",
+    "lang": "az"
+  },
+  {
+    "id": 46,
+    "value": "Ad günü",
+    "lang": "az"
+  },
+  {
+    "id": 47,
+    "value": "Dişləmək",
+    "lang": "az"
+  },
+  {
+    "id": 48,
+    "value": "Dəmirçi",
+    "lang": "az"
+  },
+  {
+    "id": 49,
+    "value": "Yorğan",
+    "lang": "az"
+  },
+  {
+    "id": 50,
+    "value": "Çamaşır suyu",
+    "lang": "az"
+  },
+  {
+    "id": 51,
+    "value": "Səyahət şarı",
+    "lang": "az"
+  },
+  {
+    "id": 52,
+    "value": "Çiçək",
+    "lang": "az"
+  },
+  {
+    "id": 53,
+    "value": "Dizayn planı",
+    "lang": "az"
+  },
+  {
+    "id": 54,
+    "value": "Küt",
+    "lang": "az"
+  },
+  {
+    "id": 55,
+    "value": "Bulanıq",
+    "lang": "az"
+  },
+  {
+    "id": 56,
+    "value": "İlan növü",
+    "lang": "az"
+  },
+  {
+    "id": 57,
+    "value": "Qayıq",
+    "lang": "az"
+  },
+  {
+    "id": 58,
+    "value": "Aşağı yuxarı sallamaq",
+    "lang": "az"
+  },
+  {
+    "id": 59,
+    "value": "Yarış xizəyi",
+    "lang": "az"
+  },
+  {
+    "id": 60,
+    "value": "Bədən",
+    "lang": "az"
+  },
+  {
+    "id": 61,
+    "value": "Bomba",
+    "lang": "az"
+  },
+  {
+    "id": 62,
+    "value": "Kapot",
+    "lang": "az"
+  },
+  {
+    "id": 63,
+    "value": "Kitab",
+    "lang": "az"
+  },
+  {
+    "id": 64,
+    "value": "Kabin",
+    "lang": "az"
+  },
+  {
+    "id": 65,
+    "value": "Kəpənək qalstuk",
+    "lang": "az"
+  },
+  {
+    "id": 66,
+    "value": "Qutu",
+    "lang": "az"
+  },
+  {
+    "id": 67,
+    "value": "Oğlan",
+    "lang": "az"
+  },
+  {
+    "id": 68,
+    "value": "Beyin fırtınası",
+    "lang": "az"
+  },
+  {
+    "id": 69,
+    "value": "Marka",
+    "lang": "az"
+  },
+  {
+    "id": 70,
+    "value": "Cəsur",
+    "lang": "az"
+  },
+  {
+    "id": 71,
+    "value": "Gəlin",
+    "lang": "az"
+  },
+  {
+    "id": 72,
+    "value": "Körpü",
+    "lang": "az"
+  },
+  {
+    "id": 73,
+    "value": "Brokoli",
+    "lang": "az"
+  },
+  {
+    "id": 74,
+    "value": "Qırıq",
+    "lang": "az"
+  },
+  {
+    "id": 75,
+    "value": "Süpürgə",
+    "lang": "az"
+  },
+  {
+    "id": 76,
+    "value": "Çürük",
+    "lang": "az"
+  },
+  {
+    "id": 77,
+    "value": "Qaraşın",
+    "lang": "az"
+  },
+  {
+    "id": 78,
+    "value": "Köpük",
+    "lang": "az"
+  },
+  {
+    "id": 79,
+    "value": "Dost",
+    "lang": "az"
+  },
+  {
+    "id": 80,
+    "value": "Camış",
+    "lang": "az"
+  },
+  {
+    "id": 81,
+    "value": "Lampa",
+    "lang": "az"
+  },
+  {
+    "id": 82,
+    "value": "Dovşan",
+    "lang": "az"
+  },
+  {
+    "id": 83,
+    "value": "Avtobus",
+    "lang": "az"
+  },
+  {
+    "id": 84,
+    "value": "Satın almaq",
+    "lang": "az"
+  },
+  {
+    "id": 85,
+    "value": "Kafeterya",
+    "lang": "az"
+  },
+  {
+    "id": 86,
+    "value": "Tort",
+    "lang": "az"
+  },
+  {
+    "id": 87,
+    "value": "Kalkulyator",
+    "lang": "az"
+  },
+  {
+    "id": 88,
+    "value": "Düşərgə",
+    "lang": "az"
+  },
+  {
+    "id": 89,
+    "value": "Bacarmaq",
+    "lang": "az"
+  },
+  {
+    "id": 90,
+    "value": "Kanada",
+    "lang": "az"
+  },
+  {
+    "id": 91,
+    "value": "Şam",
+    "lang": "az"
+  },
+  {
+    "id": 92,
+    "value": "Şirniyyat",
+    "lang": "az"
+  },
+  {
+    "id": 93,
+    "value": "Xalat",
+    "lang": "az"
+  },
+  {
+    "id": 94,
+    "value": "Kapitalizm",
+    "lang": "az"
+  },
+  {
+    "id": 95,
+    "value": "Avtomobil",
+    "lang": "az"
+  },
+  {
+    "id": 96,
+    "value": "Karton",
+    "lang": "az"
+  },
+  {
+    "id": 97,
+    "value": "Xəritəşünaslıq",
+    "lang": "az"
+  },
+  {
+    "id": 98,
+    "value": "Pişik",
+    "lang": "az"
+  },
+  {
+    "id": 99,
+    "value": "CD",
+    "lang": "az"
+  },
+  {
+    "id": 100,
+    "value": "Tavan",
+    "lang": "az"
+  },
+  {
+    "id": 101,
+    "value": "Hüceyrə",
+    "lang": "az"
+  },
+  {
+    "id": 102,
+    "value": "Əsr",
+    "lang": "az"
+  },
+  {
+    "id": 103,
+    "value": "Kreslo",
+    "lang": "az"
+  },
+  {
+    "id": 104,
+    "value": "Təbaşir",
+    "lang": "az"
+  },
+  {
+    "id": 105,
+    "value": "Çempion",
+    "lang": "az"
+  },
+  {
+    "id": 106,
+    "value": "Adaptr",
+    "lang": "az"
+  },
+  {
+    "id": 107,
+    "value": "Fanat",
+    "lang": "az"
+  },
+  {
+    "id": 108,
+    "value": "Aşpaz",
+    "lang": "az"
+  },
+  {
+    "id": 109,
+    "value": "Şahmat",
+    "lang": "az"
+  },
+  {
+    "id": 110,
+    "value": "Çeynəmək",
+    "lang": "az"
+  },
+  {
+    "id": 111,
+    "value": "Toyuq",
+    "lang": "az"
+  },
+  {
+    "id": 112,
+    "value": "Səs",
+    "lang": "az"
+  },
+  {
+    "id": 113,
+    "value": "Çin",
+    "lang": "az"
+  },
+  {
+    "id": 114,
+    "value": "Şokolad",
+    "lang": "az"
+  },
+  {
+    "id": 115,
+    "value": "Kilsə",
+    "lang": "az"
+  },
+  {
+    "id": 116,
+    "value": "Sirk",
+    "lang": "az"
+  },
+  {
+    "id": 117,
+    "value": "Gil",
+    "lang": "az"
+  },
+  {
+    "id": 118,
+    "value": "Uçurum",
+    "lang": "az"
+  },
+  {
+    "id": 119,
+    "value": "Paltar",
+    "lang": "az"
+  },
+  {
+    "id": 120,
+    "value": "Saat işi",
+    "lang": "az"
+  },
+  {
+    "id": 121,
+    "value": "Təlxək",
+    "lang": "az"
+  },
+  {
+    "id": 122,
+    "value": "Açar",
+    "lang": "az"
+  },
+  {
+    "id": 123,
+    "value": "Məşqçi",
+    "lang": "az"
+  },
+  {
+    "id": 124,
+    "value": "Kömür",
+    "lang": "az"
+  },
+  {
+    "id": 125,
+    "value": "Sahil gəmisi",
+    "lang": "az"
+  },
+  {
+    "id": 126,
+    "value": "Çarx",
+    "lang": "az"
+  },
+  {
+    "id": 127,
+    "value": "Soyuq",
+    "lang": "az"
+  },
+  {
+    "id": 128,
+    "value": "Kollec",
+    "lang": "az"
+  },
+  {
+    "id": 129,
+    "value": "Rahatlıq",
+    "lang": "az"
+  },
+  {
+    "id": 130,
+    "value": "Kompüter",
+    "lang": "az"
+  },
+  {
+    "id": 131,
+    "value": "Konus",
+    "lang": "az"
+  },
+  {
+    "id": 132,
+    "value": "Davamlı",
+    "lang": "az"
+  },
+  {
+    "id": 133,
+    "value": "Söhbət",
+    "lang": "az"
+  },
+  {
+    "id": 134,
+    "value": "Yemək bişirmək",
+    "lang": "az"
+  },
+  {
+    "id": 135,
+    "value": "Hin",
+    "lang": "az"
+  },
+  {
+    "id": 136,
+    "value": "Şunur",
+    "lang": "az"
+  },
+  {
+    "id": 137,
+    "value": "Vilvet material",
+    "lang": "az"
+  },
+  {
+    "id": 138,
+    "value": "Beşik",
+    "lang": "az"
+  },
+  {
+    "id": 139,
+    "value": "Öskürək",
+    "lang": "az"
+  },
+  {
+    "id": 140,
+    "value": "İnək",
+    "lang": "az"
+  },
+  {
+    "id": 141,
+    "value": "Kovboy",
+    "lang": "az"
+  },
+  {
+    "id": 142,
+    "value": "Rəngli karandaş",
+    "lang": "az"
+  },
+  {
+    "id": 143,
+    "value": "Krem",
+    "lang": "az"
+  },
+  {
+    "id": 144,
+    "value": "Xırtıldayan",
+    "lang": "az"
+  },
+  {
+    "id": 145,
+    "value": "Tənqid etmək",
+    "lang": "az"
+  },
+  {
+    "id": 146,
+    "value": "Qarğa",
+    "lang": "az"
+  },
+  {
+    "id": 147,
+    "value": "Dəniz səyahəti",
+    "lang": "az"
+  },
+  {
+    "id": 148,
+    "value": "Qırıntı",
+    "lang": "az"
+  },
+  {
+    "id": 149,
+    "value": "Qabıq",
+    "lang": "az"
+  },
+  {
+    "id": 150,
+    "value": "Manjet",
+    "lang": "az"
+  },
+  {
+    "id": 151,
+    "value": "Pərdə",
+    "lang": "az"
+  },
+  {
+    "id": 152,
+    "value": "Qabıqüstü",
+    "lang": "az"
+  },
+  {
+    "id": 153,
+    "value": "Çar",
+    "lang": "az"
+  },
+  {
+    "id": 154,
+    "value": "Ata",
+    "lang": "az"
+  },
+  {
+    "id": 155,
+    "value": "Sübh",
+    "lang": "az"
+  },
+  {
+    "id": 156,
+    "value": "Gün",
+    "lang": "az"
+  },
+  {
+    "id": 157,
+    "value": "Dərin",
+    "lang": "az"
+  },
+  {
+    "id": 158,
+    "value": "Qüsur",
+    "lang": "az"
+  },
+  {
+    "id": 159,
+    "value": "Oyuq",
+    "lang": "az"
+  },
+  {
+    "id": 160,
+    "value": "Diş həkimi",
+    "lang": "az"
+  },
+  {
+    "id": 161,
+    "value": "Yazı masası",
+    "lang": "az"
+  },
+  {
+    "id": 162,
+    "value": "Lüğət",
+    "lang": "az"
+  },
+  {
+    "id": 163,
+    "value": "Çənə çuxuru",
+    "lang": "az"
+  },
+  {
+    "id": 164,
+    "value": "Çirkli",
+    "lang": "az"
+  },
+  {
+    "id": 165,
+    "value": "Sökmək",
+    "lang": "az"
+  },
+  {
+    "id": 166,
+    "value": "Xəndək",
+    "lang": "az"
+  },
+  {
+    "id": 167,
+    "value": "Dalğıc",
+    "lang": "az"
+  },
+  {
+    "id": 168,
+    "value": "Həkim",
+    "lang": "az"
+  },
+  {
+    "id": 169,
+    "value": "İt",
+    "lang": "az"
+  },
+  {
+    "id": 170,
+    "value": "İt evi",
+    "lang": "az"
+  },
+  {
+    "id": 171,
+    "value": "Kukla",
+    "lang": "az"
+  },
+  {
+    "id": 172,
+    "value": "Domino oyunu",
+    "lang": "az"
+  },
+  {
+    "id": 173,
+    "value": "Qapı",
+    "lang": "az"
+  },
+  {
+    "id": 174,
+    "value": "Nöqtə",
+    "lang": "az"
+  },
+  {
+    "id": 175,
+    "value": "Qurutmaq",
+    "lang": "az"
+  },
+  {
+    "id": 176,
+    "value": "Şəkil çəkmək",
+    "lang": "az"
+  },
+  {
+    "id": 177,
+    "value": "Yuxu",
+    "lang": "az"
+  },
+  {
+    "id": 178,
+    "value": "Geyinmək",
+    "lang": "az"
+  },
+  {
+    "id": 179,
+    "value": "İçmək",
+    "lang": "az"
+  },
+  {
+    "id": 180,
+    "value": "Damla",
+    "lang": "az"
+  },
+  {
+    "id": 181,
+    "value": "Zərb alətləri",
+    "lang": "az"
+  },
+  {
+    "id": 182,
+    "value": "Quruducu",
+    "lang": "az"
+  },
+  {
+    "id": 183,
+    "value": "Ördək",
+    "lang": "az"
+  },
+  {
+    "id": 184,
+    "value": "Tökmək",
+    "lang": "az"
+  },
+  {
+    "id": 185,
+    "value": "Toz",
+    "lang": "az"
+  },
+  {
+    "id": 186,
+    "value": "Qulaq",
+    "lang": "az"
+  },
+  {
+    "id": 187,
+    "value": "Yemək",
+    "lang": "az"
+  },
+  {
+    "id": 188,
+    "value": "Qara",
+    "lang": "az"
+  },
+  {
+    "id": 189,
+    "value": "Dirsək",
+    "lang": "az"
+  },
+  {
+    "id": 190,
+    "value": "Elektrik",
+    "lang": "az"
+  },
+  {
+    "id": 191,
+    "value": "Fil",
+    "lang": "az"
+  },
+  {
+    "id": 192,
+    "value": "Lift",
+    "lang": "az"
+  },
+  {
+    "id": 193,
+    "value": "Cin",
+    "lang": "az"
+  },
+  {
+    "id": 194,
+    "value": "Mühərrik",
+    "lang": "az"
+  },
+  {
+    "id": 195,
+    "value": "İngiltərə",
+    "lang": "az"
+  },
+  {
+    "id": 196,
+    "value": "Eskalator",
+    "lang": "az"
+  },
+  {
+    "id": 197,
+    "value": "Avropa",
+    "lang": "az"
+  },
+  {
+    "id": 198,
+    "value": "Təkamül",
+    "lang": "az"
+  },
+  {
+    "id": 199,
+    "value": "Genişləndirmə",
+    "lang": "az"
+  },
+  {
+    "id": 200,
+    "value": "Qaş",
+    "lang": "az"
+  },
+  {
+    "id": 201,
+    "value": "Azarkeş",
+    "lang": "az"
+  },
+  {
+    "id": 202,
+    "value": "Xülya",
+    "lang": "az"
+  },
+  {
+    "id": 203,
+    "value": "Tez",
+    "lang": "az"
+  },
+  {
+    "id": 204,
+    "value": "Ziyafət",
+    "lang": "az"
+  },
+  {
+    "id": 205,
+    "value": "Hasar",
+    "lang": "az"
+  },
+  {
+    "id": 206,
+    "value": "Feodalizm",
+    "lang": "az"
+  },
+  {
+    "id": 207,
+    "value": "Skripka",
+    "lang": "az"
+  },
+  {
+    "id": 208,
+    "value": "Fiqur",
+    "lang": "az"
+  },
+  {
+    "id": 209,
+    "value": "Barmaq",
+    "lang": "az"
+  },
+  {
+    "id": 210,
+    "value": "Atəş",
+    "lang": "az"
+  },
+  {
+    "id": 211,
+    "value": "Birinci",
+    "lang": "az"
+  },
+  {
+    "id": 212,
+    "value": "Balıqçılıq",
+    "lang": "az"
+  },
+  {
+    "id": 213,
+    "value": "Fiksaj etmək",
+    "lang": "az"
+  },
+  {
+    "id": 214,
+    "value": "Bayraq dirəyi",
+    "lang": "az"
+  },
+  {
+    "id": 215,
+    "value": "Damalı köynək",
+    "lang": "az"
+  },
+  {
+    "id": 216,
+    "value": "Fənər",
+    "lang": "az"
+  },
+  {
+    "id": 217,
+    "value": "Qoyun sürüsü",
+    "lang": "az"
+  },
+  {
+    "id": 218,
+    "value": "Qrip",
+    "lang": "az"
+  },
+  {
+    "id": 219,
+    "value": "Qızarmaq",
+    "lang": "az"
+  },
+  {
+    "id": 220,
+    "value": "Çırpınmaq",
+    "lang": "az"
+  },
+  {
+    "id": 221,
+    "value": "Duman",
+    "lang": "az"
+  },
+  {
+    "id": 222,
+    "value": "Futbol",
+    "lang": "az"
+  },
+  {
+    "id": 223,
+    "value": "Alın",
+    "lang": "az"
+  },
+  {
+    "id": 224,
+    "value": "Əbədi",
+    "lang": "az"
+  },
+  {
+    "id": 225,
+    "value": "Yarımay",
+    "lang": "az"
+  },
+  {
+    "id": 226,
+    "value": "Fransa",
+    "lang": "az"
+  },
+  {
+    "id": 227,
+    "value": "Çil",
+    "lang": "az"
+  },
+  {
+    "id": 228,
+    "value": "Yük",
+    "lang": "az"
+  },
+  {
+    "id": 229,
+    "value": "Saçaq",
+    "lang": "az"
+  },
+  {
+    "id": 230,
+    "value": "Qurbağa",
+    "lang": "az"
+  },
+  {
+    "id": 231,
+    "value": "Qaşqabaqlı",
+    "lang": "az"
+  },
+  {
+    "id": 232,
+    "value": "Oyun",
+    "lang": "az"
+  },
+  {
+    "id": 233,
+    "value": "Zibil",
+    "lang": "az"
+  },
+  {
+    "id": 234,
+    "value": "Bağ",
+    "lang": "az"
+  },
+  {
+    "id": 235,
+    "value": "Benzin",
+    "lang": "az"
+  },
+  {
+    "id": 236,
+    "value": "Qiymətli",
+    "lang": "az"
+  },
+  {
+    "id": 237,
+    "value": "Zəncəfil",
+    "lang": "az"
+  },
+  {
+    "id": 238,
+    "value": "Zəncəfilli çörək",
+    "lang": "az"
+  },
+  {
+    "id": 239,
+    "value": "Qız",
+    "lang": "az"
+  },
+  {
+    "id": 240,
+    "value": "Eynək",
+    "lang": "az"
+  },
+  {
+    "id": 241,
+    "value": "Qulyabani",
+    "lang": "az"
+  },
+  {
+    "id": 242,
+    "value": "Qızıl",
+    "lang": "az"
+  },
+  {
+    "id": 243,
+    "value": "Əlvida",
+    "lang": "az"
+  },
+  {
+    "id": 244,
+    "value": "Baba",
+    "lang": "az"
+  },
+  {
+    "id": 245,
+    "value": "Üzüm",
+    "lang": "az"
+  },
+  {
+    "id": 246,
+    "value": "Ot",
+    "lang": "az"
+  },
+  {
+    "id": 247,
+    "value": "Minnətdarlıq",
+    "lang": "az"
+  },
+  {
+    "id": 248,
+    "value": "Boz",
+    "lang": "az"
+  },
+  {
+    "id": 249,
+    "value": "Yaşıl",
+    "lang": "az"
+  },
+  {
+    "id": 250,
+    "value": "Gitara",
+    "lang": "az"
+  },
+  {
+    "id": 251,
+    "value": "Saqqız",
+    "lang": "az"
+  },
+  {
+    "id": 252,
+    "value": "Saç",
+    "lang": "az"
+  },
+  {
+    "id": 253,
+    "value": "Yarım",
+    "lang": "az"
+  },
+  {
+    "id": 254,
+    "value": "Dəstək",
+    "lang": "az"
+  },
+  {
+    "id": 255,
+    "value": "Əlyazma",
+    "lang": "az"
+  },
+  {
+    "id": 256,
+    "value": "Xoşbəxt",
+    "lang": "az"
+  },
+  {
+    "id": 257,
+    "value": "Papaq",
+    "lang": "az"
+  },
+  {
+    "id": 258,
+    "value": "Lyuk",
+    "lang": "az"
+  },
+  {
+    "id": 259,
+    "value": "Baş ağrısı",
+    "lang": "az"
+  },
+  {
+    "id": 260,
+    "value": "Ürək",
+    "lang": "az"
+  },
+  {
+    "id": 261,
+    "value": "Çit",
+    "lang": "az"
+  },
+  {
+    "id": 262,
+    "value": "Helikopter",
+    "lang": "az"
+  },
+  {
+    "id": 263,
+    "value": "Gizlətmək",
+    "lang": "az"
+  },
+  {
+    "id": 264,
+    "value": "Təpə",
+    "lang": "az"
+  },
+  {
+    "id": 265,
+    "value": "Xokkey",
+    "lang": "az"
+  },
+  {
+    "id": 266,
+    "value": "Ev tapşırığı",
+    "lang": "az"
+  },
+  {
+    "id": 267,
+    "value": "Salam",
+    "lang": "az"
+  },
+  {
+    "id": 268,
+    "value": "At",
+    "lang": "az"
+  },
+  {
+    "id": 269,
+    "value": "Şlanq",
+    "lang": "az"
+  },
+  {
+    "id": 270,
+    "value": "İsti",
+    "lang": "az"
+  },
+  {
+    "id": 271,
+    "value": "Ev",
+    "lang": "az"
+  },
+  {
+    "id": 272,
+    "value": "Qucaqlamaq",
+    "lang": "az"
+  },
+  {
+    "id": 273,
+    "value": "Rütübətləndirici",
+    "lang": "az"
+  },
+  {
+    "id": 274,
+    "value": "Ac",
+    "lang": "az"
+  },
+  {
+    "id": 275,
+    "value": "Maneə",
+    "lang": "az"
+  },
+  {
+    "id": 276,
+    "value": "Zərər",
+    "lang": "az"
+  },
+  {
+    "id": 277,
+    "value": "Daxma",
+    "lang": "az"
+  },
+  {
+    "id": 278,
+    "value": "Buz",
+    "lang": "az"
+  },
+  {
+    "id": 279,
+    "value": "Mehmanxana",
+    "lang": "az"
+  },
+  {
+    "id": 280,
+    "value": "İnkvizisiya",
+    "lang": "az"
+  },
+  {
+    "id": 281,
+    "value": "Stajyer",
+    "lang": "az"
+  },
+  {
+    "id": 282,
+    "value": "İnternet",
+    "lang": "az"
+  },
+  {
+    "id": 283,
+    "value": "Dəvət",
+    "lang": "az"
+  },
+  {
+    "id": 284,
+    "value": "İronik",
+    "lang": "az"
+  },
+  {
+    "id": 285,
+    "value": "Fildişi",
+    "lang": "az"
+  },
+  {
+    "id": 286,
+    "value": "Sarmaşıq",
+    "lang": "az"
+  },
+  {
+    "id": 287,
+    "value": "Yaponiya",
+    "lang": "az"
+  },
+  {
+    "id": 288,
+    "value": "Cins geyimlər",
+    "lang": "az"
+  },
+  {
+    "id": 289,
+    "value": "Jele",
+    "lang": "az"
+  },
+  {
+    "id": 290,
+    "value": "Qaçmaq",
+    "lang": "az"
+  },
+  {
+    "id": 291,
+    "value": "Jurnal",
+    "lang": "az"
+  },
+  {
+    "id": 292,
+    "value": "Tullanmaq",
+    "lang": "az"
+  },
+  {
+    "id": 293,
+    "value": "İpucu",
+    "lang": "az"
+  },
+  {
+    "id": 294,
+    "value": "Qatil",
+    "lang": "az"
+  },
+  {
+    "id": 295,
+    "value": "Kiloqram",
+    "lang": "az"
+  },
+  {
+    "id": 296,
+    "value": "Kral",
+    "lang": "az"
+  },
+  {
+    "id": 297,
+    "value": "Mətbəx",
+    "lang": "az"
+  },
+  {
+    "id": 298,
+    "value": "Uçurtma",
+    "lang": "az"
+  },
+  {
+    "id": 299,
+    "value": "Diz",
+    "lang": "az"
+  },
+  {
+    "id": 300,
+    "value": "Diz çökmək",
+    "lang": "az"
+  },
+  {
+    "id": 301,
+    "value": "Bıçaq",
+    "lang": "az"
+  },
+  {
+    "id": 302,
+    "value": "Cəngavər",
+    "lang": "az"
+  },
+  {
+    "id": 303,
+    "value": "Koala",
+    "lang": "az"
+  },
+  {
+    "id": 304,
+    "value": "Nərdivan",
+    "lang": "az"
+  },
+  {
+    "id": 305,
+    "value": "Böcək",
+    "lang": "az"
+  },
+  {
+    "id": 306,
+    "value": "Gecikmə",
+    "lang": "az"
+  },
+  {
+    "id": 307,
+    "value": "Zibillik",
+    "lang": "az"
+  },
+  {
+    "id": 308,
+    "value": "Lap",
+    "lang": "az"
+  },
+  {
+    "id": 309,
+    "value": "Gülmək",
+    "lang": "az"
+  },
+  {
+    "id": 310,
+    "value": "Camaşırxana",
+    "lang": "az"
+  },
+  {
+    "id": 311,
+    "value": "Qanun",
+    "lang": "az"
+  },
+  {
+    "id": 312,
+    "value": "Qazon",
+    "lang": "az"
+  },
+  {
+    "id": 313,
+    "value": "Otbiçən",
+    "lang": "az"
+  },
+  {
+    "id": 314,
+    "value": "Sızma",
+    "lang": "az"
+  },
+  {
+    "id": 315,
+    "value": "Ayaq",
+    "lang": "az"
+  },
+  {
+    "id": 316,
+    "value": "Məktub",
+    "lang": "az"
+  },
+  {
+    "id": 317,
+    "value": "Səviyyə",
+    "lang": "az"
+  },
+  {
+    "id": 318,
+    "value": "Həyat tərzi",
+    "lang": "az"
+  },
+  {
+    "id": 319,
+    "value": "İşıq",
+    "lang": "az"
+  },
+  {
+    "id": 320,
+    "value": "Əhəng",
+    "lang": "az"
+  },
+  {
+    "id": 321,
+    "value": "Aslan",
+    "lang": "az"
+  },
+  {
+    "id": 322,
+    "value": "Kərtənkələ",
+    "lang": "az"
+  },
+  {
+    "id": 323,
+    "value": "Giriş",
+    "lang": "az"
+  },
+  {
+    "id": 324,
+    "value": "Avara",
+    "lang": "az"
+  },
+  {
+    "id": 325,
+    "value": "Şirni",
+    "lang": "az"
+  },
+  {
+    "id": 326,
+    "value": "Sadiqlik",
+    "lang": "az"
+  },
+  {
+    "id": 327,
+    "value": "Nahar",
+    "lang": "az"
+  },
+  {
+    "id": 328,
+    "value": "Günorta yeməyi",
+    "lang": "az"
+  },
+  {
+    "id": 329,
+    "value": "Mahnılar",
+    "lang": "az"
+  },
+  {
+    "id": 330,
+    "value": "Maşın",
+    "lang": "az"
+  },
+  {
+    "id": 331,
+    "value": "Poçt qutusu",
+    "lang": "az"
+  },
+  {
+    "id": 332,
+    "value": "Mamont",
+    "lang": "az"
+  },
+  {
+    "id": 333,
+    "value": "İşarələmək",
+    "lang": "az"
+  },
+  {
+    "id": 334,
+    "value": "Mars",
+    "lang": "az"
+  },
+  {
+    "id": 335,
+    "value": "Magistr",
+    "lang": "az"
+  },
+  {
+    "id": 336,
+    "value": "Kibrit çubuğu",
+    "lang": "az"
+  },
+  {
+    "id": 337,
+    "value": "Yoldaş",
+    "lang": "az"
+  },
+  {
+    "id": 338,
+    "value": "Döşək",
+    "lang": "az"
+  },
+  {
+    "id": 339,
+    "value": "Qarışıq",
+    "lang": "az"
+  },
+  {
+    "id": 340,
+    "value": "Meksika",
+    "lang": "az"
+  },
+  {
+    "id": 341,
+    "value": "Yay",
+    "lang": "az"
+  },
+  {
+    "id": 342,
+    "value": "Səhv",
+    "lang": "az"
+  },
+  {
+    "id": 343,
+    "value": "Müasir",
+    "lang": "az"
+  },
+  {
+    "id": 344,
+    "value": "Kif",
+    "lang": "az"
+  },
+  {
+    "id": 345,
+    "value": "Ana",
+    "lang": "az"
+  },
+  {
+    "id": 346,
+    "value": "Bazar ertəsi",
+    "lang": "az"
+  },
+  {
+    "id": 347,
+    "value": "Pul",
+    "lang": "az"
+  },
+  {
+    "id": 348,
+    "value": "Ekran",
+    "lang": "az"
+  },
+  {
+    "id": 349,
+    "value": "Canavar",
+    "lang": "az"
+  },
+  {
+    "id": 350,
+    "value": "Ay",
+    "lang": "az"
+  },
+  {
+    "id": 351,
+    "value": "Silmək",
+    "lang": "az"
+  },
+  {
+    "id": 352,
+    "value": "Motosiklet",
+    "lang": "az"
+  },
+  {
+    "id": 353,
+    "value": "Dağ",
+    "lang": "az"
+  },
+  {
+    "id": 354,
+    "value": "Siçan",
+    "lang": "az"
+  },
+  {
+    "id": 355,
+    "value": "Palçıq",
+    "lang": "az"
+  },
+  {
+    "id": 356,
+    "value": "Musiqi",
+    "lang": "az"
+  },
+  {
+    "id": 357,
+    "value": "Səssiz",
+    "lang": "az"
+  },
+  {
+    "id": 358,
+    "value": "Təbiət",
+    "lang": "az"
+  },
+  {
+    "id": 359,
+    "value": "Müzakirə etmək",
+    "lang": "az"
+  },
+  {
+    "id": 360,
+    "value": "Qonşu",
+    "lang": "az"
+  },
+  {
+    "id": 361,
+    "value": "Yuva",
+    "lang": "az"
+  },
+  {
+    "id": 362,
+    "value": "Neytron",
+    "lang": "az"
+  },
+  {
+    "id": 363,
+    "value": "Qardaşqızı",
+    "lang": "az"
+  },
+  {
+    "id": 364,
+    "value": "Gecə",
+    "lang": "az"
+  },
+  {
+    "id": 365,
+    "value": "Kabus",
+    "lang": "az"
+  },
+  {
+    "id": 366,
+    "value": "Burun",
+    "lang": "az"
+  },
+  {
+    "id": 367,
+    "value": "Rəsədxana",
+    "lang": "az"
+  },
+  {
+    "id": 368,
+    "value": "Ofis",
+    "lang": "az"
+  },
+  {
+    "id": 369,
+    "value": "Yağ",
+    "lang": "az"
+  },
+  {
+    "id": 370,
+    "value": "Köhnə",
+    "lang": "az"
+  },
+  {
+    "id": 371,
+    "value": "Olimpiyaçı",
+    "lang": "az"
+  },
+  {
+    "id": 372,
+    "value": "Qeyri-şəffaf",
+    "lang": "az"
+  },
+  {
+    "id": 373,
+    "value": "Açıq",
+    "lang": "az"
+  },
+  {
+    "id": 374,
+    "value": "Orbit",
+    "lang": "az"
+  },
+  {
+    "id": 375,
+    "value": "Orqan",
+    "lang": "az"
+  },
+  {
+    "id": 376,
+    "value": "Təşkilatçılıq",
+    "lang": "az"
+  },
+  {
+    "id": 377,
+    "value": "Xarici",
+    "lang": "az"
+  },
+  {
+    "id": 378,
+    "value": "Çöl",
+    "lang": "az"
+  },
+  {
+    "id": 379,
+    "value": "Uverture",
+    "lang": "az"
+  },
+  {
+    "id": 380,
+    "value": "Vedrə",
+    "lang": "az"
+  },
+  {
+    "id": 381,
+    "value": "Pijama",
+    "lang": "az"
+  },
+  {
+    "id": 382,
+    "value": "Saray",
+    "lang": "az"
+  },
+  {
+    "id": 383,
+    "value": "Şalvar",
+    "lang": "az"
+  },
+  {
+    "id": 384,
+    "value": "Kağız",
+    "lang": "az"
+  },
+  {
+    "id": 385,
+    "value": "Bibər",
+    "lang": "az"
+  },
+  {
+    "id": 386,
+    "value": "Parodiya",
+    "lang": "az"
+  },
+  {
+    "id": 387,
+    "value": "Şifrə",
+    "lang": "az"
+  },
+  {
+    "id": 388,
+    "value": "Xəmir",
+    "lang": "az"
+  },
+  {
+    "id": 389,
+    "value": "Lombard",
+    "lang": "az"
+  },
+  {
+    "id": 390,
+    "value": "Armud",
+    "lang": "az"
+  },
+  {
+    "id": 391,
+    "value": "Qələm",
+    "lang": "az"
+  },
+  {
+    "id": 392,
+    "value": "Kəfgir",
+    "lang": "az"
+  },
+  {
+    "id": 393,
+    "value": "Qəpik-quruş",
+    "lang": "az"
+  },
+  {
+    "id": 394,
+    "value": "Şəxsi",
+    "lang": "az"
+  },
+  {
+    "id": 395,
+    "value": "Filosof",
+    "lang": "az"
+  },
+  {
+    "id": 396,
+    "value": "Telefon",
+    "lang": "az"
+  },
+  {
+    "id": 397,
+    "value": "Fotoşəkil",
+    "lang": "az"
+  },
+  {
+    "id": 398,
+    "value": "Piano",
+    "lang": "az"
+  },
+  {
+    "id": 399,
+    "value": "Piknik",
+    "lang": "az"
+  },
+  {
+    "id": 400,
+    "value": "Donuz",
+    "lang": "az"
+  },
+  {
+    "id": 401,
+    "value": "Yastıq",
+    "lang": "az"
+  },
+  {
+    "id": 402,
+    "value": "Pilot",
+    "lang": "az"
+  },
+  {
+    "id": 403,
+    "value": "Çimdik",
+    "lang": "az"
+  },
+  {
+    "id": 404,
+    "value": "Pirat",
+    "lang": "az"
+  },
+  {
+    "id": 405,
+    "value": "Plan",
+    "lang": "az"
+  },
+  {
+    "id": 406,
+    "value": "Taxta",
+    "lang": "az"
+  },
+  {
+    "id": 407,
+    "value": "Plitə",
+    "lang": "az"
+  },
+  {
+    "id": 408,
+    "value": "Oyun meydançası",
+    "lang": "az"
+  },
+  {
+    "id": 409,
+    "value": "Şumlamaq",
+    "lang": "az"
+  },
+  {
+    "id": 410,
+    "value": "Santexnik",
+    "lang": "az"
+  },
+  {
+    "id": 411,
+    "value": "Cib",
+    "lang": "az"
+  },
+  {
+    "id": 412,
+    "value": "Şeir",
+    "lang": "az"
+  },
+  {
+    "id": 413,
+    "value": "Qütb",
+    "lang": "az"
+  },
+  {
+    "id": 414,
+    "value": "Ses-küy",
+    "lang": "az"
+  },
+  {
+    "id": 415,
+    "value": "Hovuz",
+    "lang": "az"
+  },
+  {
+    "id": 416,
+    "value": "Əhali",
+    "lang": "az"
+  },
+  {
+    "id": 417,
+    "value": "Portfel",
+    "lang": "az"
+  },
+  {
+    "id": 418,
+    "value": "Müsbət",
+    "lang": "az"
+  },
+  {
+    "id": 419,
+    "value": "Post",
+    "lang": "az"
+  },
+  {
+    "id": 420,
+    "value": "Şahzadə",
+    "lang": "az"
+  },
+  {
+    "id": 421,
+    "value": "Təxirə salmaq",
+    "lang": "az"
+  },
+  {
+    "id": 422,
+    "value": "Protestant",
+    "lang": "az"
+  },
+  {
+    "id": 423,
+    "value": "Psixoloq",
+    "lang": "az"
+  },
+  {
+    "id": 424,
+    "value": "Nəşriyyat",
+    "lang": "az"
+  },
+  {
+    "id": 425,
+    "value": "Axmaqlıq",
+    "lang": "az"
+  },
+  {
+    "id": 426,
+    "value": "Bala",
+    "lang": "az"
+  },
+  {
+    "id": 427,
+    "value": "İtələmək",
+    "lang": "az"
+  },
+  {
+    "id": 428,
+    "value": "Tapmaca",
+    "lang": "az"
+  },
+  {
+    "id": 429,
+    "value": "Karantin",
+    "lang": "az"
+  },
+  {
+    "id": 430,
+    "value": "Kraliça",
+    "lang": "az"
+  },
+  {
+    "id": 431,
+    "value": "Sakit",
+    "lang": "az"
+  },
+  {
+    "id": 432,
+    "value": "Yarış",
+    "lang": "az"
+  },
+  {
+    "id": 433,
+    "value": "Radio",
+    "lang": "az"
+  },
+  {
+    "id": 434,
+    "value": "Sal",
+    "lang": "az"
+  },
+  {
+    "id": 435,
+    "value": "Bez",
+    "lang": "az"
+  },
+  {
+    "id": 436,
+    "value": "Göy qurşağı",
+    "lang": "az"
+  },
+  {
+    "id": 437,
+    "value": "Yağış suyu",
+    "lang": "az"
+  },
+  {
+    "id": 438,
+    "value": "Təsadüfi",
+    "lang": "az"
+  },
+  {
+    "id": 439,
+    "value": "Şüa",
+    "lang": "az"
+  },
+  {
+    "id": 440,
+    "value": "Təkrar emal",
+    "lang": "az"
+  },
+  {
+    "id": 441,
+    "value": "Qırmızı",
+    "lang": "az"
+  },
+  {
+    "id": 442,
+    "value": "Təəssüf",
+    "lang": "az"
+  },
+  {
+    "id": 443,
+    "value": "Kompensasiya",
+    "lang": "az"
+  },
+  {
+    "id": 444,
+    "value": "Qisas almaq",
+    "lang": "az"
+  },
+  {
+    "id": 445,
+    "value": "Qabırğa",
+    "lang": "az"
+  },
+  {
+    "id": 446,
+    "value": "Çərçivə",
+    "lang": "az"
+  },
+  {
+    "id": 447,
+    "value": "Gəzinti",
+    "lang": "az"
+  },
+  {
+    "id": 448,
+    "value": "Rolik",
+    "lang": "az"
+  },
+  {
+    "id": 449,
+    "value": "Otaq",
+    "lang": "az"
+  },
+  {
+    "id": 450,
+    "value": "Gül",
+    "lang": "az"
+  },
+  {
+    "id": 451,
+    "value": "Dəyirmi",
+    "lang": "az"
+  },
+  {
+    "id": 452,
+    "value": "Dairəvi",
+    "lang": "az"
+  },
+  {
+    "id": 453,
+    "value": "Basqın",
+    "lang": "az"
+  },
+  {
+    "id": 454,
+    "value": "Təkər izi",
+    "lang": "az"
+  },
+  {
+    "id": 455,
+    "value": "Kədərli",
+    "lang": "az"
+  },
+  {
+    "id": 456,
+    "value": "Təhlükəsiz",
+    "lang": "az"
+  },
+  {
+    "id": 457,
+    "value": "Qızıl balıq",
+    "lang": "az"
+  },
+  {
+    "id": 458,
+    "value": "Duz",
+    "lang": "az"
+  },
+  {
+    "id": 459,
+    "value": "Qum qalası",
+    "lang": "az"
+  },
+  {
+    "id": 460,
+    "value": "Qurşaq",
+    "lang": "az"
+  },
+  {
+    "id": 461,
+    "value": "Sendviç",
+    "lang": "az"
+  },
+  {
+    "id": 462,
+    "value": "Peyk",
+    "lang": "az"
+  },
+  {
+    "id": 463,
+    "value": "Yara",
+    "lang": "az"
+  },
+  {
+    "id": 464,
+    "value": "Qorxmuş",
+    "lang": "az"
+  },
+  {
+    "id": 465,
+    "value": "Məktəb",
+    "lang": "az"
+  },
+  {
+    "id": 466,
+    "value": "Əclaf",
+    "lang": "az"
+  },
+  {
+    "id": 467,
+    "value": "Dırmaşmaq",
+    "lang": "az"
+  },
+  {
+    "id": 468,
+    "value": "Sıxmaq",
+    "lang": "az"
+  },
+  {
+    "id": 469,
+    "value": "Mövsüm",
+    "lang": "az"
+  },
+  {
+    "id": 470,
+    "value": "Cümlə",
+    "lang": "az"
+  },
+  {
+    "id": 471,
+    "value": "Payet",
+    "lang": "az"
+  },
+  {
+    "id": 472,
+    "value": "Dəst",
+    "lang": "az"
+  },
+  {
+    "id": 473,
+    "value": "Mil",
+    "lang": "az"
+  },
+  {
+    "id": 474,
+    "value": "Dayaz",
+    "lang": "az"
+  },
+  {
+    "id": 475,
+    "value": "Şampun",
+    "lang": "az"
+  },
+  {
+    "id": 476,
+    "value": "Köpək balığı",
+    "lang": "az"
+  },
+  {
+    "id": 477,
+    "value": "Qoyun",
+    "lang": "az"
+  },
+  {
+    "id": 478,
+    "value": "Vərəq",
+    "lang": "az"
+  },
+  {
+    "id": 479,
+    "value": "Gəmi qəzası",
+    "lang": "az"
+  },
+  {
+    "id": 480,
+    "value": "Köynək",
+    "lang": "az"
+  },
+  {
+    "id": 481,
+    "value": "Ayaqqabı bağı",
+    "lang": "az"
+  },
+  {
+    "id": 482,
+    "value": "Qısa",
+    "lang": "az"
+  },
+  {
+    "id": 483,
+    "value": "Duş",
+    "lang": "az"
+  },
+  {
+    "id": 484,
+    "value": "Büzülmək",
+    "lang": "az"
+  },
+  {
+    "id": 485,
+    "value": "Xəstə",
+    "lang": "az"
+  },
+  {
+    "id": 486,
+    "value": "Mürgüləmək",
+    "lang": "az"
+  },
+  {
+    "id": 487,
+    "value": "Siluet",
+    "lang": "az"
+  },
+  {
+    "id": 488,
+    "value": "Müğənni",
+    "lang": "az"
+  },
+  {
+    "id": 489,
+    "value": "Qurtum",
+    "lang": "az"
+  },
+  {
+    "id": 490,
+    "value": "Skeyt",
+    "lang": "az"
+  },
+  {
+    "id": 491,
+    "value": "Konki sürmək",
+    "lang": "az"
+  },
+  {
+    "id": 492,
+    "value": "Xizək",
+    "lang": "az"
+  },
+  {
+    "id": 493,
+    "value": "Çırpmaq",
+    "lang": "az"
+  },
+  {
+    "id": 494,
+    "value": "Sapand",
+    "lang": "az"
+  },
+  {
+    "id": 495,
+    "value": "Yavaş",
+    "lang": "az"
+  },
+  {
+    "id": 496,
+    "value": "Düşmək",
+    "lang": "az"
+  },
+  {
+    "id": 497,
+    "value": "Asqırmaq",
+    "lang": "az"
+  },
+  {
+    "id": 498,
+    "value": "Qar",
+    "lang": "az"
+  },
+  {
+    "id": 499,
+    "value": "Mahnı",
+    "lang": "az"
+  },
+  {
+    "id": 500,
+    "value": "Yer",
+    "lang": "az"
+  },
+  {
+    "id": 501,
+    "value": "Ehtiyat",
+    "lang": "az"
+  },
+  {
+    "id": 502,
+    "value": "Natiq",
+    "lang": "az"
+  },
+  {
+    "id": 503,
+    "value": "Hörümçək",
+    "lang": "az"
+  },
+  {
+    "id": 504,
+    "value": "Tüpürcək",
+    "lang": "az"
+  },
+  {
+    "id": 505,
+    "value": "Süngər",
+    "lang": "az"
+  },
+  {
+    "id": 506,
+    "value": "Birləşdirmək",
+    "lang": "az"
+  },
+  {
+    "id": 507,
+    "value": "Qaşıq",
+    "lang": "az"
+  },
+  {
+    "id": 508,
+    "value": "Bahar",
+    "lang": "az"
+  },
+  {
+    "id": 509,
+    "value": "Yağmur",
+    "lang": "az"
+  },
+  {
+    "id": 510,
+    "value": "Casus",
+    "lang": "az"
+  },
+  {
+    "id": 511,
+    "value": "Meydan",
+    "lang": "az"
+  },
+  {
+    "id": 512,
+    "value": "Qısqırıq",
+    "lang": "az"
+  },
+  {
+    "id": 513,
+    "value": "Pilləkən",
+    "lang": "az"
+  },
+  {
+    "id": 514,
+    "value": "Şöhrət",
+    "lang": "az"
+  },
+  {
+    "id": 515,
+    "value": "Ulduz",
+    "lang": "az"
+  },
+  {
+    "id": 516,
+    "value": "Dövlət",
+    "lang": "az"
+  },
+  {
+    "id": 517,
+    "value": "Çubuq",
+    "lang": "az"
+  },
+  {
+    "id": 518,
+    "value": "Səhmdar",
+    "lang": "az"
+  },
+  {
+    "id": 519,
+    "value": "İşıqfor",
+    "lang": "az"
+  },
+  {
+    "id": 520,
+    "value": "Kəskin",
+    "lang": "az"
+  },
+  {
+    "id": 521,
+    "value": "Soba",
+    "lang": "az"
+  },
+  {
+    "id": 522,
+    "value": "Qaçaq",
+    "lang": "az"
+  },
+  {
+    "id": 523,
+    "value": "Saman",
+    "lang": "az"
+  },
+  {
+    "id": 524,
+    "value": "Axın",
+    "lang": "az"
+  },
+  {
+    "id": 525,
+    "value": "Zolaq",
+    "lang": "az"
+  },
+  {
+    "id": 526,
+    "value": "Tələbə",
+    "lang": "az"
+  },
+  {
+    "id": 527,
+    "value": "Günəş",
+    "lang": "az"
+  },
+  {
+    "id": 528,
+    "value": "Günəş yanığı",
+    "lang": "az"
+  },
+  {
+    "id": 529,
+    "value": "Suşi",
+    "lang": "az"
+  },
+  {
+    "id": 530,
+    "value": "Bataqlıq",
+    "lang": "az"
+  },
+  {
+    "id": 531,
+    "value": "Sürü",
+    "lang": "az"
+  },
+  {
+    "id": 532,
+    "value": "Sviter",
+    "lang": "az"
+  },
+  {
+    "id": 533,
+    "value": "Üzgüçülük",
+    "lang": "az"
+  },
+  {
+    "id": 534,
+    "value": "Yelləncək",
+    "lang": "az"
+  },
+  {
+    "id": 535,
+    "value": "Taxometr",
+    "lang": "az"
+  },
+  {
+    "id": 536,
+    "value": "Danışmaq",
+    "lang": "az"
+  },
+  {
+    "id": 537,
+    "value": "Taksi",
+    "lang": "az"
+  },
+  {
+    "id": 538,
+    "value": "Müəllim",
+    "lang": "az"
+  },
+  {
+    "id": 539,
+    "value": "Çaydanlıq",
+    "lang": "az"
+  },
+  {
+    "id": 540,
+    "value": "Gənc",
+    "lang": "az"
+  },
+  {
+    "id": 541,
+    "value": "On",
+    "lang": "az"
+  },
+  {
+    "id": 542,
+    "value": "Tennis",
+    "lang": "az"
+  },
+  {
+    "id": 543,
+    "value": "Oğru",
+    "lang": "az"
+  },
+  {
+    "id": 544,
+    "value": "Düşünmək",
+    "lang": "az"
+  },
+  {
+    "id": 545,
+    "value": "Taxt",
+    "lang": "az"
+  },
+  {
+    "id": 546,
+    "value": "Vasitəsilə",
+    "lang": "az"
+  },
+  {
+    "id": 547,
+    "value": "Şimşək",
+    "lang": "az"
+  },
+  {
+    "id": 548,
+    "value": "Dalğa",
+    "lang": "az"
+  },
+  {
+    "id": 549,
+    "value": "Pələng",
+    "lang": "az"
+  },
+  {
+    "id": 550,
+    "value": "Vaxt",
+    "lang": "az"
+  },
+  {
+    "id": 551,
+    "value": "Tündləşdirmə",
+    "lang": "az"
+  },
+  {
+    "id": 552,
+    "value": "Barmaqucu",
+    "lang": "az"
+  },
+  {
+    "id": 553,
+    "value": "Mükəmməl",
+    "lang": "az"
+  },
+  {
+    "id": 554,
+    "value": "Yorğun",
+    "lang": "az"
+  },
+  {
+    "id": 555,
+    "value": "Toxuma",
+    "lang": "az"
+  },
+  {
+    "id": 556,
+    "value": "Tost",
+    "lang": "az"
+  },
+  {
+    "id": 557,
+    "value": "Tualet",
+    "lang": "az"
+  },
+  {
+    "id": 558,
+    "value": "Alət",
+    "lang": "az"
+  },
+  {
+    "id": 559,
+    "value": "Diş fırçası",
+    "lang": "az"
+  },
+  {
+    "id": 560,
+    "value": "Tornado",
+    "lang": "az"
+  },
+  {
+    "id": 561,
+    "value": "Turnir",
+    "lang": "az"
+  },
+  {
+    "id": 562,
+    "value": "Traktor",
+    "lang": "az"
+  },
+  {
+    "id": 563,
+    "value": "Qatar",
+    "lang": "az"
+  },
+  {
+    "id": 564,
+    "value": "Xəzinə",
+    "lang": "az"
+  },
+  {
+    "id": 565,
+    "value": "Ağac",
+    "lang": "az"
+  },
+  {
+    "id": 566,
+    "value": "Üçbucaq",
+    "lang": "az"
+  },
+  {
+    "id": 567,
+    "value": "Səyahət",
+    "lang": "az"
+  },
+  {
+    "id": 568,
+    "value": "Yük maşını",
+    "lang": "az"
+  },
+  {
+    "id": 569,
+    "value": "Çəllək",
+    "lang": "az"
+  },
+  {
+    "id": 570,
+    "value": "Tərbiyəçi",
+    "lang": "az"
+  },
+  {
+    "id": 571,
+    "value": "Televiziya",
+    "lang": "az"
+  },
+  {
+    "id": 572,
+    "value": "Cınqıldamaq",
+    "lang": "az"
+  },
+  {
+    "id": 573,
+    "value": "Budaqcıq",
+    "lang": "az"
+  },
+  {
+    "id": 574,
+    "value": "Növ",
+    "lang": "az"
+  },
+  {
+    "id": 575,
+    "value": "Təkmilləşdirmək",
+    "lang": "az"
+  },
+  {
+    "id": 576,
+    "value": "Jilet",
+    "lang": "az"
+  },
+  {
+    "id": 577,
+    "value": "Nəzər",
+    "lang": "az"
+  },
+  {
+    "id": 578,
+    "value": "Sallamaq",
+    "lang": "az"
+  },
+  {
+    "id": 579,
+    "value": "Su",
+    "lang": "az"
+  },
+  {
+    "id": 580,
+    "value": "Qarpız",
+    "lang": "az"
+  },
+  {
+    "id": 581,
+    "value": "Mum",
+    "lang": "az"
+  },
+  {
+    "id": 582,
+    "value": "Toy",
+    "lang": "az"
+  },
+  {
+    "id": 583,
+    "value": "Alaq",
+    "lang": "az"
+  },
+  {
+    "id": 584,
+    "value": "Qaynaqçı",
+    "lang": "az"
+  },
+  {
+    "id": 585,
+    "value": "Nə olursa olsun",
+    "lang": "az"
+  },
+  {
+    "id": 586,
+    "value": "Əlil arabası",
+    "lang": "az"
+  },
+  {
+    "id": 587,
+    "value": "Qamçı",
+    "lang": "az"
+  },
+  {
+    "id": 588,
+    "value": "Yellətmək",
+    "lang": "az"
+  },
+  {
+    "id": 589,
+    "value": "Fit",
+    "lang": "az"
+  },
+  {
+    "id": 590,
+    "value": "Ağ",
+    "lang": "az"
+  },
+  {
+    "id": 591,
+    "value": "Parik",
+    "lang": "az"
+  },
+  {
+    "id": 592,
+    "value": "İstehza",
+    "lang": "az"
+  },
+  {
+    "id": 593,
+    "value": "Yel dəyirmanı",
+    "lang": "az"
+  },
+  {
+    "id": 594,
+    "value": "Qış",
+    "lang": "az"
+  },
+  {
+    "id": 595,
+    "value": "Arzu etmək",
+    "lang": "az"
+  },
+  {
+    "id": 596,
+    "value": "Yun",
+    "lang": "az"
+  },
+  {
+    "id": 597,
+    "value": "Dünya",
+    "lang": "az"
+  },
+  {
+    "id": 598,
+    "value": "Qurd",
+    "lang": "az"
+  },
+  {
+    "id": 599,
+    "value": "Qol saatı",
+    "lang": "az"
+  },
+  {
+    "id": 600,
+    "value": "Sıfır",
+    "lang": "az"
+  },
+  {
+    "id": 601,
+    "value": "İlgək",
+    "lang": "az"
+  },
+  {
+    "id": 602,
+    "value": "Zona",
+    "lang": "az"
+  },
+  {
+    "id": 603,
+    "value": "Zoopark",
+    "lang": "az"
+  },
+  {
+    "id": 604,
+    "value": "Canavar",
+    "lang": "az"
+  }
+]
