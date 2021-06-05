@@ -10,9 +10,17 @@ const { PlayersInfo } = require("../src/PlayersInfo");
 const { PlayerScore } = require("../src/PlayerScore");
 const { Credential } = require("../src/Credential");
 
+
+const DEFAULT_ROOM = "000001";
 const playerNames = new Map();
 const playersInfo = new Map();
 const gameInfo = new Map();
+
+// Create default room for testing
+playerNames[DEFAULT_ROOM] = [];
+playersInfo[DEFAULT_ROOM] = new PlayersInfo();
+gameInfo[DEFAULT_ROOM] = new GameInfo();
+var roomsId = [DEFAULT_ROOM];
 
 const wordList = [
   "Addendum",
@@ -59,25 +67,26 @@ const generateString = () => {
   return Math.random().toString(36).substring(7);
 };
 
-const roomsId = [];
-
 module.exports = (io) => {
   console.log("i am here");
   io.on("connection", (socket) => {
     console.log("New user connected : ", socket.id);
     var room_global = null;
     socket.on("create", (nickname) => {
+      console.log("Creating room");
       let newRoomId = generateString();
       playerNames[newRoomId] = [];
       playersInfo[newRoomId] = new PlayersInfo();
       gameInfo[newRoomId] = new GameInfo();
       console.log("New room ", newRoomId, " is created by ", socket.id);
       roomsId.push(newRoomId);
+      console.log("new room emitted");
       socket.emit("room", newRoomId);
       console.log("PlayerNames: ", playerNames);
     });
 
     socket.on("join", (room, nickname) => {
+      console.log("Room : ", room, "Nickname: ", nickname);
       let isValid;
       if (!roomsId.includes(room)) {
         isValid = false;
@@ -139,14 +148,10 @@ module.exports = (io) => {
     });
 
     socket.on("checkUser", (roomId, socketId) => {
-      console.log("Checking if ", socketId, " in ", roomId);
-      if(!isSocketIdInRoom(socketId, playerNames[roomId]))
-        unauth(socket);
+      console.log("Checking if ", socketID, " in ", roomId);
+      if (!isSocketIdInRoom(socketId, playerNames[roomId])) unauth(socket);
     });
 
-    function isSocketIdInRoom(socketID, playerNames){
-      return playerNames.map(player => player.socketID).includes(socketID);
-    }
     socket.on("sendLang", (lang) => {
       console.log("Lang changed to ", lang);
       gameInfo[room_global].setLang(lang);
@@ -209,7 +214,7 @@ module.exports = (io) => {
     });
 
     socket.on("joinedBlueOps", (client) => {
-      if(isUnauth(room_global)){
+      if (isUnauth(room_global)) {
         unauth(socket);
         return;
       }
@@ -278,7 +283,7 @@ module.exports = (io) => {
     });
 
     socket.on("joinedRedOps", (client) => {
-      if(isUnauth(room_global)){
+      if (isUnauth(room_global)) {
         unauth(socket);
         return;
       }
@@ -346,7 +351,7 @@ module.exports = (io) => {
     });
 
     socket.on("joinedBlueSpy", (client) => {
-      if(isUnauth(room_global)){
+      if (isUnauth(room_global)) {
         unauth(socket);
         return;
       }
@@ -414,7 +419,7 @@ module.exports = (io) => {
     });
 
     socket.on("joinedRedSpy", (client) => {
-      if(isUnauth(room_global)){
+      if (isUnauth(room_global)) {
         unauth(socket);
         return;
       }
@@ -487,7 +492,7 @@ module.exports = (io) => {
 
     /* Game */
     socket.on("startGame", () => {
-      if(isUnauth(room_global)){
+      if (isUnauth(room_global)) {
         unauth(socket);
         return;
       }
@@ -507,7 +512,7 @@ module.exports = (io) => {
       }
       if (
         playersInfo[room_global].blueOps.length === 0 ||
-        playersInfo[room_global].redOps.length === 0
+        playersInfo[global_rom].redOps.length === 0
       ) {
         console.log("One of operatives is empty!!!");
         socket.emit("alertFromServer", "Operatives are empty!");
@@ -565,7 +570,7 @@ module.exports = (io) => {
     });
 
     socket.on("clueEntered", (clueWord, clueNum, username) => {
-      if(isUnauth(room_global)){
+      if (isUnauth(room_global)) {
         unauth(socket);
         return;
       }
@@ -581,7 +586,7 @@ module.exports = (io) => {
     });
 
     socket.on("cardChosen", (cardId) => {
-      if(isUnauth(room_global)){
+      if (isUnauth(room_global)) {
         unauth(socket);
         return;
       }
@@ -724,7 +729,7 @@ module.exports = (io) => {
         endGame("Red team won");
     });
     socket.on("endTurn", () => {
-      if(isUnauth(room_global)){
+      if (isUnauth(room_global)) {
         unauth(socket);
         return;
       }
@@ -735,7 +740,7 @@ module.exports = (io) => {
       endTurn(gameInfo[room_global], playersInfo[room_global]);
     });
     socket.on("resetGame", (client) => {
-      if(isUnauth(room_global)){
+      if (isUnauth(room_global)) {
         unauth(socket);
         return;
       }
@@ -789,14 +794,7 @@ module.exports = (io) => {
     });
 
     socket.on("log", (msg) => {
-      socket.emit("ack", "thanks");
-      // socket.emit("updatePlayers", playersInfo[room_global]);
-      // socket.emit(
-      //   "updateRole",
-      //   new Client("hello", "", false, false, false, room_global)
-      // );
-      // console.log(msg);
-      // socket.emit("log2", "FromServer to client")
+      socket.emit("ack", msg);
     });
 
     socket.on("exitRoom", (client) => {
@@ -855,14 +853,31 @@ module.exports = (io) => {
 
       // console.log(socket.id, " exited the room ", client.roomId);
     });
+
+    /* ----------- Chat ------------*/
+    socket.on("sendToGlobal", (msg) => {
+      if (isUnauth(room_global)) {
+        unauth(socket);
+        return;
+      }
+      io.sockets.in(room_global).emit("getGlobalMsg", msg);
+    });
+    socket.on("sendToTeam", (msg, isBlue) => {
+      if (isUnauth(room_global)) {
+        unauth(socket);
+        return;
+      }
+      io.sockets.in(room_global).emit("getTeamMsg", msg, isBlue);
+    });
   });
-  function isUnauth(room){
-    if(room === null)
-      return true;
+
+  function isUnauth(room) {
+    if (room === null) return true;
     return false;
   }
-  function unauth(socket){
-    socket.emit('unauth');
+  function unauth(socket) {
+    console.log(socket.id + " unauth was called");
+    socket.emit("unauth");
   }
   function endGame(msg) {
     io.sockets.in(room_global).emit("gameEnded", msg);
@@ -900,6 +915,10 @@ module.exports = (io) => {
         .emit("turnRedSpy", playersInfo.redSpy.socketID);
       io.sockets.in(room_global).emit("enterClue", playersInfo.redSpy.socketID);
     }
+  }
+
+  function isSocketIdInRoom(socketID, playerNames) {
+    return playerNames.map((player) => player.socketID).includes(socketID);
   }
   function setCell(cell, socketID, username) {
     cell.socketID = socketID;
