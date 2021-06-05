@@ -139,7 +139,7 @@ module.exports = (io) => {
     });
 
     socket.on("checkUser", (roomId, socketId) => {
-      console.log("Checking if ", socketID, " in ", roomId);
+      console.log("Checking if ", socketId, " in ", roomId);
       if(!isSocketIdInRoom(socketId, playerNames[roomId]))
         unauth(socket);
     });
@@ -507,7 +507,7 @@ module.exports = (io) => {
       }
       if (
         playersInfo[room_global].blueOps.length === 0 ||
-        playersInfo[global_rom].redOps.length === 0
+        playersInfo[room_global].redOps.length === 0
       ) {
         console.log("One of operatives is empty!!!");
         socket.emit("alertFromServer", "Operatives are empty!");
