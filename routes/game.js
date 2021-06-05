@@ -200,6 +200,10 @@ module.exports = (io) => {
     });
 
     socket.on("joinedBlueOps", (client) => {
+      if(isUnauth(room_global)){
+        unauth(socket);
+        return;
+      }
       const { spectators, blueOps, redOps, blueSpy, redSpy } =
         playersInfo[room_global];
       // if spectator
@@ -265,6 +269,10 @@ module.exports = (io) => {
     });
 
     socket.on("joinedRedOps", (client) => {
+      if(isUnauth(room_global)){
+        unauth(socket);
+        return;
+      }
       console.log(client);
       const { spectators, blueOps, redOps, blueSpy, redSpy } =
         playersInfo[room_global];
@@ -329,6 +337,10 @@ module.exports = (io) => {
     });
 
     socket.on("joinedBlueSpy", (client) => {
+      if(isUnauth(room_global)){
+        unauth(socket);
+        return;
+      }
       const { spectators, blueOps, redOps, blueSpy, redSpy } =
         playersInfo[room_global];
       if (gameInfo[room_global].getStarted() && client.team.length !== 0) {
@@ -393,6 +405,10 @@ module.exports = (io) => {
     });
 
     socket.on("joinedRedSpy", (client) => {
+      if(isUnauth(room_global)){
+        unauth(socket);
+        return;
+      }
       const { spectators, blueOps, redOps, blueSpy, redSpy } =
         playersInfo[room_global];
       if (gameInfo[room_global].getStarted() && client.team.length !== 0) {
@@ -462,6 +478,10 @@ module.exports = (io) => {
 
     /* Game */
     socket.on("startGame", () => {
+      if(isUnauth(room_global)){
+        unauth(socket);
+        return;
+      }
       // check if is host
       if (socket.id !== playersInfo[room_global].host.socketID) {
         console.log("Only host can start the game!");
@@ -536,6 +556,10 @@ module.exports = (io) => {
     });
 
     socket.on("clueEntered", (clueWord, clueNum, username) => {
+      if(isUnauth(room_global)){
+        unauth(socket);
+        return;
+      }
       console.log("clue entered");
       gameInfo[room_global].clues.push(new Clue(clueWord, clueNum, username));
       gameInfo[room_global].setTurnSpy(false);
@@ -548,6 +572,10 @@ module.exports = (io) => {
     });
 
     socket.on("cardChosen", (cardId) => {
+      if(isUnauth(room_global)){
+        unauth(socket);
+        return;
+      }
       let i = gameInfo[room_global].getBoard()[cardId].label;
       if (i !== "n") {
         console.log("card already opened");
@@ -687,6 +715,10 @@ module.exports = (io) => {
         endGame("Red team won");
     });
     socket.on("endTurn", () => {
+      if(isUnauth(room_global)){
+        unauth(socket);
+        return;
+      }
       if (!Utils.playersHere(blueOps, redOps, blueSpy, redSpy)) {
         socket.emit("alertFromServer", "Players are absent");
         return;
@@ -694,6 +726,10 @@ module.exports = (io) => {
       endTurn(gameInfo[room_global], playersInfo[room_global]);
     });
     socket.on("resetGame", (client) => {
+      if(isUnauth(room_global)){
+        unauth(socket);
+        return;
+      }
       if (client.name === playersInfo[room_global].host.getUsername()) {
         resetGame();
       } else {
@@ -810,7 +846,14 @@ module.exports = (io) => {
       // console.log(socket.id, " exited the room ", client.roomId);
     });
   });
-
+  function isUnauth(room){
+    if(room === null)
+      return true;
+    return false;
+  }
+  function unauth(socket){
+    socket.emit('unauth');
+  }
   function endGame(msg) {
     io.sockets.in(room_global).emit("gameEnded", msg);
     gameInfo[room_global].reset();
