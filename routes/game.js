@@ -121,6 +121,12 @@ module.exports = (io) => {
           "updateRole",
           new Client(nickname, "", false, false, false, room_global)
         );
+
+        if (playersInfo[room_global].host.socketID === null) {
+          console.log(nickname, " is new host");
+          playersInfo[room_global].host.socketID = socket.id;
+          playersInfo[room_global].host.username = nickname;
+        }
         // socket.emit("updateRole2", new Client(nickname, "", false, false, false, room_global), playersInfo[room_global]);
       }
     });
@@ -304,7 +310,9 @@ module.exports = (io) => {
         redOps.push({ socketID: socket.id, username: client.name });
       }
       console.log("Update players after redops join");
-      io.sockets.in(room_global).emit("updatePlayers", playersInfo[room_global]);
+      io.sockets
+        .in(room_global)
+        .emit("updatePlayers", playersInfo[room_global]);
       //update
       // setClient(client, "r", false, !gameInfo[room_global].getTurnBlue());
       client = new Client(
@@ -357,7 +365,9 @@ module.exports = (io) => {
       client.isSpymaster = true;
       setCell(blueSpy, socket.id, client.name);
       console.log("Update players after bluespy join");
-      io.sockets.in(room_global).emit("updatePlayers", playersInfo[room_global]);
+      io.sockets
+        .in(room_global)
+        .emit("updatePlayers", playersInfo[room_global]);
       //update
       // setClient(client, "b", true, gameInfo[room_global].getTurnBlue());
       client = new Client(
@@ -378,7 +388,7 @@ module.exports = (io) => {
             playersInfo[room_global].blueSpy.socketID,
             gameInfo[room_global].getLabels()
           );
-        console.log('labels sent');
+        console.log("labels sent");
       }
     });
 
@@ -418,7 +428,9 @@ module.exports = (io) => {
       client.isSpymaster = true;
       setCell(redSpy, socket.id, client.name);
       console.log("Update player after redspy join");
-      io.sockets.in(room_global).emit("updatePlayers", playersInfo[room_global]);
+      io.sockets
+        .in(room_global)
+        .emit("updatePlayers", playersInfo[room_global]);
       //update
       // setClient(client, "r", true, !gameInfo[room_global].getTurnBlue());
       client = new Client(
@@ -450,10 +462,9 @@ module.exports = (io) => {
 
     /* Game */
     socket.on("startGame", () => {
-      console.log("game starts");
-      gameInfo[room_global].reset();
       // check if is host
       if (socket.id !== playersInfo[room_global].host.socketID) {
+        console.log("Only host can start the game!");
         socket.emit("alertFromServer", "Only host can start the game!");
         return;
       }
@@ -461,6 +472,7 @@ module.exports = (io) => {
         playersInfo[room_global].redSpy.socketID === null ||
         playersInfo[room_global].blueSpy.socketID === null
       ) {
+        console.log("One of spymasters is empty!!");
         socket.emit("alertFromServer", "Spymaster is empty!");
         return;
       }
@@ -468,23 +480,28 @@ module.exports = (io) => {
         playersInfo[room_global].blueOps.length === 0 ||
         playersInfo[global_rom].redOps.length === 0
       ) {
+        console.log("One of operatives is empty!!!");
         socket.emit("alertFromServer", "Operatives are empty!");
         return;
       }
+      gameInfo[room_global].reset();
       gameInfo[room_global].init(wordList);
+      console.log("emit gameStarted");
       io.sockets
         .in(room_global)
         .emit("gameStarted", gameInfo[room_global].getBlueStarts());
 
+      console.log("game starts");
+      console.log("emit getLabels to blue");
       io.sockets
         .in(room_global)
         .emit(
           "getLabels",
           playersInfo[room_global].blueSpy.socketID,
           gameInfo[room_global].getLabels()
-          );
-      console.log('labels sent');
-      
+        );
+
+      console.log("emit getLabels to red");
       io.sockets
         .in(room_global)
         .emit(
@@ -497,6 +514,7 @@ module.exports = (io) => {
       console.log("board sent");
 
       if (gameInfo[room_global].getTurnBlue() && gameInfo[room].getTurnSpy()) {
+        console.log("turn to blue spy");
         io.sockets
           .in(room_global)
           .emit("turnBlueSpy", playersInfo[room_global].blueSpy.socketID);
@@ -507,6 +525,7 @@ module.exports = (io) => {
         !gameInfo[room_global].getTurnBlue() &&
         gameInfo[room].getTurnSpy()
       ) {
+        console.log("turn to red spy");
         io.sockets
           .in(room_global)
           .emit("turnRedSpy", playersInfo[room_global].redSpy.socketID);
@@ -531,6 +550,7 @@ module.exports = (io) => {
     socket.on("cardChosen", (cardId) => {
       let i = gameInfo[room_global].getBoard()[cardId].label;
       if (i !== "n") {
+        console.log("card already opened");
         socket.emit("alertFromServer", "already opened");
         return;
       }
