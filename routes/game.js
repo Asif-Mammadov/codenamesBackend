@@ -138,6 +138,15 @@ module.exports = (io) => {
       socket.emit("roomChecked", isValid);
     });
 
+    socket.on("checkUser", (roomId, socketId) => {
+      console.log("Checking if ", socketID, " in ", roomId);
+      if(!isSocketIdInRoom(socketId, playerNames[roomId]))
+        unauth(socket);
+    });
+
+    function isSocketIdInRoom(socketID, playerNames){
+      return playerNames.map(player => player.socketID).includes(socketID);
+    }
     socket.on("sendLang", (lang) => {
       console.log("Lang changed to ", lang);
       gameInfo[room_global].setLang(lang);
@@ -780,11 +789,12 @@ module.exports = (io) => {
     });
 
     socket.on("log", (msg) => {
-      socket.emit("updatePlayers", playersInfo[room_global]);
-      socket.emit(
-        "updateRole",
-        new Client("hello", "", false, false, false, room_global)
-      );
+      socket.emit("ack", "thanks");
+      // socket.emit("updatePlayers", playersInfo[room_global]);
+      // socket.emit(
+      //   "updateRole",
+      //   new Client("hello", "", false, false, false, room_global)
+      // );
       // console.log(msg);
       // socket.emit("log2", "FromServer to client")
     });
