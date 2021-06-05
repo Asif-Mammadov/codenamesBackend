@@ -304,7 +304,7 @@ module.exports = (io) => {
         redOps.push({ socketID: socket.id, username: client.name });
       }
       console.log("Update players after redops join");
-      io.sockets.in(room_global).emit("updatePlayers", playersInfo[room]);
+      io.sockets.in(room_global).emit("updatePlayers", playersInfo[room_global]);
       //update
       // setClient(client, "r", false, !gameInfo[room_global].getTurnBlue());
       client = new Client(
@@ -313,7 +313,7 @@ module.exports = (io) => {
         false,
         !gameInfo[room_global].getTurnBlue(),
         client.canGuess,
-        global_room
+        room_global
       );
       console.log("Update role after redops join");
       socket.emit("updateRole", client);
@@ -357,7 +357,7 @@ module.exports = (io) => {
       client.isSpymaster = true;
       setCell(blueSpy, socket.id, client.name);
       console.log("Update players after bluespy join");
-      io.sockets.in(room_global).emit("updatePlayers", playersInfo[room]);
+      io.sockets.in(room_global).emit("updatePlayers", playersInfo[room_global]);
       //update
       // setClient(client, "b", true, gameInfo[room_global].getTurnBlue());
       client = new Client(
@@ -365,7 +365,7 @@ module.exports = (io) => {
         "b",
         true,
         gameInfo[room_global].getTurnBlue(),
-        cleint.canGuess,
+        client.canGuess,
         room_global
       );
       console.log("Update role after bluespy join");
@@ -378,6 +378,7 @@ module.exports = (io) => {
             playersInfo[room_global].blueSpy.socketID,
             gameInfo[room_global].getLabels()
           );
+        console.log('labels sent');
       }
     });
 
@@ -417,7 +418,7 @@ module.exports = (io) => {
       client.isSpymaster = true;
       setCell(redSpy, socket.id, client.name);
       console.log("Update player after redspy join");
-      io.sockets.in(room_global).emit("updatePlayers", playersInfo[room]);
+      io.sockets.in(room_global).emit("updatePlayers", playersInfo[room_global]);
       //update
       // setClient(client, "r", true, !gameInfo[room_global].getTurnBlue());
       client = new Client(
@@ -481,7 +482,9 @@ module.exports = (io) => {
           "getLabels",
           playersInfo[room_global].blueSpy.socketID,
           gameInfo[room_global].getLabels()
-        );
+          );
+      console.log('labels sent');
+      
       io.sockets
         .in(room_global)
         .emit(
@@ -491,6 +494,7 @@ module.exports = (io) => {
         );
 
       io.sockets.in(room_global).emit("getBoard", gameInfo[room].getBoard());
+      console.log("board sent");
 
       if (gameInfo[room_global].getTurnBlue() && gameInfo[room].getTurnSpy()) {
         io.sockets
@@ -563,7 +567,7 @@ module.exports = (io) => {
           playerNames[room_global][index].score.Spy.wrong++;
 
           gameInfo[room_global].setRedScore(gameInfo[room].getRedScore() - 1);
-          endTurn(gameInfo[room_global], playersInfo[room]);
+          endTurn(gameInfo[room_global], playersInfo[room_global]);
         } else if (curLabel === "i") {
           //give score to op
           let index = playerNames[room_global]
@@ -577,7 +581,7 @@ module.exports = (io) => {
             .indexOf(playersInfo[room_global].blueSpy.socketID);
           playerNames[room_global][index].score.Spy.i++;
 
-          endTurn(gameInfo[room_global], playersInfo[room]);
+          endTurn(gameInfo[room_global], playersInfo[room_global]);
         } else if (curLabel === "a") {
           //give score to op
           let index = playerNames[room_global]
@@ -623,7 +627,7 @@ module.exports = (io) => {
           playerNames[room_global][index].score.Spy.wrong++;
 
           gameInfo[room_global].setBlueScore(gameInfo[room].getBlueScore() - 1);
-          endTurn(gameInfo[room_global], playersInfo[room]);
+          endTurn(gameInfo[room_global], playersInfo[room_global]);
         } else if (curLabel === "i") {
           //give score to op
           let index = playerNames[room_global]
@@ -637,7 +641,7 @@ module.exports = (io) => {
             .indexOf(playersInfo[room_global].redSpy.socketID);
           playerNames[room_global][index].score.Spy.i++;
 
-          endTurn(gameInfo[room_global], playersInfo[room]);
+          endTurn(gameInfo[room_global], playersInfo[room_global]);
         } else if (curLabel === "a") {
           //give score to op
           let index = playerNames[room_global]
@@ -667,7 +671,7 @@ module.exports = (io) => {
         socket.emit("alertFromServer", "Players are absent");
         return;
       }
-      endTurn(gameInfo[room_global], playersInfo[room]);
+      endTurn(gameInfo[room_global], playersInfo[room_global]);
     });
     socket.on("resetGame", (client) => {
       if (client.name === playersInfo[room_global].host.getUsername()) {
@@ -783,7 +787,7 @@ module.exports = (io) => {
         .in(room_global)
         .emit("updatePlayers", playersInfo[room_global]);
 
-      console.log(socket.id, " exited the room ", client.roomId);
+      // console.log(socket.id, " exited the room ", client.roomId);
     });
   });
 
