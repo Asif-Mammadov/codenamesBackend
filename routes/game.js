@@ -10,7 +10,6 @@ const { PlayersInfo } = require("../src/PlayersInfo");
 const { PlayerScore } = require("../src/PlayerScore");
 const { Credential } = require("../src/Credential");
 
-
 const DEFAULT_ROOM = "000001";
 const playerNames = new Map();
 const playersInfo = new Map();
@@ -128,7 +127,7 @@ module.exports = (io) => {
         // make him spectator as default
         socket.emit(
           "updateRole",
-          new Client(nickname, "", false, false, false, room_global)
+          new Client(nickname, "", false, false, false, room_global, clientIsHost(socket.id, playersInfo.host.socketID))
         );
 
         if (playersInfo[room_global].host.socketID === null) {
@@ -274,7 +273,8 @@ module.exports = (io) => {
         false,
         gameInfo[room_global].getTurnBlue(),
         client.canGuess,
-        room_global
+        room_global,
+        clientIsHost(socket.id, playersInfo.host.socketID);
       );
 
       console.log("Update role after blueOps join");
@@ -343,7 +343,8 @@ module.exports = (io) => {
         false,
         !gameInfo[room_global].getTurnBlue(),
         client.canGuess,
-        room_global
+        room_global,
+        clientIsHost(socket.id, playerNames.host.socketID)
       );
       console.log("Update role after redops join");
       socket.emit("updateRole", client);
@@ -402,7 +403,8 @@ module.exports = (io) => {
         true,
         gameInfo[room_global].getTurnBlue(),
         client.canGuess,
-        room_global
+        room_global,
+        clientIsHost(socket.id, playerNames.host.socketID)
       );
       console.log("Update role after bluespy join");
       socket.emit("updateRole", client);
@@ -469,13 +471,15 @@ module.exports = (io) => {
         true,
         !gameInfo[room_global],
         client.canGuess,
-        room_global
+        room_global,
+        clientIsHost(socket.id, playerNames.host.socketID)
       );
       client = new Client(
         client.name,
         "r",
         true,
-        !gameInfo[room_global].getTurnBlue()
+        !gameInfo[room_global].getTurnBlue(),
+        clientIsHost(socket.id, playerNames.host.socketID)
       );
       console.log("Update role after redSpy join");
       socket.emit("updateRole", client);
@@ -544,10 +548,15 @@ module.exports = (io) => {
           gameInfo[room_global].getLabels()
         );
 
-      io.sockets.in(room_global).emit("getBoard", gameInfo[room_global].getBoard());
+      io.sockets
+        .in(room_global)
+        .emit("getBoard", gameInfo[room_global].getBoard());
       console.log("board sent");
 
-      if (gameInfo[room_global].getTurnBlue() && gameInfo[room_global].getTurnSpy()) {
+      if (
+        gameInfo[room_global].getTurnBlue() &&
+        gameInfo[room_global].getTurnSpy()
+      ) {
         console.log("turn to blue spy");
         io.sockets
           .in(room_global)
@@ -781,7 +790,7 @@ module.exports = (io) => {
           }
           socket.emit(
             "updateRole",
-            new Client(nickname, "", false, false, false, room_global)
+            new Client(nickname, "", false, false, false, room_global, clientIsHost(socket.id, playersInfo.host.socketID))
           );
           io.sockets
             .in(room_global)
@@ -919,6 +928,12 @@ module.exports = (io) => {
 
   function isSocketIdInRoom(socketID, playerNames) {
     return playerNames.map((player) => player.socketID).includes(socketID);
+  }
+  function clientIsHost(socketId, hostId) {
+    if(hostId === null){
+      console.log("ERROR in clientIsHost: hostId is null");
+    }
+    return socketId === hostId;
   }
   function setCell(cell, socketID, username) {
     cell.socketID = socketID;

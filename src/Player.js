@@ -26,13 +26,14 @@ class Player {
 }
 
 class Client {
-  constructor(name, team, isSpymaster, yourTurn, canGuess, roomId){
+  constructor(name, team, isSpymaster, yourTurn, canGuess, roomId, isHost){
     this.name = name;
     this.team = team;
     this.isSpymaster = isSpymaster;
     this.yourTurn = yourTurn;
     this.canGuess = canGuess;
     this.roomId = roomId;
+    this.isHost = isHost;
   }
   getName(){
     return this.name;
