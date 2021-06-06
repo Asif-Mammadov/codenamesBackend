@@ -557,7 +557,7 @@ module.exports = (io) => {
           .emit("enterClue", playersInfo[room_global].blueSpy.socketID);
       } else if (
         !gameInfo[room_global].getTurnBlue() &&
-        gameInfo[room].getTurnSpy()
+        gameInfo[room_global].getTurnSpy()
       ) {
         console.log("turn to red spy");
         io.sockets
@@ -577,7 +577,7 @@ module.exports = (io) => {
       console.log("clue entered");
       gameInfo[room_global].clues.push(new Clue(clueWord, clueNum, username));
       gameInfo[room_global].setTurnSpy(false);
-      io.sockets.in(room_global).emit("getClues", gameInfo[room].clues);
+      io.sockets.in(room_global).emit("getClues", gameInfo[room_global].clues);
       if (gameInfo[room_global].getTurnBlue()) {
         io.sockets.in(room_global).emit("chooseCard", "b", false);
       } else {
@@ -598,7 +598,7 @@ module.exports = (io) => {
       }
       const curLabel = (gameInfo[room_global].getBoard()[cardId].label =
         gameInfo[room_global].getLabels()[cardId]);
-      io.sockets.in(room_global).emit("getBoard", gameInfo[room].getBoard());
+      io.sockets.in(room_global).emit("getBoard", gameInfo[room_global].getBoard());
       if (gameInfo[room_global].getTurnBlue()) {
         if (curLabel === "b") {
           //give score to op
@@ -614,7 +614,7 @@ module.exports = (io) => {
           playerNames[room_global][index].score.Spy.right++;
 
           //decrease score
-          gameInfo[room_global].setBlueScore(gameInfo[room].getBlueScore() - 1);
+          gameInfo[room_global].setBlueScore(gameInfo[room_global].getBlueScore() - 1);
         } else if (curLabel === "r") {
           //give score to op
           let index = playerNames[room_global]
@@ -628,7 +628,7 @@ module.exports = (io) => {
             .indexOf(playersInfo[room_global].blueSpy.socketID);
           playerNames[room_global][index].score.Spy.wrong++;
 
-          gameInfo[room_global].setRedScore(gameInfo[room].getRedScore() - 1);
+          gameInfo[room_global].setRedScore(gameInfo[room_global].getRedScore() - 1);
           endTurn(gameInfo[room_global], playersInfo[room_global]);
         } else if (curLabel === "i") {
           //give score to op
@@ -674,7 +674,7 @@ module.exports = (io) => {
           playerNames[room_global][index].score.Spy.right++;
 
           //decrease score
-          gameInfo[room_global].setRedScore(gameInfo[room].getRedScore() - 1);
+          gameInfo[room_global].setRedScore(gameInfo[room_global].getRedScore() - 1);
         } else if (curLabel === "b") {
           //give score to op
           let index = playerNames[room_global]
@@ -688,7 +688,7 @@ module.exports = (io) => {
             .indexOf(playersInfo[room_global].redSpy.socketID);
           playerNames[room_global][index].score.Spy.wrong++;
 
-          gameInfo[room_global].setBlueScore(gameInfo[room].getBlueScore() - 1);
+          gameInfo[room_global].setBlueScore(gameInfo[room_global].getBlueScore() - 1);
           endTurn(gameInfo[room_global], playersInfo[room_global]);
         } else if (curLabel === "i") {
           //give score to op
