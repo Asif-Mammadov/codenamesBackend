@@ -4,3 +4,7 @@ class Cell{
     this.label = label;
   }
 }
+
+  module.exports = {
+    Cell: Cell,
+  }
