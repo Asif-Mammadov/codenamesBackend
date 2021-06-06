@@ -7,7 +7,7 @@
     "test": "mocha",
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "ci" : "start-server-and-test start 4000 test"
+    "ci": "start-server-and-test start 4000 test"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "mysql": "^2.18.1",
     "nocache": "^2.1.0",
     "socket.io": "^4.1.2",
-    "socket.io-client": "^4.1.2"
+    "socket.io-client": "^4.1.2",
+    "start-server-and-test": "^1.12.5"
   }
 }

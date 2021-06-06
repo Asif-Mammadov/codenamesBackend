@@ -44,7 +44,7 @@ const generateBoard = (wordList) => {
   shuffleDeck(list);
   let board = [];
   list.forEach((word) => {
-    board.push(new Cell(word, "n"));
+    board.push({'word': word, 'label': 'n'});
   });
   return board;
 };
