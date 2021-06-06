@@ -9,7 +9,7 @@ const { GameInfo } = require("../src/GameInfo");
 const { PlayersInfo } = require("../src/PlayersInfo");
 const { PlayerScore } = require("../src/PlayerScore");
 const { Credential } = require("../src/Credential");
-
+const { Clue } = require("../src/Clue");
 const DEFAULT_ROOM = "000001";
 const playerNames = new Map();
 const playersInfo = new Map();
@@ -132,9 +132,21 @@ module.exports = (io) => {
         }
         socket.emit(
           "updateRole",
-          new Client(socket.id, nickname, "", false, false, false, room_global, clientIsHost(socket.id, playersInfo[room_global].host.socketID))
+          new Client(
+            socket.id,
+            nickname,
+            "",
+            false,
+            false,
+            false,
+            room_global,
+            clientIsHost(socket.id, playersInfo[room_global].host.socketID)
+          )
         );
-        console.log("Client is host? ", clientIsHost(socket.id, playersInfo[room_global].host.socketID))
+        console.log(
+          "Client is host? ",
+          clientIsHost(socket.id, playersInfo[room_global].host.socketID)
+        );
 
         // socket.emit("updateRole2", new Client(nickname, "", false, false, false, room_global), playersInfo[room_global]);
         console.log("After join : ", playersInfo);
@@ -497,7 +509,7 @@ module.exports = (io) => {
     socket.on("startGame", () => {
       if (isUnauth(room_global)) {
         unauth(socket);
-        return 
+        return;
       }
       // check if is host
       if (socket.id !== playersInfo[room_global].host.socketID) {
@@ -606,7 +618,9 @@ module.exports = (io) => {
       }
       const curLabel = (gameInfo[room_global].getBoard()[cardId].label =
         gameInfo[room_global].getLabels()[cardId]);
-      io.sockets.in(room_global).emit("getBoard", gameInfo[room_global].getBoard());
+      io.sockets
+        .in(room_global)
+        .emit("getBoard", gameInfo[room_global].getBoard());
       if (gameInfo[room_global].getTurnBlue()) {
         if (curLabel === "b") {
           //give score to op
@@ -622,7 +636,9 @@ module.exports = (io) => {
           playerNames[room_global][index].score.Spy.right++;
 
           //decrease score
-          gameInfo[room_global].setBlueScore(gameInfo[room_global].getBlueScore() - 1);
+          gameInfo[room_global].setBlueScore(
+            gameInfo[room_global].getBlueScore() - 1
+          );
         } else if (curLabel === "r") {
           //give score to op
           let index = playerNames[room_global]
@@ -636,7 +652,9 @@ module.exports = (io) => {
             .indexOf(playersInfo[room_global].blueSpy.socketID);
           playerNames[room_global][index].score.Spy.wrong++;
 
-          gameInfo[room_global].setRedScore(gameInfo[room_global].getRedScore() - 1);
+          gameInfo[room_global].setRedScore(
+            gameInfo[room_global].getRedScore() - 1
+          );
           endTurn(gameInfo[room_global], playersInfo[room_global]);
         } else if (curLabel === "i") {
           //give score to op
@@ -682,7 +700,9 @@ module.exports = (io) => {
           playerNames[room_global][index].score.Spy.right++;
 
           //decrease score
-          gameInfo[room_global].setRedScore(gameInfo[room_global].getRedScore() - 1);
+          gameInfo[room_global].setRedScore(
+            gameInfo[room_global].getRedScore() - 1
+          );
         } else if (curLabel === "b") {
           //give score to op
           let index = playerNames[room_global]
@@ -696,7 +716,9 @@ module.exports = (io) => {
             .indexOf(playersInfo[room_global].redSpy.socketID);
           playerNames[room_global][index].score.Spy.wrong++;
 
-          gameInfo[room_global].setBlueScore(gameInfo[room_global].getBlueScore() - 1);
+          gameInfo[room_global].setBlueScore(
+            gameInfo[room_global].getBlueScore() - 1
+          );
           endTurn(gameInfo[room_global], playersInfo[room_global]);
         } else if (curLabel === "i") {
           //give score to op
@@ -789,7 +811,16 @@ module.exports = (io) => {
           }
           socket.emit(
             "updateRole",
-            new Client(client.socketID, nickname, "", false, false, false, room_global, clientIsHost(socket.id, playersInfo[room_global].host.socketID))
+            new Client(
+              client.socketID,
+              nickname,
+              "",
+              false,
+              false,
+              false,
+              room_global,
+              clientIsHost(socket.id, playersInfo[room_global].host.socketID)
+            )
           );
           io.sockets
             .in(room_global)
@@ -929,7 +960,7 @@ module.exports = (io) => {
     return playerNames.map((player) => player.socketID).includes(socketID);
   }
   function clientIsHost(socketId, hostId) {
-    if(hostId === null){
+    if (hostId === null) {
       console.log("ERROR in clientIsHost: hostId is null");
     }
     return socketId === hostId;
