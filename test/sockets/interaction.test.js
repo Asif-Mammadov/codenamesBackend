@@ -13,9 +13,17 @@ const testSendLogMessage = function (socket) {
 
 const testJoinGame = function (socket, room, nickname) {
   it("should join the game", (done) => {
+    let client;
     console.log("ROOM: ", room, ", ", nickname);
     socket.emit("join", room, nickname);
-    done();
+    socket.on("updateRole", (client) => {
+      expect(client.isHost).to.equal(true);
+      console.log(client.isHost);
+      client = client;
+      done();
+    });
+
+    socket.emit("joinedRedOps", )
   });
 };
 const testCreateGame = function (socket, nickname) {

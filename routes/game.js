@@ -134,8 +134,10 @@ module.exports = (io) => {
           "updateRole",
           new Client(nickname, "", false, false, false, room_global, clientIsHost(socket.id, playersInfo[room_global].host.socketID))
         );
+        console.log("Client is host? ", clientIsHost(socket.id, playersInfo[room_global].host.socketID))
 
         // socket.emit("updateRole2", new Client(nickname, "", false, false, false, room_global), playersInfo[room_global]);
+        console.log("After join : ", playersInfo);
       }
     });
     socket.on("checkRoom", (roomId) => {
@@ -472,13 +474,6 @@ module.exports = (io) => {
         !gameInfo[room_global],
         client.canGuess,
         room_global,
-        clientIsHost(socket.id, playerNames[room_global].socketID)
-      );
-      client = new Client(
-        client.name,
-        "r",
-        true,
-        !gameInfo[room_global].getTurnBlue(),
         clientIsHost(socket.id, playerNames[room_global].socketID)
       );
       console.log("Update role after redSpy join");
