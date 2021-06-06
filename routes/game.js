@@ -125,16 +125,16 @@ module.exports = (io) => {
         // io.sockets.in(room_global).emit("updatePlayers2", playersInfo[room_global]);
         console.log("Updated role");
         // make him spectator as default
-        socket.emit(
-          "updateRole",
-          new Client(nickname, "", false, false, false, room_global, clientIsHost(socket.id, playersInfo[room_global].host.socketID))
-        );
-
         if (playersInfo[room_global].host.socketID === null) {
           console.log(nickname, " is new host");
           playersInfo[room_global].host.socketID = socket.id;
           playersInfo[room_global].host.username = nickname;
         }
+        socket.emit(
+          "updateRole",
+          new Client(nickname, "", false, false, false, room_global, clientIsHost(socket.id, playersInfo[room_global].host.socketID))
+        );
+
         // socket.emit("updateRole2", new Client(nickname, "", false, false, false, room_global), playersInfo[room_global]);
       }
     });
