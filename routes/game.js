@@ -346,7 +346,7 @@ module.exports = (io) => {
         !gameInfo[room_global].getTurnBlue(),
         client.canGuess,
         room_global,
-        clientIsHost(socket.id, playerNames[room_global].socketID)
+        clientIsHost(socket.id, playerNames[room_global].host.socketID)
       );
       console.log("Update role after redops join");
       socket.emit("updateRole", client);
@@ -406,7 +406,7 @@ module.exports = (io) => {
         gameInfo[room_global].getTurnBlue(),
         client.canGuess,
         room_global,
-        clientIsHost(socket.id, playerNames[room_global].socketID)
+        clientIsHost(socket.id, playerNames[room_global].host.socketID)
       );
       console.log("Update role after bluespy join");
       socket.emit("updateRole", client);
@@ -474,7 +474,7 @@ module.exports = (io) => {
         !gameInfo[room_global],
         client.canGuess,
         room_global,
-        clientIsHost(socket.id, playerNames[room_global].socketID)
+        clientIsHost(socket.id, playerNames[room_global].host.socketID)
       );
       console.log("Update role after redSpy join");
       socket.emit("updateRole", client);
