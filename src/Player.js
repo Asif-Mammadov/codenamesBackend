@@ -26,7 +26,8 @@ class Player {
 }
 
 class Client {
-  constructor(name, team, isSpymaster, yourTurn, canGuess, roomId, isHost){
+  constructor(socketID, name, team, isSpymaster, yourTurn, canGuess, roomId, isHost){
+    this.socketID = socketID;
     this.name = name;
     this.team = team;
     this.isSpymaster = isSpymaster;

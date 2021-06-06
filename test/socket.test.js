@@ -17,11 +17,10 @@ describe("Sockets", function () {
   after(() => {
     socket.close();
   });
-  describe("Socket test", function () {
-    var room = DEFAULT_ROOM;
-    var nickname = "alice";
+  var room = DEFAULT_ROOM;
+  // random nickname
+  var nickname = Math.random().toString(36).substring(7);;
 
-    testSendLogMessage(socket);
-    testJoinGame(socket, room, nickname);
-  });
+  testSendLogMessage(socket);
+  testJoinGame(socket, room, nickname);
 });

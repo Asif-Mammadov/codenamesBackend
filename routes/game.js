@@ -132,7 +132,7 @@ module.exports = (io) => {
         }
         socket.emit(
           "updateRole",
-          new Client(nickname, "", false, false, false, room_global, clientIsHost(socket.id, playersInfo[room_global].host.socketID))
+          new Client(socket.id, nickname, "", false, false, false, room_global, clientIsHost(socket.id, playersInfo[room_global].host.socketID))
         );
         console.log("Client is host? ", clientIsHost(socket.id, playersInfo[room_global].host.socketID))
 
@@ -270,6 +270,7 @@ module.exports = (io) => {
       //update
       // setClient(client, "b", false, gameInfo[room_global].getTurnBlue());
       client = new Client(
+        client.socketID,
         client.name,
         "b",
         false,
@@ -340,6 +341,7 @@ module.exports = (io) => {
       //update
       // setClient(client, "r", false, !gameInfo[room_global].getTurnBlue());
       client = new Client(
+        client.socketID,
         client.name,
         "r",
         false,
@@ -400,6 +402,7 @@ module.exports = (io) => {
       //update
       // setClient(client, "b", true, gameInfo[room_global].getTurnBlue());
       client = new Client(
+        client.socketID,
         client.name,
         "b",
         true,
@@ -468,6 +471,7 @@ module.exports = (io) => {
       //update
       // setClient(client, "r", true, !gameInfo[room_global].getTurnBlue());
       client = new Client(
+        client.socketID,
         client.name,
         "r",
         true,
@@ -493,7 +497,7 @@ module.exports = (io) => {
     socket.on("startGame", () => {
       if (isUnauth(room_global)) {
         unauth(socket);
-        return;
+        return 
       }
       // check if is host
       if (socket.id !== playersInfo[room_global].host.socketID) {
@@ -785,7 +789,7 @@ module.exports = (io) => {
           }
           socket.emit(
             "updateRole",
-            new Client(nickname, "", false, false, false, room_global, clientIsHost(socket.id, playersInfo[room_global].host.socketID))
+            new Client(client.socketID, nickname, "", false, false, false, room_global, clientIsHost(socket.id, playersInfo[room_global].host.socketID))
           );
           io.sockets
             .in(room_global)

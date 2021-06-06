@@ -4,7 +4,7 @@
   "description": "Codenames Board Game",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --timeout 5000",
+    "test": "mocha --timeout 15000",
     "start": "node app.js",
     "dev": "nodemon app.js",
     "ci": "start-server-and-test start 4000 test"
