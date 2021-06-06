@@ -544,10 +544,10 @@ module.exports = (io) => {
           gameInfo[room_global].getLabels()
         );
 
-      io.sockets.in(room_global).emit("getBoard", gameInfo[room].getBoard());
+      io.sockets.in(room_global).emit("getBoard", gameInfo[room_global].getBoard());
       console.log("board sent");
 
-      if (gameInfo[room_global].getTurnBlue() && gameInfo[room].getTurnSpy()) {
+      if (gameInfo[room_global].getTurnBlue() && gameInfo[room_global].getTurnSpy()) {
         console.log("turn to blue spy");
         io.sockets
           .in(room_global)
