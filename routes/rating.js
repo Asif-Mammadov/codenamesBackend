@@ -17,7 +17,7 @@ Router.get('/:id/scoreboard', function(req, res) {
                 while (row[i]) {
                     console.log(row[i]);
                     if(row[i].Username == result[0].Username) 
-                        row[i].Username == 'You';
+                        row[i].Username = 'You';
                     i++;
                 }
                 return res.json({

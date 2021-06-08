@@ -1,4 +1,5 @@
 const { randBool, generateLabels, generateBoard } = require("./Utils");
+const {Messages} = require("./Messages");
 class GameInfo {
   constructor() {
     this.started = false;
@@ -7,12 +8,14 @@ class GameInfo {
     this.board = [];
     this.labels = [];
     this.clues = [];
+    this.messages = new Messages();
     this.redScore;
     this.blueScore;
     this.blueStarts = true;
     this.turnBlue = true;
     this.turnSpy = true;
     this.turnN = 0;
+    this.lang = 'en';
   }
   getStarted() {
     return this.started;
@@ -47,6 +50,9 @@ class GameInfo {
   getTurnN() {
     return this.turnN;
   }
+  getLang(){
+    return this.lang;
+  }
   setStarted(started) {
     this.started = started;
   }
@@ -79,6 +85,9 @@ class GameInfo {
   }
   setTurnN(turnN) {
     this.turnN = turnN;
+  }
+  setLang(lang){
+    this.lang = lang;
   }
 
   init(wordList) {
