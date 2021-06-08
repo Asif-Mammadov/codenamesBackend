@@ -512,27 +512,27 @@ module.exports = (io) => {
         return;
       }
       // check if is host
-      // if (socket.id !== playersInfo[room_global].host.socketID) {
-      //   console.log("Only host can start the game!");
-      //   socket.emit("alertFromServer", "Only host can start the game!");
-      //   return;
-      // }
-      // if (
-      //   playersInfo[room_global].redSpy.socketID === null ||
-      //   playersInfo[room_global].blueSpy.socketID === null
-      // ) {
-      //   console.log("One of spymasters is empty!!");
-      //   socket.emit("alertFromServer", "Spymaster is empty!");
-      //   return;
-      // }
-      // if (
-      //   playersInfo[room_global].blueOps.length === 0 ||
-      //   playersInfo[room_global].redOps.length === 0
-      // ) {
-      //   console.log("One of operatives is empty!!!");
-      //   socket.emit("alertFromServer", "Operatives are empty!");
-      //   return;
-      // }
+      if (socket.id !== playersInfo[room_global].host.socketID) {
+        console.log("Only host can start the game!");
+        socket.emit("alertFromServer", "Only host can start the game!");
+        return;
+      }
+      if (
+        playersInfo[room_global].redSpy.socketID === null ||
+        playersInfo[room_global].blueSpy.socketID === null
+      ) {
+        console.log("One of spymasters is empty!!");
+        socket.emit("alertFromServer", "Spymaster is empty!");
+        return;
+      }
+      if (
+        playersInfo[room_global].blueOps.length === 0 ||
+        playersInfo[room_global].redOps.length === 0
+      ) {
+        console.log("One of operatives is empty!!!");
+        socket.emit("alertFromServer", "Operatives are empty!");
+        return;
+      }
       gameInfo[room_global].reset();
       gameInfo[room_global].init(wordList);
       console.log("emit gameStarted");
@@ -937,7 +937,7 @@ module.exports = (io) => {
         gameInfo[room_global].messages.addRed(msg);
         io.sockets
           .in(room_global)
-          .emit("getTeamMessages", gameInfo[room_global].getRed(), team);
+          .emit("getTeamMessages", gameInfo[room_global].messages.getRed(), team);
       }
     });
     function endGame(msg) {
