@@ -1,4 +1,5 @@
 const { randBool, generateLabels, generateBoard } = require("./Utils");
+const {Messages} = require("./Messages");
 class GameInfo {
   constructor() {
     this.started = false;
@@ -7,6 +8,7 @@ class GameInfo {
     this.board = [];
     this.labels = [];
     this.clues = [];
+    this.messages = new Messages();
     this.redScore;
     this.blueScore;
     this.blueStarts = true;

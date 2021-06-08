@@ -563,8 +563,14 @@ module.exports = (io) => {
         .in(room_global)
         .emit("getBoard", gameInfo[room_global].getBoard());
       console.log("board sent");
-      
-      io.sockets.in(room_global).emit("getScore", gameInfo[room_global].getBlueScore(), gameInfo[room_global].getRedScore());
+
+      io.sockets
+        .in(room_global)
+        .emit(
+          "getScore",
+          gameInfo[room_global].getBlueScore(),
+          gameInfo[room_global].getRedScore()
+        );
       if (
         gameInfo[room_global].getTurnBlue() &&
         gameInfo[room_global].getTurnSpy()
@@ -756,7 +762,13 @@ module.exports = (io) => {
         }
       }
 
-      io.sockets.in(room_global).emit("getScore", gameInfo[room_global].getBlueScore(), gameInfo[room_global].getRedScore());
+      io.sockets
+        .in(room_global)
+        .emit(
+          "getScore",
+          gameInfo[room_global].getBlueScore(),
+          gameInfo[room_global].getRedScore()
+        );
       let index = playerNames[room_global]
         .map((player) => player.socketID)
         .indexOf(socket.id);
@@ -901,19 +913,32 @@ module.exports = (io) => {
     });
 
     /* ----------- Chat ------------*/
-    socket.on("sendToGlobal", (msg) => {
+    socket.on("sendGlobalMessage", (msg) => {
       if (isUnauth(room_global)) {
         unauth(socket);
         return;
       }
-      io.sockets.in(room_global).emit("getGlobalMsg", msg);
+      gameInfo[room_global].messages.addGlobal(msg);
+      io.sockets
+        .in(room_global)
+        .emit("getGlobalMessages", gameInfo[room_global].messages.getGlobal());
     });
-    socket.on("sendToTeam", (msg, isBlue) => {
+    socket.on("sendTeamMessage", (msg, team) => {
       if (isUnauth(room_global)) {
         unauth(socket);
         return;
       }
-      io.sockets.in(room_global).emit("getTeamMsg", msg, isBlue);
+      if (team === "b") {
+        gameInfo[room_global].messages.addBlue(msg);
+        io.sockets
+          .in(room_global)
+          .emit("getTeamMessages", gameInfo[room_global].messages.getBlue(), team);
+      } else if (team === "r") {
+        gameInfo[room_global].messages.addRed(msg);
+        io.sockets
+          .in(room_global)
+          .emit("getTeamMessages", gameInfo[room_global].getRed(), team);
+      }
     });
     function endGame(msg) {
       io.sockets.in(room_global).emit("gameEnded", msg);
