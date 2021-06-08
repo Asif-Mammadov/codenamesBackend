@@ -563,7 +563,8 @@ module.exports = (io) => {
         .in(room_global)
         .emit("getBoard", gameInfo[room_global].getBoard());
       console.log("board sent");
-
+      
+      io.sockets.in(room_global).emit("getScore", gameInfo[room_global].getBlueScore(), gameInfo[room_global].getRedScore());
       if (
         gameInfo[room_global].getTurnBlue() &&
         gameInfo[room_global].getTurnSpy()
@@ -754,6 +755,8 @@ module.exports = (io) => {
           endGame("Blue team won");
         }
       }
+
+      io.sockets.in(room_global).emit("getScore", gameInfo[room_global].getBlueScore(), gameInfo[room_global].getRedScore());
       let index = playerNames[room_global]
         .map((player) => player.socketID)
         .indexOf(socket.id);
