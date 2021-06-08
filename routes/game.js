@@ -598,9 +598,12 @@ module.exports = (io) => {
       gameInfo[room_global].clues.push(new Clue(clueWord, clueNum, username));
       gameInfo[room_global].setTurnSpy(false);
       io.sockets.in(room_global).emit("getClues", gameInfo[room_global].clues);
-      if (gameInfo[room_global].getTurnBlue()) {
+
+      if (gameInfo[room_global].turnBlue) {
+        console.log("blue choose card");
         io.sockets.in(room_global).emit("chooseCard", "b", false);
       } else {
+        console.log("red choose card");
         io.sockets.in(room_global).emit("chooseCard", "r", false);
       }
     });
@@ -908,6 +911,45 @@ module.exports = (io) => {
       }
       io.sockets.in(room_global).emit("getTeamMsg", msg, isBlue);
     });
+    function endGame(msg) {
+      io.sockets.in(room_global).emit("gameEnded", msg);
+      gameInfo[room_global].reset();
+    }
+    function resetGame() {
+      gameInfo[room_global].reset();
+      io.sockets.in(room_global).emit("gameResets");
+    }
+
+    function endTurn(gameInfo, playersInfo) {
+      if (gameInfo.getTurnBlue()) {
+        io.sockets.in(room_global).emit("notYourTurn", "b", false);
+      } else {
+        io.sockets.in(room_global).emit("notYourTurn", "r", false);
+      }
+
+      gameInfo.getTurnBlue()
+        ? gameInfo.setTurnBlue(false)
+        : gameInfo.setTurnBlue(true);
+      gameInfo.setTurnSpy(true);
+      gameInfo.turnIncrement();
+      io.sockets.in(room_global).emit("turnEnded");
+
+      if (gameInfo.getTurnBlue() && gameInfo.getTurnSpy()) {
+        io.sockets
+          .in(room_global)
+          .emit("turnBlueSpy", playersInfo.blueSpy.socketID);
+        io.sockets
+          .in(room_global)
+          .emit("enterClue", playersInfo.blueSpy.socketID);
+      } else if (!gameInfo.getTurnBlue() && gameInfo.getTurnSpy()) {
+        io.sockets
+          .in(room_global)
+          .emit("turnRedSpy", playersInfo.redSpy.socketID);
+        io.sockets
+          .in(room_global)
+          .emit("enterClue", playersInfo.redSpy.socketID);
+      }
+    }
   });
 
   function isUnauth(room) {
@@ -917,43 +959,6 @@ module.exports = (io) => {
   function unauth(socket) {
     console.log(socket.id + " unauth was called");
     socket.emit("unauth");
-  }
-  function endGame(msg) {
-    io.sockets.in(room_global).emit("gameEnded", msg);
-    gameInfo[room_global].reset();
-  }
-  function resetGame() {
-    gameInfo[room_global].reset();
-    io.sockets.in(room_global).emit("gameResets");
-  }
-
-  function endTurn(gameInfo, playersInfo) {
-    if (gameInfo.getTurnBlue()) {
-      io.sockets.in(room_global).emit("notYourTurn", "b", false);
-    } else {
-      io.sockets.in(room_global).emit("notYourTurn", "r", false);
-    }
-
-    gameInfo.getTurnBlue()
-      ? gameInfo.setTurnBlue(false)
-      : gameInfo.setTurnBlue(true);
-    gameInfo.setTurnSpy(true);
-    gameInfo.turnIncrement();
-    io.sockets.in(room_global).emit("turnEnded");
-
-    if (gameInfo.getTurnBlue() && gameInfo.getTurnSpy()) {
-      io.sockets
-        .in(room_global)
-        .emit("turnBlueSpy", playersInfo.blueSpy.socketID);
-      io.sockets
-        .in(room_global)
-        .emit("enterClue", playersInfo.blueSpy.socketID);
-    } else if (!gameInfo.getTurnBlue() && gameInfo.getTurnSpy()) {
-      io.sockets
-        .in(room_global)
-        .emit("turnRedSpy", playersInfo.redSpy.socketID);
-      io.sockets.in(room_global).emit("enterClue", playersInfo.redSpy.socketID);
-    }
   }
 
   function isSocketIdInRoom(socketID, playerNames) {
