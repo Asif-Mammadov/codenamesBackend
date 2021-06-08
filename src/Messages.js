@@ -23,3 +23,7 @@ class Messages{
     this.blue.push(msg);
   }
 }
+
+module.exports = {
+  Messages : Messages
+}
