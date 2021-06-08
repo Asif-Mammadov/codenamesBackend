@@ -48,19 +48,6 @@ const wordList = [
   "Backbone",
   "Bag",
 ];
-const randomNames = [
-  "player1",
-  "player2",
-  "player3",
-  "player4",
-  "player5",
-  "player6",
-];
-
-const getTmpName = (playerNames, randomNames) => {
-  if (playerNames.length > randomNames.length) return null;
-  else return randomNames[playerNames.length];
-};
 
 const generateString = () => {
   return Math.random().toString(36).substring(7);
@@ -782,6 +769,8 @@ module.exports = (io) => {
         unauth(socket);
         return;
       }
+      const { blueOps, redOps, spectators, blueSpy, redSpy } =
+        playersInfo[room_global];
       if (!playersHere(blueOps, redOps, blueSpy, redSpy)) {
         socket.emit("alertFromServer", "Players are absent");
         return;
@@ -932,12 +921,20 @@ module.exports = (io) => {
         gameInfo[room_global].messages.addBlue(msg);
         io.sockets
           .in(room_global)
-          .emit("getTeamMessages", gameInfo[room_global].messages.getBlue(), team);
+          .emit(
+            "getTeamMessages",
+            gameInfo[room_global].messages.getBlue(),
+            team
+          );
       } else if (team === "r") {
         gameInfo[room_global].messages.addRed(msg);
         io.sockets
           .in(room_global)
-          .emit("getTeamMessages", gameInfo[room_global].messages.getRed(), team);
+          .emit(
+            "getTeamMessages",
+            gameInfo[room_global].messages.getRed(),
+            team
+          );
       }
     });
     function endGame(msg) {
