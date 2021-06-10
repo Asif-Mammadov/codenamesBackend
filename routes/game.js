@@ -521,7 +521,7 @@ module.exports = (io) => {
         return;
       }
       gameInfo[room_global].reset();
-      gameInfo[room_global].init(wordList);
+      gameInfo[room_global].init();
       console.log("emit gameStarted");
       io.sockets
         .in(room_global)

@@ -90,13 +90,13 @@ class GameInfo {
     this.lang = lang;
   }
 
-  init(wordList) {
+  init() {
     this.setStarted(true);
     this.setBlueStarts(randBool());
     this.setTurnBlue(this.getBlueStarts());
     this.setTurnSpy(true);
     this.setLabels(generateLabels(this.getBlueStarts()));
-    this.setBoard(generateBoard(wordList));
+    this.setBoard(generateBoard(this.getLang()));
     this.initScores();
   }
   initScores() {
