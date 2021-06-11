@@ -27,13 +27,13 @@ describe("game start", () => {
 
 describe("check if all types of players present", () => {
   it("if no one left", () => {
-    assert.strictequal(playersHere([], [], null, null), false)
+    assert.equal(playersHere([], [], null, null), false)
   });
   it("if only one group exists", () => {
-    assert.strictequal(playersHere([new Credential("12345", "test1")], [], null, null), false)
+    assert.equal(playersHere([new Credential("12345", "test1")], [], null, null), false)
   });
   it("if everyone present", () => {
-    assert.strictEqual(playersHere([new Credential("12345", "test1")], [new Credential("12345", "test1")], new Credential("12345", "test1"), new Credential("12345", "test1")), true);
+    assert.equal(playersHere([new Credential("12345", "test1")], [new Credential("12345", "test1")], new Credential("12345", "test1"), new Credential("12345", "test1")), true);
   })
 });
 

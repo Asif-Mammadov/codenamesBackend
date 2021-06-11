@@ -10,8 +10,8 @@ jobs:
       - checkout
       - node/with-cache:
           steps:
-      #       - run: npm install
-      # - run: npm run ci
+            - run: npm install
+      - run: npm run ci
 
       - run: bash .circleci/setup-heroku.sh
       - add_ssh_keys:
