@@ -1,10 +1,11 @@
-function getWordsList(filename)
+function getWordsList(lang)
 {
+  let filename = lang + '.json'
   const words = []
   let dataJson = fs.readFileSync(filename);
   JSON.parse(dataJson).forEach(word => words.push(word))
   
-  return words;
+  return getRandomWords(words);
 }
 
 function getRandomWords(wordsList, randomWordsCount = 25)
@@ -25,5 +26,7 @@ function getRandomWords(wordsList, randomWordsCount = 25)
   return randomWords;
 }
 
-words = getWordsList('en.json')
-console.log(getRandomWords(words, 25))
+module.exports = {
+  getRandomWords: getRandomWords,
+  getWordsList: getWordsList
+}

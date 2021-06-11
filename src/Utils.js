@@ -1,4 +1,5 @@
-const Cell = require("./Cell");
+const {Cell} = require("./Cell");
+const {getWordsList} = require("./cards")
 const randBool = () => {
   return Math.random() < 0.5;
 };
@@ -39,7 +40,8 @@ const generateLabels = (blueStarts) => {
   return a;
 };
 
-const generateBoard = (wordList) => {
+const generateBoard = (lang) => {
+  let wordlist = getWordsList(lang)
   let list = wordList.slice();
   shuffleDeck(list);
   let board = [];
@@ -48,7 +50,6 @@ const generateBoard = (wordList) => {
   });
   return board;
 };
-
 const playersHere = (blueOps, redOps, blueSpy, redSpy) => {
   if (
     blueOps.length === 0 ||
