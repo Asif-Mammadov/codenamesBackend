@@ -24,7 +24,7 @@ Router.post("/register", function (req, res, next) {
   let name_reg = req.body.name;
   var email = req.body.email;
   var password = req.body.password;
-  
+
   if (req.body.phone) var phone = req.body.phone;
 
   if (password.length < 6) {
@@ -71,8 +71,8 @@ Router.post("/register", function (req, res, next) {
       return console.log(err);
     } else if (rows.length) {
       console.log(rows);
-      res.status("400").json({
-        status: "error",
+      return res.json({
+        success: 0,
         message: "User already exists",
       });
     } else {
@@ -82,9 +82,9 @@ Router.post("/register", function (req, res, next) {
         console.log(results.insertId);
         if (err) {
           console.log(err);
-          res.status("500").json({
-            status: "error",
-            message: "Database connection error",
+          return res.json({
+            success: 0,
+            message: "Database error",
           });
         } else {
           results.password = undefined;
@@ -95,11 +95,11 @@ Router.post("/register", function (req, res, next) {
               expiresIn: "1h",
             }
           );
-          res.status("200").json({
-            status: "success",
+          return res.json({
+            success: 1,
             message: "Successfully registered",
             token: jsontoken,
-            userID: results.insertId,
+            userID: results.insertId
           });
         }
       });
